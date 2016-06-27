@@ -25,6 +25,7 @@ function runScripts {
   done
 }
 
+cd $mountedVolume
 echo "running tests that are specified in the docker"
 runScripts $testsCopiedIntoDocker
 echo "running tests that are specified in the 'test' folder of the mounted directory"
