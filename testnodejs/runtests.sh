@@ -7,7 +7,7 @@ testsCopiedIntoDocker=/usr/lib/defaultTests
 if [ -z "$(ls -A "$mountedVolume")" ]; then
   echo 'Error: please use the following syntax;'
   echo -e '\trepo_dir_on_host=. \'
-  echo -e '\t&& docker run --rm -it -v $repo_dir_on_host:'$mountedVolume' superbuddy/testnodejs'
+  echo -e '\t&& docker run --rm -it -v $repo_dir_on_host:'$mountedVolume' superbuddynl/testnodejs'
   exit
 fi
 
