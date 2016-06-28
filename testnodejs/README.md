@@ -10,5 +10,5 @@ This container runs node.js test.
 
 ## Launching the docker
 ```
-docker run -it --rm -v repo_dir_on_host:/repo superbuddynl/testnodejs
+docker run -it --rm -v repo_dir_on_host:/repo superbuddy/testnodejs
 ```

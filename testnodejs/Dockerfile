@@ -1,4 +1,4 @@
-# docker build -f Dockerfile -t superbuddynl/testnodejs .
+# docker build -f Dockerfile -t superbuddy/testnodejs .
 
 FROM node
 
