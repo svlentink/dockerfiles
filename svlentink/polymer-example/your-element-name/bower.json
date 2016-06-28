@@ -1,0 +1,17 @@
+{
+  "name": "your-element-name",
+  "description": "Example polymer project, when not using polyserve, but nginx.",
+  "main": "your-element-name.html",
+  "ignore": [
+    "/.*",
+    "/test/",
+    "/demo/"
+  ],
+  "dependencies": {
+    "polymer": "Polymer/polymer"
+  },
+  "devDependencies": {
+    "iron-component-page": "PolymerElements/iron-component-page",
+    "web-component-tester": "*"
+  }
+}
