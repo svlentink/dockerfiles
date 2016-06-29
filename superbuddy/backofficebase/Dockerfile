@@ -1,5 +1,5 @@
 # docker build -f Dockerfile -t superbuddy/backofficebase .
-FROM composer/composer
+FROM php:5-fpm
 
 MAINTAINER svlentink <sander@superbuddy.nl>
 LABEL Description="base image for superbuddy backoffice" \
@@ -20,3 +20,7 @@ RUN apt-get update && \
 
 RUN phpenmod mcrypt
 # RUN service php-fpm restart && echo 'not needed, since the docker container is just build'
+
+# Composer; https://github.com/revollat/docker-nginx-php-composer/blob/master/Dockerfile
+RUN curl -sS https://getcomposer.org/installer | php
+RUN mv composer.phar /usr/local/bin/composer
