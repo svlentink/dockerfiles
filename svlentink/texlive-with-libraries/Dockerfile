@@ -1,7 +1,7 @@
 # GPLv3
 
 FROM svlentink/texlive-full:latest
-MAINTAINER svlentink <svlentink@gmail.com>
+MAINTAINER svlentink
 LABEL Description="texlive with document conversion libraries" \
   Version="0.1"
 

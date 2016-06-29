@@ -1,6 +1,6 @@
 # GPLv3
 FROM debian:latest
-MAINTAINER svlentink <svlentink@gmail.com>
+MAINTAINER svlentink
 LABEL Description="Just plain texlive-full, for chaining" \
   Version="0.1"
 

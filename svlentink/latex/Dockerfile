@@ -1,7 +1,7 @@
 # GPLv3
 
 FROM svlentink/texlive-with-libraries
-MAINTAINER svlentink <svlentink@gmail.com>
+MAINTAINER svlentink
 LABEL Description="LaTeX docker with special powers"
 
 COPY latexBuilder.sh /usr/bin/latexBuilder

@@ -1,6 +1,6 @@
 # Ubuntu -> Node.js -> Bower -> Polymer_example
 FROM svlentink/bower
-MAINTAINER svlentink <svlentink@gmail.com>
+MAINTAINER svlentink
 LABEL Description="Polymer Nginx example (instead of polyserve)"
 
 ENV DEBIAN_FRONTEND noninteractive
