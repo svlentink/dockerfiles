@@ -15,12 +15,13 @@ RUN apt-get update && \
 #  redis-server \
   nginx \
   mcrypt \
-  php-mcrypt \
+# ubuntu = php-mcrypt, debian = php5-mcrypt
+  php5-mcrypt \
   && apt-get clean && rm -rf /var/lib/apt/lists/*
-
-RUN phpenmod mcrypt
-# RUN service php-fpm restart && echo 'not needed, since the docker container is just build'
 
 # Composer; https://github.com/revollat/docker-nginx-php-composer/blob/master/Dockerfile
 RUN curl -sS https://getcomposer.org/installer | php
 RUN mv composer.phar /usr/local/bin/composer
+
+RUN php5enmod mcrypt
+# RUN service php-fpm restart && echo 'not needed, since the docker container is just build'
