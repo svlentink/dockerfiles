@@ -17,6 +17,7 @@ RUN apt-get update && \
   mcrypt \
 # ubuntu = php-mcrypt, debian = php5-mcrypt
   php5-mcrypt \
+  php5-fpm \
   && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Composer; https://github.com/revollat/docker-nginx-php-composer/blob/master/Dockerfile
