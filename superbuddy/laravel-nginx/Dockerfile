@@ -24,7 +24,6 @@ RUN apt-get update && \
 RUN curl -sS https://getcomposer.org/installer | php
 RUN mv composer.phar /usr/local/bin/composer
 
-RUN ln -s /etc/php5/conf.d/mcrypt.ini /etc/php5/mods-available/mcrypt.ini
 RUN php5enmod mcrypt
 
 COPY nginx.conf /etc/nginx/sites-available/default
