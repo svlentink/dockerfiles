@@ -20,7 +20,7 @@ RUN apt-get update && \
   php5-fpm \
   php5-mysql \
   php5-curl \
-  && apt-get clean && rm -rf /var/lib/apt/lists/*
+  && apt-get clean && rm -rf /var/lib/apt/lists/* \
   && docker-php-ext-install zip
 
 # Install composer (PHP dep. manager)
