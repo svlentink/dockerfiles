@@ -12,7 +12,8 @@ ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get update && \
   apt-get install -y \
   nginx \
-  git \
+# https://github.com/docker-library/php/issues/60
+  zlib1g-dev \
   mcrypt \
 # ubuntu = php-mcrypt, debian = php5-mcrypt
   php5-mcrypt \
@@ -20,6 +21,7 @@ RUN apt-get update && \
   php5-mysql \
   php5-curl \
   && apt-get clean && rm -rf /var/lib/apt/lists/*
+  && docker-php-ext-install zip
 
 # Install composer (PHP dep. manager)
 RUN curl -sS https://getcomposer.org/installer | php
