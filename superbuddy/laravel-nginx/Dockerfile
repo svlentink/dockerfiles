@@ -27,4 +27,4 @@ RUN mv composer.phar /usr/local/bin/composer
 RUN php5enmod mcrypt
 
 COPY nginx.conf /etc/nginx/sites-available/default
-RUN sed -i "s/cgi.fix_pathinfo=/cgi.fix_pathinfo=0#/g"
+RUN sed -i "s/cgi.fix_pathinfo=/cgi.fix_pathinfo=0#/g" /etc/php5/fpm/php.ini
