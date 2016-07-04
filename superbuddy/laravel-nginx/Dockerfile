@@ -1,9 +1,8 @@
-# docker build -f Dockerfile -t superbuddy/backofficebase .
+# docker build -f Dockerfile -t superbuddy/laravel-nginx .
 FROM php:5-fpm
 
 MAINTAINER svlentink <sander@superbuddy.nl>
-LABEL Description="base image for superbuddy backoffice" \
-  Version="0.1"
+LABEL Description="Laravel and Nginx"
 
 # https://github.com/phusion/baseimage-docker/issues/58
 # http://serverfault.com/questions/618994/when-building-from-dockerfile-debian-ubuntu-package-install-debconf-noninteract
@@ -12,17 +11,21 @@ ENV DEBIAN_FRONTEND noninteractive
 # runs during installation and remove junk, as described in http://docs.docker.com/engine/articles/dockerfile_best-practices/#apt-get
 RUN apt-get update && \
   apt-get install -y \
-#  redis-server \
   nginx \
   mcrypt \
 # ubuntu = php-mcrypt, debian = php5-mcrypt
   php5-mcrypt \
   php5-fpm \
+  php5-mysql \
+  php5-curl \
   && apt-get clean && rm -rf /var/lib/apt/lists/*
 
-# Composer; https://github.com/revollat/docker-nginx-php-composer/blob/master/Dockerfile
+# Install composer (PHP dep. manager)
 RUN curl -sS https://getcomposer.org/installer | php
 RUN mv composer.phar /usr/local/bin/composer
 
+RUN ln -s /etc/php5/conf.d/mcrypt.ini /etc/php5/mods-available/mcrypt.ini
 RUN php5enmod mcrypt
-# RUN service php-fpm restart && echo 'not needed, since the docker container is just build'
+
+COPY nginx.conf /etc/nginx/sites-available/default
+RUN sed -i "s/cgi.fix_pathinfo=/cgi.fix_pathinfo=0#/g"
