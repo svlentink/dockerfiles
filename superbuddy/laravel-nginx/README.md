@@ -1,6 +1,6 @@
 # laravel-nginx
 
-Just Laravel, Nginx, PHP fpm and Mcrypt.
+Just Laravel, Nginx, PHP fpm, Composer and Mcrypt.
 We put this online, since we could not find a decent base image for our use.
 
 ## Our usage

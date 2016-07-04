@@ -12,6 +12,7 @@ ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get update && \
   apt-get install -y \
   nginx \
+  git \
   mcrypt \
 # ubuntu = php-mcrypt, debian = php5-mcrypt
   php5-mcrypt \
