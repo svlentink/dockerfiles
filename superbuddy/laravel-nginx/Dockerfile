@@ -18,9 +18,12 @@ RUN apt-get update && \
 # ubuntu = php-mcrypt, debian = php5-mcrypt
   php5-mcrypt \
   php5-fpm \
+# http://serverfault.com/questions/436634/installing-php-extensions-on-linux
+  php5-gd \
   php5-mysql \
   php5-curl \
   && apt-get clean && rm -rf /var/lib/apt/lists/* \
+# https://hub.docker.com/r/ganiutomo/docker-php-laravel/~/dockerfile/
   && docker-php-ext-install zip
 
 # Install composer (PHP dep. manager)
