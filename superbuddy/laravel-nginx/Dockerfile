@@ -31,7 +31,7 @@ RUN apt-get update && \
 
 RUN docker-php-ext-install \
   bcmath \
-  gmp \
+#  gmp \
   mbstring \
   mysql \
   pdo \
