@@ -27,7 +27,7 @@ RUN apt-get update && \
   libgmp10 \
   libgmp-dev \
   mysql-client \
-  && apt-get clean && rm -rf /var/lib/apt/lists/* \
+  && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 RUN docker-php-ext-install \
   bcmath \
