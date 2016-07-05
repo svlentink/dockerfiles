@@ -18,19 +18,35 @@ RUN apt-get update && \
 # ubuntu = php-mcrypt, debian = php5-mcrypt
   php5-mcrypt \
   php5-fpm \
-# http://serverfault.com/questions/436634/installing-php-extensions-on-linux
+# gd; http://serverfault.com/questions/436634/installing-php-extensions-on-linux
   php5-gd \
   php5-mysql \
+  php5-imap \
   php5-curl \
+# The following three are mentioned by https://hub.docker.com/r/cheezykins/laravel/~/dockerfile/
+  libgmp10 \
+  libgmp-dev \
+  mysql-client \
   && apt-get clean && rm -rf /var/lib/apt/lists/* \
+
+RUN docker-php-ext-install \
+  bcmath \
+  gmp \
+  mbstring \
+  mysql \
+  pdo \
+  pdo_mysql \
 # https://hub.docker.com/r/ganiutomo/docker-php-laravel/~/dockerfile/
-  && docker-php-ext-install zip
+  zip
 
 # Install composer (PHP dep. manager)
 RUN curl -sS https://getcomposer.org/installer | php
 RUN mv composer.phar /usr/local/bin/composer
 
 RUN php5enmod mcrypt
+#  && php5enmod imap \
+#  && php5enmod mysql \
+#  && php5enmod
 
 COPY nginx.conf /etc/nginx/sites-available/default
 RUN sed -i "s/cgi.fix_pathinfo=/cgi.fix_pathinfo=0#/g" /etc/php5/fpm/php.ini
