@@ -22,6 +22,8 @@ RUN apt-get update && \
   php5-gd \
   php5-mysql \
   php5-imap \
+# https://laravel.com/docs/5.0#server-requirements
+  php5-json \
   php5-curl \
 # The following three are mentioned by https://hub.docker.com/r/cheezykins/laravel/~/dockerfile/
   libgmp10 \
@@ -50,3 +52,6 @@ RUN php5enmod mcrypt
 
 COPY nginx.conf /etc/nginx/sites-available/default
 RUN sed -i "s/cgi.fix_pathinfo=/cgi.fix_pathinfo=0#/g" /etc/php5/fpm/php.ini
+
+#https://www.digitalocean.com/community/tutorials/docker-explained-how-to-containerize-and-use-nginx-as-a-proxy
+RUN echo "daemon off;" >> /etc/nginx/nginx.conf
