@@ -1,5 +1,7 @@
 # mail
 
+[![](https://images.microbadger.com/badges/image/svlentink/mail.svg)](https://microbadger.com/images/svlentink/mail "Get your own image badge on microbadger.com")
+
 Send mail by running this container
 
 ```bash
