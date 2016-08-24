@@ -1,4 +1,7 @@
 # LaTeX Docker
+
+[![](https://images.microbadger.com/badges/image/svlentink/latex.svg)](https://microbadger.com/images/svlentink/latex "Get your own image badge on microbadger.com")
+
 This [docker](https://hub.docker.com/r/svlentink/latex/) file has some special features.
 
 + auto convert files into latex commands (tags) (\*.cmd.tex)
