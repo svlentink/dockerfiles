@@ -55,7 +55,11 @@ function createLatexTag { #make sure the filename does not contain numbers!
     count
     # echo -e $(cat $f)'' >> $tmpfile
     cat $contentsrc >> $outputFile
-    echo '}' >> $outputFile
+    # since a comment may end with its last line (or only line) containing a comment
+    # the closing bracket will be commented out
+    # to cope with this problem, and still prevent the trailing white space,
+    # we use the following line
+    echo -e '%\n}' >> $outputFile
   fi
 }
 
