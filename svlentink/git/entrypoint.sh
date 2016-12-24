@@ -19,9 +19,8 @@ UMAIL=$1; shift
 git config --global user.email "$UMAIL"
 git config --global user.name "$UNAME"
 
-GITACTION="$@"
 ! [[ -d /git/.git || ($1 == "init" || $1 == "clone") ]] \
   && echo "no git repo found at /git" && \
   exit 1
 
-git $GITACTION
+git "$@"
