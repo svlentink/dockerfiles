@@ -2,7 +2,7 @@
 
 Everything can be dockerized, even git.
 Why? Just because we can.
-See my other repo. [MacHacks](http://github.com/svlentink/machacks) on how it could be useful.
+I do not use this anymore, but since no major Git updates are expected, you'll probably be fine with this.
 
 ```
 docker run -it --rm \
@@ -12,4 +12,3 @@ docker run -it --rm \
   'your name' \
   commit -m 'your git command'
 ```
-
