@@ -1,0 +1,11 @@
+version: '2'
+services:
+  ide:
+    image: kdelfour/cloud9-docker
+    volumes:
+      - ~/.ssh:/root/.ssh:ro
+      - ~/:/workspace/
+      - ~/.gitconfig:/root/.gitconfig
+    ports:
+      - "163:80"
+# 163 looks like IdE
