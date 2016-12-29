@@ -6,6 +6,7 @@ services:
       - ~/.ssh:/root/.ssh:ro
       - ~/:/workspace/
       - ~/.gitconfig:/root/.gitconfig
+      - /etc/timezone:/etc/timezone:ro
     ports:
       - "163:80"
 # 163 looks like IdE
