@@ -2,11 +2,13 @@ version: '2'
 services:
   ide:
     image: kdelfour/cloud9-docker
+    mem_limit: 128m
     volumes:
       - ~/.ssh:/root/.ssh:ro
       - ~/:/workspace/
       - ~/.gitconfig:/root/.gitconfig
-      - /etc/timezone:/etc/timezone:ro
+# the following line is outcommented due to OSx, does work on Linux!
+#      - /etc/timezone:/etc/timezone:ro
     ports:
       - "163:80"
 # 163 looks like IdE

@@ -1,0 +1,11 @@
+version: '2'
+services:
+  dockerui:
+    image: portainer/portainer
+    mem_limit: 16m
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+# the following line is outcommented due to OSx, does work on Linux!
+#      - /etc/timezone:/etc/timezone:ro
+    ports:
+      - "9000:9000"
