@@ -1,0 +1,15 @@
+version: '2'
+services:
+  db:
+    extends:
+      file: db.yml
+      service: db
+  tron:
+    build:
+      dockerfile: "$PWD/Dockerfile"
+    env_file:
+      - installatron.env
+    ports:
+      - "${exposed_to_host_port}:443"
+    links:
+      - db

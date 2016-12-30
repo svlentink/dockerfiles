@@ -1,0 +1,11 @@
+version: '2'
+services:
+  db:
+    image: mariadb
+    environment:
+      - MYSQL_ROOT_PASSWORD=${db_pwd}
+    expose:
+      - "3306"
+    volumes:
+#      - "$PWD/my.cnf:/etc/mysql/my.cnf"
+      - "${db_location}:/var/lib/mysql"
