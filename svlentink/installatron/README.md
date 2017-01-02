@@ -17,4 +17,16 @@ EXPOSE 8080
 EXPOSE 80
 
 ```
+
 For more info, [see the docs](http://installatron.com/developer/server#2.3)
+
+```bash
+# service --status-all minus the services that are allready in the debian:8 docker
+ [ - ]  cron
+ [ - ]  exim4
+ [ + ]  mysql
+ [ + ]  nginx
+ [ - ]  varnish
+ [ - ]  varnishlog
+ [ - ]  varnishncsa
+```
