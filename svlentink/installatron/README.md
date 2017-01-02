@@ -8,10 +8,9 @@ Your container should look something like:
 ```bash
 FROM svlentink/installatron
 
-RUN ./installatron-server.sh -f --key --quick NOW_WE_DO_RUN_IT_WITH_A_VALID_KEY
+RUN ./installatron-server.sh -f --key NOW_WE_DO_RUN_IT_WITH_A_VALID_KEY
 WORKDIR /usr/local/installatron/
+CMD service mysql start && nginx -g 'daemon off;'
 
 ```
 For more info, [see the docs](http://installatron.com/developer/server#2.3)
-
-`service mysql start` is needed.
