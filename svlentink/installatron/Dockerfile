@@ -3,7 +3,7 @@ FROM debian:8
 ENV DEBIAN_FRONTEND noninteractive
 # http://installatron.com/developer/server#2.3
 RUN apt-get update && \
-  apt-get -y install curl
+  apt-get -y install curl vim
 RUN curl -O https://data.installatron.com/installatron-server.sh
 RUN chmod +x installatron-server.sh
 RUN ./installatron-server.sh -f --key YOUR_LICENSE_KEY
