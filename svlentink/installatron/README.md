@@ -13,3 +13,5 @@ WORKDIR /usr/local/installatron/
 
 ```
 For more info, [see the docs](http://installatron.com/developer/server#2.3)
+
+`service mysql start` is needed.
