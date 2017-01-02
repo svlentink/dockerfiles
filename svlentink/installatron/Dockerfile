@@ -22,5 +22,7 @@ RUN apt-get install -y pciutils net-tools
 
 # RUN ./installatron-server.sh -f --key NOW_WE_DO_RUN_IT_WITH_A_VALID_KEY
 # WORKDIR /usr/local/installatron/
-
-CMD service mysql start && echo todo
+# COPY nginx.conf /etc/nginx/nginx.conf
+# CMD service mysql start && php5-fpm -R && nginx -g 'daemon off;'
+# EXPOSE 443
+# EXPOSE 8080
