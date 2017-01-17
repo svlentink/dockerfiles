@@ -1,14 +1,8 @@
-FROM node:alpine
+FROM governmentpaas/git-ssh
 
-RUN npm install --global gitbook-cli \
-  && gitbook fetch latest \
-  && npm cache clear \
-  && rm -rf /tmp/*
+COPY entrypoint.sh /entry
 
-WORKDIR /gitbook
-VOLUME /gitbook
 
-ENTRYPOINT ["/usr/local/bin/gitbook"]
-# default entry point
-# other options could be build or serve
-CMD ["init"]
+VOLUME /git
+WORKDIR /git
+ENTRYPOINT ["/entry"]
