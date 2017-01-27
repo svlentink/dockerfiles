@@ -18,6 +18,7 @@ cat <<'EOF' > ~/.gitconfig
 [user]
     email = user@domain.tld
     name = username
-
+[push]
+    default = simple
 EOF
 ```
