@@ -13,3 +13,13 @@ RUN apt update \
   && apt install sbt -y \
   && apt-get clean && rm -rf /var/lib/apt/lists/*
 
+#https://developer.couchbase.com/documentation/server/4.5/connectors/spark-2.0/getting-started.html
+RUN mkdir /sbt \
+  && cd /sbt \
+  && echo 'libraryDependencies ++= Seq(
+    "org.apache.spark" %% "spark-core" % "2.0.1",
+    "org.apache.spark" %% "spark-streaming" % "2.0.1",
+    "org.apache.spark" %% "spark-sql" % "2.0.1",
+    "com.couchbase.client" %% "spark-connector" % "2.0.0"
+    )' > /sbt/build.sbt \
+  && sbt --help # triggers the downloading of dependencies
