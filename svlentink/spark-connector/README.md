@@ -12,7 +12,7 @@ services:
     container_name: 'db'
 # https://developer.couchbase.com/documentation/server/current/install/install-ports.html
     ports:
-      - "8091-8094:8091-8094" # Couchbase Web Console
+      - "8091-8094:8091-8094" # Couchbase Web Console and some REST ports
       - "11210:11210" # Used by smart client libraries or Moxi to directly connect to the data nodes. The XDCR client uses this port as well as the SDKs. This is a memcached port.
 #    volumes:
 #      - "/opt/couchbase/var:/opt/couchbase/var"
