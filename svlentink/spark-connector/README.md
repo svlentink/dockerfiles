@@ -9,18 +9,21 @@ version: '2'
 services:
   couchbase:
     image: couchbase
-    ports:
-      - "8091-8094:8091-8094"
-      - "11210:11210"
     container_name: 'db'
+# https://developer.couchbase.com/documentation/server/current/install/install-ports.html
+    ports:
+      - "8091-8094:8091-8094" # Couchbase Web Console
+      - "11210:11210" # Used by smart client libraries or Moxi to directly connect to the data nodes. The XDCR client uses this port as well as the SDKs. This is a memcached port.
 #    volumes:
 #      - "/opt/couchbase/var:/opt/couchbase/var"
   spark:
     image: svlentink/spark-connector
 # https://spark.apache.org/docs/latest/security.html#configuring-ports-for-network-security
     ports:
-      - "7077:7077"
-      - "6066:6066"
+      - "8080-8081:8080:8081" # WebUI
+    expose:
+      - 7077 # Submit job to cluster / Join cluster
+      - 6066 # Master Spark REST URL
     depends_on:
       - couchbase
     links:
@@ -29,6 +32,7 @@ services:
 #      - $PWD/Quickstart.scala:/tmp/src/main/scala/Quickstart.scala:ro
 #      - $PWD/build.sbt:/tmp/build.sbt:ro
 #    command: sbt
+
 ```
 
 I'm still debugging which ports to 'expose' and which to 'ports'
