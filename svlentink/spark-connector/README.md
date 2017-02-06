@@ -14,6 +14,8 @@ services:
     ports:
       - "8091-8094:8091-8094" # Couchbase Web Console and some REST ports
       - "11210:11210" # Used by smart client libraries or Moxi to directly connect to the data nodes. The XDCR client uses this port as well as the SDKs. This is a memcached port.
+    networks:
+      - privatenetw
 #    volumes:
 #      - "/opt/couchbase/var:/opt/couchbase/var"
   spark:
@@ -24,6 +26,8 @@ services:
     expose:
       - 7077 # Submit job to cluster / Join cluster
       - 6066 # Master Spark REST URL
+    networks:
+      - privatenetw
     depends_on:
       - couchbase
     links:
@@ -32,6 +36,10 @@ services:
 #      - $PWD/Quickstart.scala:/tmp/src/main/scala/Quickstart.scala:ro
 #      - $PWD/build.sbt:/tmp/build.sbt:ro
 #    command: sbt
+networks:
+  privatenetw:
+    internal: true
+
 
 ```
 
