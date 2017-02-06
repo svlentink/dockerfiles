@@ -6,7 +6,7 @@ RUN bin/spark-shell --packages com.couchbase.client:spark-connector_2.11:2.0.0
 
 # http://www.scala-sbt.org/0.13/docs/Installing-sbt-on-Linux.html
 RUN apt update \
-  && apt install apt-transport-https -y \
+  && apt install apt-transport-https net-tools -y \
   && echo "deb https://dl.bintray.com/sbt/debian /" >> /etc/apt/sources.list.d/sbt.list \
   && apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 2EE0EA64E40A89B84B2DF73499E82A75642AC823 \
   && apt update \
