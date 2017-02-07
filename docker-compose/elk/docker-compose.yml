@@ -1,6 +1,6 @@
 version: '2'
 services:
-  elastic:
+  elk:
     image: sebp/elk
     ports:
       - "80:5601"
