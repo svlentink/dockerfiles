@@ -8,5 +8,5 @@ services:
       service: elk
 # https://www.elastic.co/guide/en/elasticsearch/plugins/5.1/repository-s3.html
 # https://github.com/spujadas/elk-docker/blob/master/Dockerfile#L168
-    command: bash -c "echo y | /opt/elasticsearch/bin/elasticsearch-plugin install repository-s3 && /usr/local/bin/start.sh"
+    command: bash -c "echo y | /opt/elasticsearch/bin/elasticsearch-plugin install repository-s3 2> /dev/null && /usr/local/bin/start.sh"
 # default path:                /usr/share/elasticsearch/bin/elasticsearch-plugin
