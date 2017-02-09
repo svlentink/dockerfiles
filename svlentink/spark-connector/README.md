@@ -34,7 +34,7 @@ services:
   spark:
     image: svlentink/spark-connector
     ports:
-      - "8080-8081:8080:8081" # WebUI Master and Worker
+      - "8080-8081:8080-8081" # WebUI Master and Worker
       - "7077:7077" # Submit job to cluster / Join cluster
       - "6066:6066" # Master Spark REST URL
     depends_on:
