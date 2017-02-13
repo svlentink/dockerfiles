@@ -11,12 +11,12 @@ function sendmailfunc { #sendmail is already used! (/usr/sbin/sendmail)
   local to=$1; shift
   local from=$1; shift
   local subj=$1; shift
-  local body=$@
+  local body="$@"
   echo Entering $FUNCNAME with: to=$to, from=$from, subj=$subj, body=$body
 
   [[ -z "$body" ]] && echo "ERROR: Empty body" && exit 1
 
-  echo $body | mail -s "$subj" --debug-level 7 -a 'From:'$from $to
+  echo -e "$body" | mail -s "$subj" --debug-level 7 -a 'From:'$from $to
   echo Running a sleep command so the mail can actually be send by the daemon
   local i=1
   while [ "$(sendmail -bp)" != "Mail queue is empty" ]; do
