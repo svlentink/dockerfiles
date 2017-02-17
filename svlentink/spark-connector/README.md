@@ -37,12 +37,15 @@ services:
       - "8080-8081:8080-8081" # WebUI Master and Worker
       - "7077:7077" # Submit job to cluster / Join cluster
       - "6066:6066" # Master Spark REST URL
+#      - "4040:4040"
     depends_on:
       - couchbase
     links:
       - couchbase
       - couchbase:couchbase
-
+    command: bash -c "bin/spark-class org.apache.spark.deploy.master.Master & sleep 1 && bin/spark-shell --master spark://spark:7077"
+# The last line is based on https://github.com/gettyimages/docker-spark/blob/master/Dockerfile#L73
+# it does not work atm, we're still debugging it
 ```
 
 Documentation about
