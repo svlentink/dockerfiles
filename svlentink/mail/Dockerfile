@@ -1,8 +1,4 @@
-# GPLv3
-# docker build -t svlentink/mail .
-
 FROM debian
-MAINTAINER svlentink
 ENV DEBIAN_FRONTEND noninteractive
 
 # Telnet to; 'telnet smtp.example.com 25'
@@ -22,4 +18,3 @@ RUN /etc/init.d/postfix reload
 COPY entrypoint.sh /usr/local/bin/entrypoint
 # https://github.com/docker/docker/issues/1149
 ENTRYPOINT ["/usr/local/bin/entrypoint"]
-CMD ['to@example.com', 'from@example.com', 'subject']
