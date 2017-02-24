@@ -1,0 +1,67 @@
+#FROM consol/ubuntu-xfce-vnc
+
+# Java 7 instead of 8 as mentioned by
+# https://hub.docker.com/r/cmaohuang/firefox-java/
+#RUN apt-get update && \
+#  apt-get install -y \
+#  openjdk-7-jre icedtea-plugin \
+#  && apt-get clean && rm -rf /var/lib/apt/lists/*
+
+# http://superuser.com/questions/437354/vncserver-too-many-security-failures
+#vncconfig -display :5 -set BlacklistTimeout=0 -set BlacklistThreshold=1000000
+
+# The following step adds zero value
+# But is an example that you can use to set your default page
+# https://mike.kaply.com/2012/08/29/setting-the-default-firefox-homepage-with-autoconfig/
+#RUN echo 'user_pref("browser.startup.homepage", "data:text/plain,browser.startup.homepage=https://SOME_SERVER_IP/cgi-bin/webcgi/login");' \
+#  >> /root/.mozilla/firefox/*.default/pref.js
+
+#FROM psharkey/novnc
+
+#RUN apk add --update \
+#  curl \
+#  firefox \
+#  openjdk7-jre \
+#  && rm -rf /var/cache/apk/*
+
+
+FROM alpine
+
+ENV DISPLAY=:0.0 \
+	DISPLAY_WIDTH=1024 \
+	DISPLAY_HEIGHT=768
+	
+# RUN echo http://dl-6.alpinelinux.org/alpine/edge/community >> /etc/apk/repositories
+#RUN echo http://dl-4.alpinelinux.org/alpine/v3.5/community/ >> /etc/apk/repositories
+#RUN apk add --no-cache  --repository http://dl-cdn.alpinelinux.org/alpine/edge/main --repository  http://dl-cdn.alpinelinux.org/alpine/edge/community
+RUN echo http://dl-cdn.alpinelinux.org/alpine/edge/community >> /etc/apk/repositories
+
+# Install git, supervisor, VNC, & X11 packages
+#RUN apk --update --upgrade add \
+RUN apk add --no-cache --update \
+	bash \
+	curl \
+	firefox-esr \
+	fluxbox \
+	git \
+	openjdk7-jre \
+	socat \
+	supervisor \
+	x11vnc \
+	xterm \
+	xvfb \
+	&& git clone https://github.com/kanaka/noVNC.git /root/noVNC \
+	&& git clone https://github.com/kanaka/websockify /root/noVNC/utils/websockify \
+	&& rm -rf /root/noVNC/.git \
+	&& rm -rf /root/noVNC/utils/websockify/.git \
+	&& apk del git
+#	&& rm -rf /var/cache/apk/*
+
+COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+
+# Modify the launch script 'ps -p'
+RUN sed -i -- "s/ps -p/ps -o pid | grep/g" /root/noVNC/utils/launch.sh
+
+EXPOSE 8080
+
+CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]
