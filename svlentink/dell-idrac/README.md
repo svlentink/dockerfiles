@@ -13,7 +13,7 @@ Example of `docker-compose.yml`
 version: '3'
 services:
   browser:
-    build: svlentink/dell-idrac
+    image: svlentink/dell-idrac
     environment:
       - DISPLAY=novnc:0.0
     depends_on:

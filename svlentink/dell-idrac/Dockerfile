@@ -9,9 +9,9 @@ RUN apt update && apt install -y --force-yes \
   -t jessie-backports firefox \
   icedtea-7-plugin \
   curl \
-	libxext-dev libxrender-dev libxtst-dev \
-	wget \
-	&& apt-get clean \
-	&& rm -rf /var/lib/apt/lists/*
+  libxext-dev libxrender-dev libxtst-dev \
+  wget \
+  && apt-get clean \
+  && rm -rf /var/lib/apt/lists/*
 
-ENTRYPOINT ["/usr/bin/firefox"] # i.e. Firefox
+ENTRYPOINT ["/usr/bin/firefox"]
