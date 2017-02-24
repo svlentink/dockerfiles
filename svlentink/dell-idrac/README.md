@@ -12,23 +12,31 @@ Example of `docker-compose.yml`
 ```yaml
 version: '3'
 services:
-  main:
-    svlentink/dell-idrac
-    ports:
-# 5901 = VNC client
-# 80 = browser
-      - "5901:5901"
-      - "80:6901"
+  browser:
+    build: svlentink/dell-idrac
     environment:
-      VNC_PW: 5ecr3tPwd
-
+      - DISPLAY=novnc:0.0
+    depends_on:
+      - novnc
+    networks:
+      - x11
+#    volumes:
+#      - /etc/timezone:/etc/timezone:ro
+  novnc:  
+    image: psharkey/novnc
+    environment:
+      - DISPLAY_WIDTH=1200
+      - DISPLAY_HEIGHT=900
+    ports:
+      - "8080:8080"
+    networks:
+      - x11
+networks:
+  x11:
 ```
 
 When it is launched, go to
-`http://localhost:80/vnc_auto.html?password=5ecr3tPwd`
-
-Note that this is not secure.
-Only used it on an internal network.
+`http://localhost:8080/vnc_auto.html`
 
 ## IP
 
@@ -40,11 +48,3 @@ link.
 If your local machine uses a VPN to connect to your servers,
 you'll need to specify a bridge, since docker won't use your VPN when running it localhost.
 But running this container in your network is easier.
-
-## Base image
-
-This container is base on
-[psharkey/novnc](https://hub.docker.com/r/psharkey/novnc/)
-but since
-[one](https://github.com/psharkey/docker/blob/master/novnc/Dockerfile#L14)
-line does not work anymore, I needed to rebuild it.
