@@ -1,5 +1,3 @@
-IN PROGRESS, DOES NOT WORK ATM.
-
 # Dell iDRAC
 
 Firefox and Java, accessible through your browser.
