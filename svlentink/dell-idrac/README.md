@@ -1,3 +1,5 @@
+IN PROGRESS, DOES NOT WORK ATM.
+
 # Dell iDRAC
 
 Firefox and Java, accessible through your browser.
@@ -48,3 +50,30 @@ link.
 If your local machine uses a VPN to connect to your servers,
 you'll need to specify a bridge, since docker won't use your VPN when running it localhost.
 But running this container in your network is easier.
+
+## Bootable ISO
+
+When installing a new OS, you can use an ISO.
+First download it to your machine (place it in `/tmp` or edit reference below)
+and add the following line to both `services` in your `docker-compose.yml`:
+
+```yaml
+    volumes:
+      - /tmp/debian.iso:/debian.iso
+```
+
+We want to have it mounted on both at the same location, since this will make the reference the same.
+
+Now you can
++ Open NOVNC in your browser and type the IP of your IDRAC interface in the firefox URL bar.
++ Accept and add exceptions for all future warnings
++ Log in, default = root/calvin
++ Open `Virtual Console` -> `Launch Virtual Console`
++ Enter your bios (you may `Power` -> `Reset System (warm boot)`) and configure your (IDRAC) network (e.g. DHCP) and [disk configuration](http://serverfault.com/questions/413504/dell-poweredge-1950-how-use-raw-disk-instead-hardware-raid-perc-5-i)
++ In the upper bar: `Virtual Media` -> `Connect Virtual Media`
++ `Virtual Media` -> `Map CD/DVD`
++ Select your ISO, which will be at `/debian.iso`
++ `Next Boot` -> `Virtual CD/DVD/ISO`
++ warm reboot
++ Your installer will now launch
+
