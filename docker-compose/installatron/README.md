@@ -1,3 +1,5 @@
+IN PROGRESS, this does not fully work yet, Installatron just isn't ment to be running in a container
+
 # Installatron docker compose
 
 This compose launches two docker containers, the installatron and the DB.

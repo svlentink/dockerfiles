@@ -6,6 +6,6 @@ services:
       - MYSQL_ROOT_PASSWORD=${db_pwd}
     expose:
       - "3306"
-    volumes:
+#    volumes:
 #      - "$PWD/my.cnf:/etc/mysql/my.cnf"
-      - "${db_location}:/var/lib/mysql"
+#      - "${db_location}:/var/lib/mysql"

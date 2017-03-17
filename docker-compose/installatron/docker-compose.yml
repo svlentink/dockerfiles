@@ -5,8 +5,9 @@ services:
       file: db.yml
       service: db
   tron:
-    build:
-      dockerfile: "$PWD/Dockerfile"
+    build: .
+    depends_on:
+      - db
     env_file:
       - installatron.env
     ports:
