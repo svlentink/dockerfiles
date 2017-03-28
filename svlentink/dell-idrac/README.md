@@ -43,6 +43,10 @@ When it is launched, go to
 If you need specific IP ranges because docker is using the same internal range
 (e.g. 172.x.x.x), have a look at
 [this](http://serverfault.com/questions/774699/how-to-setup-an-ip-range-for-docker-containers)
+and
+[this](http://serverfault.com/questions/771108/allow-docker-containers-to-use-ipsec-vpn-on-host)
+or
+[this](https://github.com/jessfraz/dockerfiles/tree/master/openvpn)
 link.
 
 If your local machine uses a VPN to connect to your servers,
