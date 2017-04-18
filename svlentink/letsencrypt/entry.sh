@@ -36,6 +36,7 @@ certbot certonly \
   --cert-path "$CERT_PATH" \
   --key-path "$KEY_PATH" \
   --chain-path "$CHAIN_PATH" \
+  --webroot-path /tmp/challenge
   $MAILSTR
 
 jsonLines () {

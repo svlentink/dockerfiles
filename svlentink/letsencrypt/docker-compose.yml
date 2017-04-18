@@ -1,0 +1,12 @@
+version: '3'
+services:
+  cdn:
+    image: nginx:alpine
+    volumes:
+      - /tmp/cdn:/usr/share/nginx/html:ro
+    ports:
+      - "80:80"
+  ssl:
+    image: svlentink/letsencrypt
+    volumes:
+      - /tmp/cdn:/var/challenge
