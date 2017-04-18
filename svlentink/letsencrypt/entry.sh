@@ -37,3 +37,19 @@ certbot certonly \
   --key-path "$KEY_PATH" \
   --chain-path "$CHAIN_PATH" \
   $MAILSTR
+
+jsonLines () {
+  local InpFile=$1
+  local Blob=$(cat $InpFile | tr '\n' ' ')
+  local result="["
+  for line in $Blob; do
+    result+='"$line",'
+  done
+  result=${result:0:$((${#result} -1))}"]"
+  echo $result
+}
+
+echo "### BEGIN JSON ###"
+echo '{cert:'$(jsonLines $CERT_PATH)',key:'$(jsonLines $KEY_PATH)',chain:'$(jsonLines $CHAIN_PATH)'}'
+
+exit 0
