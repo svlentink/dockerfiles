@@ -31,14 +31,13 @@ certbot certonly --manual \
   --manual-cleanup-hook /auth.sh \
   --domains "$DOMAINS" \
   --non-interactive \
-  --force-renewal \
   --agree-tos \
   --quiet \
   --no-redirect \
   --cert-path "$CERT_PATH" \
   --key-path "$KEY_PATH" \
   --chain-path "$CHAIN_PATH" \
-  --webroot-path /tmp/challenge
+  --webroot-path /tmp/challenge \
   $MAILSTR
 
 jsonLines () {
