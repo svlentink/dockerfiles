@@ -23,6 +23,9 @@ echo domains found: $DOMAINS
 CERT_PATH=/$CERTNAME/cert # public key
 KEY_PATH=/$CERTNAME/key   # private key
 CHAIN_PATH=/$CERTNAME/chain
+mkdir -p $CERT_PATH
+mkdir -p $KEY_PATH
+mkdir -p $CHAIN_PATH
 
 # https://github.com/certbot/certbot/blob/master/Dockerfile
 certbot certonly --manual \
@@ -32,7 +35,6 @@ certbot certonly --manual \
   --domains "$DOMAINS" \
   --non-interactive \
   --agree-tos \
-  --quiet \
   --no-redirect \
   --cert-path "$CERT_PATH" \
   --key-path "$KEY_PATH" \
@@ -42,11 +44,10 @@ certbot certonly --manual \
 
 jsonLines () {
   local InpFile=$1
-  local Blob=$(cat $InpFile | tr '\n' ' ')
   local result="["
-  for line in $Blob; do
-    result+='"$line",'
-  done
+  while read line; do
+    result+='"'$line'",'
+  done <$InpFile
   result=${result:0:$((${#result} -1))}"]"
   echo $result
 }

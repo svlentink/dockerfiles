@@ -3,13 +3,15 @@ services:
   cdn:
     image: nginx:alpine
     volumes:
-      - /tmp/cdn:/usr/share/nginx/html:ro
+      - cdn:/usr/share/nginx/html:ro
     ports:
       - "80:80"
   ssl:
     image: svlentink/letsencrypt
     volumes:
-      - /tmp/cdn:/tmp/challenge
+      - cdn:/tmp/challenge
     environment:
       - EMAIL=ops@example.com
     command: ssltest.lent.ink another.lent.ink
+volumes:
+  cdn: {}
