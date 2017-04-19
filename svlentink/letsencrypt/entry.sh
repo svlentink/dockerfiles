@@ -44,7 +44,7 @@ jsonLines () {
   local InpFile=$1
   local result="["
   while read line; do
-    result+='"'$line'",'
+    result=$result'"'$line'",'
   done <$InpFile
   result=${result%?}"]"
   echo $result
