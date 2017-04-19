@@ -21,7 +21,7 @@ for dom in "$@"; do
 done
 echo domains found: $DOMAINS
 
-BASE_PATH=/etc/letsencrypt/live/$CERT_NAME
+BASE_PATH=/etc/letsencrypt/live/$CERTNAME
 CERT_PATH=$BASE_PATH/cert.pem   # public key
 KEY_PATH=$BASE_PATH/privkey.pem # private key
 CHAIN_PATH=$BASE_PATH/chain.pem
@@ -46,7 +46,7 @@ jsonLines () {
   while read line; do
     result+='"'$line'",'
   done <$InpFile
-  result=${result:0:$((${#result} -1))}"]"
+  result=${result%?}"]"
   echo $result
 }
 
