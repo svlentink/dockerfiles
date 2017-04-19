@@ -10,3 +10,6 @@ services:
     image: svlentink/letsencrypt
     volumes:
       - /tmp/cdn:/var/challenge
+    environment:
+      - email=ops@example.com
+    command: ssltest.lent.ink another.lent.ink
