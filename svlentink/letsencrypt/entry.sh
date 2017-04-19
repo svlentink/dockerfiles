@@ -6,11 +6,12 @@ if [ -z "$EMAIL" ]; then
 else
   MAILSTR="--email "$EMAIL
 fi
+echo using email options: $MAILSTR
 
 # TODO when env. DEL is giving,
 # it should revoke instead of ask for new cert.
 
-# chain multiple domains
+# chain multiple domains, currently, if an apex is provide, is should be first
 CERTNAME=$1
 I=0
 for dom in "$@"; do
@@ -20,25 +21,22 @@ for dom in "$@"; do
 done
 echo domains found: $DOMAINS
 
-CERT_PATH=/$CERTNAME/cert # public key
-KEY_PATH=/$CERTNAME/key   # private key
-CHAIN_PATH=/$CERTNAME/chain
-mkdir -p $CERT_PATH
-mkdir -p $KEY_PATH
-mkdir -p $CHAIN_PATH
+BASE_PATH=/etc/letsencrypt/live/$CERT_NAME
+CERT_PATH=$BASE_PATH/cert.pem   # public key
+KEY_PATH=$BASE_PATH/privkey.pem # private key
+CHAIN_PATH=$BASE_PATH/chain.pem
+
 
 # https://github.com/certbot/certbot/blob/master/Dockerfile
 certbot certonly --manual \
   --preferred-challenges=http \
+  --manual-public-ip-logging-ok \
   --manual-auth-hook /auth.sh \
   --manual-cleanup-hook /auth.sh \
   --domains "$DOMAINS" \
   --non-interactive \
   --agree-tos \
   --no-redirect \
-  --cert-path "$CERT_PATH" \
-  --key-path "$KEY_PATH" \
-  --chain-path "$CHAIN_PATH" \
   --webroot-path /tmp/challenge \
   $MAILSTR
 
