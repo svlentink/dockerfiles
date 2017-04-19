@@ -25,7 +25,6 @@ CHAIN_PATH=/$CERTNAME/chain
 
 # https://github.com/certbot/certbot/blob/master/Dockerfile
 certbot certonly \
-#  --cert-name "$CERTNAME" \
   --preferred-challenges=http \
   --domains "$DOMAINS" \
   --non-interactive \
@@ -38,6 +37,7 @@ certbot certonly \
   --chain-path "$CHAIN_PATH" \
   --webroot-path /tmp/challenge
   $MAILSTR
+#  --cert-name "$CERTNAME" \
 
 jsonLines () {
   local InpFile=$1
