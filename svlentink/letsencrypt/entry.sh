@@ -24,7 +24,7 @@ KEY_PATH=/$CERTNAME/key   # private key
 CHAIN_PATH=/$CERTNAME/chain
 
 # https://github.com/certbot/certbot/blob/master/Dockerfile
-certbot certonly \
+certbot certonly --manual \
   --preferred-challenges=http \
   --domains "$DOMAINS" \
   --non-interactive \
