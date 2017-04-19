@@ -18,6 +18,7 @@ for dom in "$@"; do
   I=$((I+1))
   [ "$I" -lt "$#" ] && DOMAINS=$DOMAINS","
 done
+echo domains found: $DOMAINS
 
 CERT_PATH=/$CERTNAME/cert # public key
 KEY_PATH=/$CERTNAME/key   # private key
@@ -26,6 +27,8 @@ CHAIN_PATH=/$CERTNAME/chain
 # https://github.com/certbot/certbot/blob/master/Dockerfile
 certbot certonly --manual \
   --preferred-challenges=http \
+  --manual-auth-hook /auth.sh \
+  --manual-cleanup-hook /auth.sh \
   --domains "$DOMAINS" \
   --non-interactive \
   --force-renewal \
@@ -37,7 +40,6 @@ certbot certonly --manual \
   --chain-path "$CHAIN_PATH" \
   --webroot-path /tmp/challenge
   $MAILSTR
-#  --cert-name "$CERTNAME" \
 
 jsonLines () {
   local InpFile=$1

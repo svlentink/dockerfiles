@@ -11,5 +11,5 @@ services:
     volumes:
       - /tmp/cdn:/tmp/challenge
     environment:
-      - email=ops@example.com
+      - EMAIL=ops@example.com
     command: ssltest.lent.ink another.lent.ink
