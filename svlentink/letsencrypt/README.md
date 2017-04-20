@@ -8,43 +8,6 @@ docker-compose up | grep '{cert:['
 just look at the example
 [`docker-compose.yml`](https://github.com/svlentink/dockerfiles/blob/master/svlentink/letsencrypt/docker-compose.yml)
 
-## Warning
-
-While testing, we noticed that certbot gives an error for long domain names:
-
-```shell
-root@host:~/ssltest# docker-compose stop && docker-compose rm -f && docker-compose up
-Going to remove ssltest_ssl_1, ssltest_cdn_1
-Removing ssltest_ssl_1 ... done
-Removing ssltest_cdn_1 ... done
-Creating ssltest_ssl_1
-Creating ssltest_cdn_1
-Attaching to ssltest_cdn_1, ssltest_ssl_1
-ssl_1  | using email options: --email email@not.mentioned.online
-ssl_1  | domains found: ssltest.hetisvalentijnhebgeenbloemenvoorjoudaaromdezewebsiteikhouvanjou.online
-ssl_1  | Saving debug log to /var/log/letsencrypt/letsencrypt.log
-ssl_1  | Obtaining a new certificate
-ssl_1  | Performing the following challenges:
-ssl_1  | http-01 challenge for ssltest.hetisvalentijnhebgeenbloemenvoorjoudaaromdezewebsiteikhouvanjou.online
-ssl_1  | Waiting for verification...
-cdn_1  | 66.133.109.36 - - [20/Apr/2017:07:20:13 +0000] "GET /.well-known/acme-challenge/KYMX_ci_TpmGeoUYfqxYNI5YYLyfisUalJiypdTINaY HTTP/1.1" 200 88 "-" "Mozilla/5.0 (compatible; Let's Encrypt validation server; +https://www.letsencrypt.org)" "-"
-ssl_1  | Cleaning up challenges
-ssl_1  | Generating key (2048 bits): /etc/letsencrypt/keys/0000_key-certbot.pem
-ssl_1  | An unexpected error occurred:
-ssl_1  | Error: [('asn1 encoding routines', 'ASN1_mbstring_ncopy', 'string too long')]
-ssl_1  | Please see the logfiles in /var/log/letsencrypt for more details.
-ssl_1  | IMPORTANT NOTES:
-ssl_1  |  - Your account credentials have been saved in your Certbot
-ssl_1  |    configuration directory at /etc/letsencrypt. You should make a
-ssl_1  |    secure backup of this folder now. This configuration directory will
-ssl_1  |    also contain certificates and private keys obtained by Certbot so
-ssl_1  |    making regular backups of this folder is ideal.
-ssltest_ssl_1 exited with code 1
-```
-[This](https://github.com/certbot/certbot/issues/1452) is
-[a](https://github.com/certbot/certbot/issues/1915) known
-[issue](https://github.com/certbot/certbot/issues/2881) on
-[Github](https://github.com/certbot/certbot/issues/3246).
 
 ## Example output
 
