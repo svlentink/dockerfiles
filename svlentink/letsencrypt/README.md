@@ -41,6 +41,10 @@ ssl_1  |    also contain certificates and private keys obtained by Certbot so
 ssl_1  |    making regular backups of this folder is ideal.
 ssltest_ssl_1 exited with code 1
 ```
+[This](https://github.com/certbot/certbot/issues/1452) is
+[a](https://github.com/certbot/certbot/issues/1915) known
+[issue](https://github.com/certbot/certbot/issues/2881) on
+[Github](https://github.com/certbot/certbot/issues/3246).
 
 ## Example output
 
@@ -81,3 +85,13 @@ ssl_1  | {cert:["-----BEGIN CERTIFICATE-----","MIIFFDCCA/ygAwIBAgISA68ljLooGPUPL
 You could `grep` on "`{cert:[`" and "will expire on"
 (to avoid different line breaks,
 you should use `[0-9]{4}-[0-9]{2}-[0-9]{2}\.`)
+
+
+## Using it with Nginx
+
+```
+listen 443 ssl;
+ssl_certificate         /etc/letsencrypt/live/example.com/cert.pem;
+ssl_certificate_key     /etc/letsencrypt/live/example.com/privkey.pem;
+ssl_trusted_certificate /etc/letsencrypt/live/example.com/chain.pem;
+```
