@@ -10,6 +10,13 @@ services:
     image: svlentink/letsencrypt
     volumes:
       - cdn:/tmp/challenge
+# Example options:
+      # This will enable you to get the actual files, instead of JSON
+#      - $PWD/something:/etc/letsencrypt
+      # auth-hook; https://certbot.eff.org/docs/using.html#pre-and-post-validation-hooks
+#      - $PWD/auth.sh:/auth.sh:ro
+      # cleanup hook; https://certbot.eff.org/docs/using.html#pre-and-post-validation-hooks
+#      - $PWD/cleanup.sh:/cleanup.sh:ro
     environment:
       - EMAIL=ops@example.com
     command: ssltest.lent.ink another.lent.ink

@@ -32,7 +32,7 @@ certbot certonly --manual \
   --preferred-challenges=http \
   --manual-public-ip-logging-ok \
   --manual-auth-hook /auth.sh \
-  --manual-cleanup-hook /auth.sh \
+  --manual-cleanup-hook /cleanup.sh \
   --domains "$DOMAINS" \
   --non-interactive \
   --agree-tos \
