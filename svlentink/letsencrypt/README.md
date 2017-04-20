@@ -6,7 +6,7 @@ JSON output of certbot
 docker-compose up | grep '{cert:['
 ```
 just look at the example
-[`docker-compose.yml`](https://github.com/svlentink/dockerfiles/blob/master/svlentink/letsencrypt/docker-compose.yml)
+[docker-compose.yml](https://github.com/svlentink/dockerfiles/blob/master/svlentink/letsencrypt/docker-compose.yml)
 
 
 ## Example output
