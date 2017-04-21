@@ -40,6 +40,7 @@ certbot certonly --manual \
   --manual-auth-hook /auth.sh \
   --manual-cleanup-hook /cleanup.sh \
   --domains "$DOMAINS" \
+  --cert-name "$CERTNAME" \
   --non-interactive \
   --agree-tos \
   --no-redirect \
