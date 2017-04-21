@@ -17,6 +17,7 @@ CERTNAME=$1
 if [ ${#CERTNAME} -gt 64 ]; then
   echo Error: domain too long
   echo "this is explained at: https://github.com/certbot/certbot/issues/1915#issuecomment-165262834"
+  echo "you can fix this by adding a shorter domain as the first one"
   exit 1
 fi
 
