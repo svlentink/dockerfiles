@@ -3,6 +3,12 @@
 As the name suggests, a docker-compose for creating a temp. environment.
 I use this when I know that I'll be in a place, where I can't use my own machine.
 
+TODO
+The current version is based on an old docker container
+[this](https://hub.docker.com/r/sapk/cloud9/)
+one has auth build in!
+This will remove step 03 and 04, just the docker-compose needs to be updated.
+
 ## Step01
 I'll spin up a new instance on a [VPS provider](https://scaleway.com), select docker as image and smallest VPS (64bit).
 
