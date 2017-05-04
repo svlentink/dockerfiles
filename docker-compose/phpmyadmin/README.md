@@ -1,0 +1,1 @@
+# PhpMyAdmin + MySql example

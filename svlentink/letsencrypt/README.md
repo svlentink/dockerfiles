@@ -70,3 +70,8 @@ you should account for this!
 
 E.g. `this-part-of-domain-can-be-63chars-which-brings-the-total-to-70.online`
 can only be registered with the help of a shorter domain.
+
+## TODO
+
++ Implement the revoking
++ special docker tag for https://letsencrypt.org/docs/staging-environment/
