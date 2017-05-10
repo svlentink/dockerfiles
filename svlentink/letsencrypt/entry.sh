@@ -38,8 +38,8 @@ CHAIN_PATH=$BASE_PATH/chain.pem
 certbot certonly --manual \
   --preferred-challenges=http \
   --manual-public-ip-logging-ok \
-  --manual-auth-hook /auth.sh \
-  --manual-cleanup-hook /cleanup.sh \
+  --manual-auth-hook /auth \
+  --manual-cleanup-hook /cleanup \
   --domains "$DOMAINS" \
   --cert-name "$CERTNAME" \
   --non-interactive \

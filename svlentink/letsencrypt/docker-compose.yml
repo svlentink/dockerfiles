@@ -14,9 +14,9 @@ services:
       # This will enable you to get the actual files, instead of JSON
 #      - $PWD/something:/etc/letsencrypt
       # auth-hook; https://certbot.eff.org/docs/using.html#pre-and-post-validation-hooks
-#      - $PWD/auth.sh:/auth.sh:ro
+#      - $PWD/auth.sh:/auth:ro
       # cleanup hook; https://certbot.eff.org/docs/using.html#pre-and-post-validation-hooks
-#      - $PWD/cleanup.sh:/cleanup.sh:ro
+#      - $PWD/cleanup.sh:/cleanup:ro
 # Test entrypoint for debugging
    # entrypoint: /test-entryp
     environment:
