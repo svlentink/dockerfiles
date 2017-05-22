@@ -8,8 +8,7 @@ else
 fi
 echo using email options: $MAILSTR
 
-# TODO when env. DEL is giving,
-# it should revoke instead of ask for new cert.
+# Note, whe have implemented revoking as a separate service!
 
 # chain multiple domains, currently, if an apex is provide, is should be first
 CERTNAME=$1
@@ -45,8 +44,8 @@ certbot certonly --manual \
   --non-interactive \
   --agree-tos \
   --no-redirect \
-  --webroot-path /tmp/challenge \
   $MAILSTR
+#  --webroot-path /tmp/challenge \
 
 jsonLines () {
   local InpFile=$1
