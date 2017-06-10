@@ -1,0 +1,7 @@
+version: '2'
+services:
+  dropbox:
+    image: janeczku/dropbox
+    volumes:
+      - ~/Dropbox:/dbox/Dropbox
+      - ~/.dropbox:/dbox/.dropbox
