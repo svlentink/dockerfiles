@@ -1,0 +1,28 @@
+\newcommand{\albumItem}[4]{
+  \h{2}{wk#1}{
+    In order for this to work,\\
+    the img inside content/img/album/ should have the format;\\
+    wkXX.jpg\\
+    (you can change png to jpg, that works (in chrome and edivice)\\
+    OK, i really should use "/bin/bash convert file.jpg file.png")
+  }
+  #2
+  \imgC{content/img/album/wk#1.jpg}{#3}{1}{#4}
+  \newpage
+}
+
+\newcommand{\renderAlbumItem}{%
+\albumItem{\albumWeekNbrDATA%
+}{\albumWeekDescDATA%
+}{\albumImgDescDATA%
+}{\albumImgUrlDATA%
+}\emptyAlbumItem
+}
+%\newcommand{\renderAlbumItem}{}
+
+\newcommand{\emptyAlbumItem}{
+\albumWeekNbr{}
+\albumWeekDesc{}
+\albumImgDesc{}
+\albumImgUrl{}
+}

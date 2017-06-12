@@ -1,0 +1,45 @@
+%layout based on https://www.overleaf.com/articles/maze-solving-by-an-autonomous-robot/ywxprrzmxpkg#.VNJANXJGjUY
+
+% 1=doctype, 2=title, 3=subTitle
+\newcommand{\coverPage}[3]{
+	\begin{titlepage}
+	\centering
+	\thispagestyle{empty}%remove pagenumber on title page
+
+	%title
+		\textcolor{white}{.}\\ [3.5cm] %SHOULD NOT BE VISIBLE
+		\normalsize #1 \\ [.45cm]
+		\HRule{0.5pt} \\ [.6cm]
+		\Huge #2 \\
+		\Large #3 \\ [.6cm]
+		\HRule{0.5pt} \\ [1.8cm]
+
+	%author
+		\authorName \\
+		\small
+      \authorStudentNbr \\*
+		  Student \fieldOfStudy \\
+		  \uni \\ [.5cm]
+
+	%date
+		\normalsize Version \documentversionnumber\ \todayDate \\ [4cm]
+
+	\begin{tabu} to \linewidth { X[l]X[r] }
+		\roleCC & \roleCo \\
+		\roleCCName & \roleCoName \\
+		\small \mailLink{\roleCCMail} &
+		\small \mailLink{\roleCoMail} \\ [.8cm]
+	\end{tabu}
+
+  \begin{tabu} to \linewidth { X[l]X[r] }
+%		\textcolor{lightgray}{Signature} & \textcolor{lightgray}{Signature} \\
+		\includegraphics[width=0.25\textwidth]{content/img/SuSig.png} & \includegraphics[width=0.25\textwidth]{content/img/authorSig.png} \\
+		\roleSuName & \authorName \\
+		\roleSu & \roleSt \\
+	\end{tabu}
+
+	\scriptsize - The pdf \randomize{version} of this \randomize{document} \randomize{contains} \randomize{hyperlinks}. -
+
+	\end{titlepage}
+
+}

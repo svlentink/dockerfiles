@@ -1,0 +1,28 @@
+\newcommand{\ratingStar}[1]{% 1=color
+	\Large \textcolor{#1}{\textbf{$\star$}} \normalsize
+}
+\definecolor{lgry}{gray}{0.75}%lightgray
+\definecolor{stcl}{RGB}{229,193,0}%starcolor
+\newcommand{\rating}[1]{
+	\ifnum#1=0
+		\ratingStar{lgry}\ratingStar{lgry}\ratingStar{lgry}\ratingStar{lgry}\ratingStar{lgry}
+	\else
+		\ifnum#1=1
+			\ratingStar{stcl}\ratingStar{lgry}\ratingStar{lgry}\ratingStar{lgry}\ratingStar{lgry}
+		\else
+			\ifnum#1=2
+				\ratingStar{stcl}\ratingStar{stcl}\ratingStar{lgry}\ratingStar{lgry}\ratingStar{lgry}
+			\else
+				\ifnum#1=3
+					\ratingStar{stcl}\ratingStar{stcl}\ratingStar{stcl}\ratingStar{lgry}\ratingStar{lgry}
+				\else
+					\ifnum#1=4
+						\ratingStar{stcl}\ratingStar{stcl}\ratingStar{stcl}\ratingStar{stcl}\ratingStar{lgry}
+					\else
+						\ratingStar{stcl}\ratingStar{stcl}\ratingStar{stcl}\ratingStar{stcl}\ratingStar{stcl}
+					\fi
+				\fi
+			\fi
+		\fi
+	\fi
+}

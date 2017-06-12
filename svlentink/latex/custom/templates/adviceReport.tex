@@ -1,0 +1,49 @@
+\newcommand{\adviceReport}[8]{
+    \h{3}{AC report #1}{}
+    \begin{tabu} to \linewidth { X[.2cm]X[l] }
+%	  	\textbf{\randomize{Date}} & #1 \\
+      \textbf{\randomize{Location}} & #2 \\
+      \textbf{\randomize{Medium}} & #3 \\
+      \textbf{\randomize{Attendants}} & #4 \\
+      \textbf{\randomize{Motivation}} & #5 \\
+    \end{tabu}
+
+    \subsubsection*{Agenda}
+    \begin{itemize}
+      \item #6
+    \end{itemize}
+
+    \subsubsection*{Treated}
+    \begin{itemize}
+      \item #7
+    \end{itemize}
+
+    \subsubsection*{Advice}
+    \begin{itemize}
+      \item #8
+    \end{itemize}
+
+    \newpage
+}
+
+\newcommand{\renderAdviceReport}{
+\adviceReport{\adviceDateDATA%
+}{\adviceLocationDATA%
+}{\adviceMediumDATA%
+}{\adviceAttendantsDATA%
+}{\adviceMotivationDATA%
+}{\adviceAgendaDATA%
+}{\adviceTreatedDATA%
+}{\adviceAdviceDATA%
+}\emptyAdviceReport
+}
+\newcommand{\emptyAdviceReport}{
+\adviceDate{}
+\adviceLocation{}
+\adviceMedium{}
+\adviceAttendants{}
+\adviceMotivation{}
+\adviceAgenda{}
+\adviceTreated{}
+\adviceAdvice{}
+}

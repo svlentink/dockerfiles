@@ -1,0 +1,116 @@
+\usepackage{acro}
+\DeclareAcronym{cd}{ short={CD}, long={Compact Disc}, short-plural={s}, long-plural={s} }
+\DeclareAcronym{mc}{ short={MC}, long={Musicassette}, short-plural={s}, long-plural={s} }
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%re-defining \ac, \acp
+\let\acorig\ac
+\let\acporig\acp
+\def\ac#1{\acifused{#1}{\tooltip{\acs{#1}}{\acl{#1}}}{\acorig{#1}}}
+\def\acp#1{\acifused{#1}{\tooltip{\acsp{#1}}{\aclp{#1}}}{\acporig{#1}}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% usage: \tooltip[<link colour>]{<link text>}[<tip box colour>]{<tip text>}
+%        \tooltip*[<link colour>]{<link text>}[<tip box colour>]{<tip text>}
+%        (starred variant is not draggable)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{media9}[2014/03/25]
+\usepackage{xcolor}
+\usepackage{calc}
+\usetikzlibrary{calc}
+
+\ExplSyntaxOn
+\let\tpPdfLink\mix_pdflink:nn
+\let\tpPdfAnnot\mix_pdfannot:nnnn\def\tpPdfLastAnn{\g_mix_pdflastann_tl}
+\let\tpPdfXform\mix_pdfxform:n\def\tpPdfLastXform{\g_mix_pdflastxform_tl}
+\ExplSyntaxOff
+
+\makeatletter
+\NewDocumentCommand{\tooltip}{sO{blue}mO{yellow!20}m}{{%
+  \leavevmode%
+  \tpPdfLink{%
+    /Subtype/Screen%
+    /AA<<%
+      /E<</S/JavaScript/JS(%
+        var fd=this.getField('tip.\thetcnt');%
+        \IfBooleanF{#1}{%
+          if(typeof(click\thetcnt)=='undefined'){%
+            var click\thetcnt=false;%
+            var fdor\thetcnt=fd.rect;var dragging\thetcnt=false;%
+          }%
+        }%
+        if(fd.display==display.hidden){%
+          fd.delay=true;fd.display=display.visible;fd.delay=false;%
+        }%
+        this.dirty=false;%
+      )>>%
+      /X<</S/JavaScript/JS(%
+        \IfBooleanTF{#1}{fd.display=display.hidden;}{%
+          if(!click\thetcnt&&!dragging\thetcnt){fd.display=display.hidden;}%
+          if(!dragging\thetcnt){click\thetcnt=false;}%
+        }%
+        this.dirty=false;%
+      )>>%
+      \IfBooleanTF{#1}{%
+        /PC<</S/JavaScript/JS(this.dirty=false;)>>%
+      }{%
+        /U<</S/JavaScript/JS(click\thetcnt=true;this.dirty=false;)>>%
+        /PC<</S/JavaScript/JS (%
+          var fd=this.getField('tip.\thetcnt');%
+          try{fd.rect=fdor\thetcnt;}catch(e){}%
+          fd.display=display.hidden;this.dirty=false;%
+        )>>%
+      }%
+      /PO<</S/JavaScript/JS(this.dirty=false;)>>%
+    >>%
+  }{{\color{#2}#3}}%
+  \sbox\tiptext{\fcolorbox{black}{#4}{#5}}%
+  \edef\twd{\the\wd\tiptext}%
+  \edef\tht{\the\ht\tiptext}%
+  \edef\tdp{\the\dp\tiptext}%
+  \measureremainder{\whatsleft}%
+  \tipshift=0pt%
+  \ifdim\whatsleft<\twd\setlength\tipshift{\whatsleft-\twd}\fi%
+  \tpPdfXform{\tiptext}%
+  \raisebox{\heightof{#3}}[0pt][0pt]{\makebox[0pt][l]{\hspace{\tipshift}%
+    \tpPdfAnnot{\twd}{\tht}{\tdp}{%
+      /Subtype/Widget/FT/Btn/Ff 65536/T (tip.\thetcnt)/F 3%
+      /MK<</TP 1/I \tpPdfLastXform/IF<</S/A/FB true/A [0.0 0.0]>>>>%
+      \IfBooleanF{#1}{%
+        /AA <<%
+          /U <<%
+            /S/JavaScript/JS(%
+              var fd=event.target;%
+              var mX=this.mouseX;var mY=this.mouseY;%
+              var drag=function(){%
+                var nX=this.mouseX;var nY=this.mouseY;%
+                var dX=nX-mX;var dY=nY-mY;%
+                var fdr=fd.rect;%
+                fdr[0]+=dX;fdr[1]+=dY;fdr[2]+=dX;fdr[3]+=dY;%
+                fd.rect=fdr;mX=nX;mY=nY;%
+              };%
+              if(!dragging\thetcnt){%
+                dragging\thetcnt=true;Int=app.setInterval("drag()",1);%
+              }%
+              else{app.clearInterval(Int);dragging\thetcnt=false;}%
+              this.dirty=false;%
+            )%
+          >>%
+        >>%
+      }%
+    }%
+    \xdef\@anim@fields{\@anim@fields\space\tpPdfLastAnn}%
+  }}%
+  \stepcounter{tcnt}%
+}}
+\makeatother
+\newsavebox\tiptext\newcounter{tcnt}
+\newlength{\whatsleft}\newlength{\tipshift}
+\newcommand{\measureremainder}[1]{%
+  \begin{tikzpicture}[overlay,remember picture]
+    \path let \p0 = (0,0), \p1 = (current page.east) in
+      [/utils/exec={\pgfmathsetlength#1{\x1-\x0}\global#1=#1}];
+  \end{tikzpicture}%
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

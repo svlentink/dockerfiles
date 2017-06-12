@@ -1,0 +1,42 @@
+\usepackage[english]{babel}                 %language pack
+\usepackage[utf8]{inputenc}                 %charset
+\usepackage{amsmath}                        %formulas and equations
+\usepackage{graphicx}                       %pictures
+\usepackage{epigraph}                       %for quotes
+  %\epigraphfontsize{\small\itshape}
+  \setlength\epigraphwidth{1\textwidth}
+  \setlength\epigraphrule{0pt}
+\usepackage[colorinlistoftodos]{todonotes}  %add Todos to doc and allows extra colors, e.g. lightgray
+\usepackage{color}                          %font colors
+\usepackage[bookmarks=false]{hyperref}      %enable hyperlinks, disable bookmarks, since it can be messed up
+\usepackage{tabu}                           %rich tables
+%\usepackage{verbatim}                       %\begin{comment}; multiline comments
+\usepackage{float}                          %needed for figcaption
+\usepackage{randtext}                       %randomize text using \randomize{}
+\usepackage{sidecap}                        %figcap next to picture
+\usepackage{titlesec}                       %enable custom headings
+\usepackage{caption,setspace}               %makes figcaption take less space
+  \captionsetup{font={normal,stretch=1}}    %makes figcaption take less space
+\usepackage{fancyhdr}                       %enables headings on top of every page
+\usepackage[yyyymmdd,hhmmss]{datetime}      %for generating auto time stamp
+\usepackage{lastpage}                       %enable 'page 5 of 20' in footer
+\usepackage{etoolbox}                       %needed in newCommands.tex
+\usepackage{import}                         %makes the include paths smaller
+\usepackage{xstring}                        %\IfSubStr{Rotterdam}{otter}{ true }{ false }
+%\usepackage{soul}
+%  \providecommand{\sout}[1]{\st{#1}}        %pandoc, which is used to convert markdowns, converts ~~lorem~~ to \sout{lorem}
+%\usepackage{textcomp}                       %needed for markdown conversion http://tex.stackexchange.com/questions/202166/undefined-control-sequence-textquotesingle
+\usepackage{draftwatermark}                 %watermark on background
+\usepackage{multicol}                       %multiple colums; \begin{multicols}{2}
+\usepackage{lipsum}                         %dummy text
+\usepackage{colortbl}                       %\arrayrulecolor{red} https://tex.stackexchange.com/questions/40666/how-to-change-line-color-in-tabular
+\subimport*{custom/}{index} %basics
+%\usepackage{lmodern}%http://tex.stackexchange.com/questions/58087/how-to-remove-the-warnings-font-shape-ot1-cmss-m-n-in-size-4-not-available
+\usepackage{changepage} %adjustwidth
+\usepackage{soul} %\st{this text is strike through}
+\usepackage{enumitem} %\begin{itemize}[noitemsep,nolistsep]
+
+%Metadata for search engines
+\title{\Title} \author{\authorName} \date{\todayDate}
+
+%http://stackoverflow.com/questions/2647674/does-latex-have-an-array-data-structure

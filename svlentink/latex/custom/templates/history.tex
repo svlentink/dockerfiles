@@ -1,0 +1,56 @@
+\newcommand{\historyTable}[1]{%
+\Comment{
+statuses could be;
+\href{http://www.w3.org/2005/10/Process-20051014/tr.html}{Draft},
+published, In progress, Concept, Proposed
+}
+\begin{tabu} to  \linewidth { X[.1cm] | X[.32cm] | X[.25cm] | X[.42cm] | X[l]}
+	\textbf{v} & \textbf{Date} & \textbf{Status} & \textbf{Distributed} & \textbf{Changed} \\
+    \hline
+    #1
+\end{tabu}
+}
+
+\newcommand{\columnSeperator}{&}
+
+%THIS NEEDS TO BE CONVERTED USING THE JS
+\newcommand{\historyVersionDATA}{}
+\newcommand{\historyDateDATA}{}
+\newcommand{\historyStatusDATA}{}
+\newcommand{\historyDistributedDATA}{}
+\newcommand{\historyChangedDATA}{}
+\newcommand{\historyVersion}[1]{\renewcommand{\historyVersionDATA}{#1}}
+\newcommand{\historyDate}[1]{\renewcommand{\historyDateDATA}{#1}}
+\newcommand{\historyStatus}[1]{\renewcommand{\historyStatusDATA}{#1}}
+\newcommand{\historyDistributed}[1]{\renewcommand{\historyDistributedDATA}{#1}}
+\newcommand{\historyChanged}[1]{\renewcommand{\historyChangedDATA}{#1}}
+
+\newcommand{\emptyHistoryRow}{
+\historyVersion{}
+\historyDate{}
+\historyStatus{}
+\historyDistributed{}
+\historyChanged{}
+}
+
+\newcommand{\historyRow}[5]{%still in progress, not working
+#1\columnSeperator #2 & #3 & #4 & #5 \tabularnewline
+}
+
+\newcommand{\renderHistoryRow}{
+\historyRow{\historyVersionDATA%
+}{\historyDateDATA%
+}{\historyStatusDATA%
+}{\historyDistributedDATA%
+}{\historyChangedDATA%
+}\emptyHistoryRow%
+}
+
+
+\newcommand{\renderHistoryRowTmp}{
+\historyVersionDATA &
+\historyDateDATA &
+\historyStatusDATA &
+\historyDistributedDATA &
+\historyChangedDATA \\
+}

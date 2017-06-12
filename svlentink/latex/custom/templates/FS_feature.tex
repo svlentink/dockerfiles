@@ -1,0 +1,120 @@
+\newcommand{\useCase}[9]{
+\h{4}{Use case}{
+Based on p.98 (Praktisch UML, 5th edition)
+}
+
+\begin{tabu} to  \linewidth { X[.2cm] | X[l]}
+  \hline
+  Summary & #1 \\
+  \hline
+  Actor(s) & #2 \\
+  \hline
+  Precondition & #3 \\
+  \hline
+  Description & #4 \\
+  \hline
+  Intended flow & #5 \\ %how you predict it will happen
+  \hline
+  Alternative flow & #6 \\ %what could happen
+  \hline
+  Result & #7 \\
+  \hline
+\end{tabu}
+\imgC{#8}{}{#9}{http://draw.io}
+}
+
+
+% 1,2,3= standard sentence, 4=How to Demo 5=estimated,6=spent time
+\newcommand{\userStory}[6]{
+\hfill $|$Estimated : #5 $|$ #6 : spent$|$ \\
+As a(n) \textbf{#1},
+I want to \textbf{#2},
+so that \textbf{#3}.
+
+\bigskip
+
+\textbf{How to Demo}
+#4
+}
+
+% 1=description, 2=imgSrc, 3=imgWidth
+\newcommand{\domainModel}[3]{
+\h{4}{Domain}{
+\Isrc{https://en.wikipedia.org/wiki/Domain_model}{"The domain model is a representation of meaningful real-world concepts"}{oct '15}\\
+the best approach is to provide one for each user story.
+This gives us a quick overview of the parts involved.
+}
+#1
+\imgC{#2}{Domain model}{#3}{https://en.wikipedia.org/wiki/Domain_model}
+}
+
+\newcommand{\renderFSitem}{
+\h{3}{\useCaseSummaryDATA}{}
+\renderUserStory
+\renderDomain
+\renderUseCase \newpage
+%
+\emptyUserStory
+\emptyDomainModel
+\emptyUseCase
+}
+
+
+
+
+\newcommand{\renderUserStory}{
+\userStory{\useCaseActorsDATA%\userStoryActorDATA%
+}{\userStoryActionDATA%
+}{\userStoryResultDATA%
+}{\userStoryHowToDemoDATA%
+}{\userStoryEstimatedTimeDATA%
+}{\userStorySpentTimeDATA%
+}
+}
+
+\newcommand{\emptyUserStory}{
+\useCaseActors{}%\userStoryActor{}
+\userStoryAction{}
+\userStoryResult{}
+\userStoryHowToDemo{}
+\userStoryEstimatedTime{}
+\userStorySpentTime{}
+}
+
+\newcommand{\renderUseCase}{
+\useCase{\useCaseSummaryDATA%
+}{\useCaseActorsDATA%
+}{\useCasePreconditionDATA%
+}{\useCaseDescriptionDATA%
+}{\useCaseIntendedFlowDATA%
+}{\useCaseAlternativeFlowDATA%
+}{\userStoryResultDATA%\useCaseResultDATA%
+}{\useCaseImgSrcDATA%
+}{\useCaseImgWidthDATA%
+}
+}
+
+\newcommand{\emptyUseCase}{
+\useCaseSummary{}
+\useCaseActors{}
+\useCasePrecondition{}
+\useCaseDescription{}
+\useCaseIntendedFlow{}
+\useCaseAlternativeFlow{}
+\userStoryResult{}%\useCaseResult{}
+\useCaseImgSrc{}
+\useCaseImgWidth{}
+}
+
+\newcommand{\renderDomain}{
+\domainModel{\domainDescriptionDATA%
+}{\domainImgSrcDATA%
+}{\domainImgWidthDATA%
+}
+}
+
+\newcommand{\emptyDomainModel}{
+\domainDescription{}
+\domainImgSrc{}
+\domainImgWidth{}
+}

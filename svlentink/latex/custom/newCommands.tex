@@ -1,0 +1,88 @@
+% When we have no params with a new command,
+% I suggest to use the conversion provide in the 'svlentink/latex' docker
+% https://github.com/svlentink/latex_docker
+
+% 1=src, 2=title, 3=date (e.g. "sep '15")
+\newcommand{\Isrc}[3]{% Internet resource
+\href{#1}{#2}%\textsuperscript{\tiny \textcolor{gray}{#3} \normalsize}%
+}
+% 1=boolean (1 or 0), 2=content
+\newcommand{\showChapter}[2]{
+  \ifnum#1=1
+#2%
+  \else
+    \Comment{Not showing content, boolean not set to 1}
+  \fi
+}
+
+\newcommand{\HRule}[1]{\rule{\linewidth}{#1}}
+\renewcommand{\deg}{\ensuremath{^{\circ}}}%enable degree symbol for angles and Celsius
+
+%http://tex.stackexchange.com/questions/53068/how-to-check-if-a-macro-value-is-empty-or-will-not-create-text-with-plain-tex-co
+\def\foreverunspace{%
+  \ifnum\lastnodetype=11
+    \unskip\foreverunspace
+  \else
+    \ifnum\lastnodetype=12
+      \unkern\foreverunspace
+    \else
+      \ifnum\lastnodetype=13
+        \unpenalty\foreverunspace
+      \fi
+    \fi
+  \fi
+}
+\newcommand{\ifNotEmpty}[2]{% DOES NOT WORK FOR "\item lorem"
+  %\if\relax\detokenize{#1}\relax
+  \setbox0=\hbox{#1\foreverunspace}\ifdim\wd0=0pt
+    %empty
+  \else
+    #2
+  \fi
+}
+
+\newcommand{\codeBlock}[1]{%
+  \begin{verbatim}%
+    #1%
+  \end{verbatim}
+}
+
+
+
+%params 1=path, 2=description, 3=width, 4=sourceUrl
+\newcommand{\imgC}[4]{% insert a centered image
+\IfFileExists{#1}{
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=#3\textwidth]{#1}%
+%      \IfFileExists{#1}{#1}{custom/no-img.png}}
+    \ifNotEmpty{#2}{
+      \ifx&#4&%
+        \caption{\label{#1}#2}%this also makes sure that the image is used once, when having a src; The anchor of a bookmark and its parent's must not (hyperref) be the same. Added a new anchor on input line
+      \else% if sourceUrl is provided, the caption will link to it
+        \caption{\label{#1}\href{#4}{#2}}
+      \fi
+    }
+	\end{figure}
+%  \imagesPUSH{ ::item[Figure }%::ref{#1}] #2 }
+}{\newpage IMAGE NOT FOUND \\ \href{#1}{#2} \\ TODO \newpage}%\imgC{custom/no-img.png}{See href of this text!; #2}{1}{#1}}%when img missing, use default #not possible, then multiple have the same label
+}
+
+
+\newcommand{\showDoc}[2]{
+	\newcommand{\docType}{#2}
+	\input{#1}
+}
+
+\newcommand{\locationLink}[1]{%
+  \href{http://google.com/maps/search/#1}{#1}}
+\newcommand{\phoneLink}[1]{%
+  \href{tel:#1}{#1}}
+\newcommand{\mailLink}[1]{%
+  \href{mailto:#1}{#1}}
+
+\newcommand{\createLatexTagCount}[2]{%
+%\textcolor{green}{createLatexTag\##1 #2}
+%createLatexTagCount#1#2
+%0loremTODO
+}

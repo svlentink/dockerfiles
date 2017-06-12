@@ -1,0 +1,77 @@
+% the following is used for the header above the page
+\newcommand{\currentname}{% http://tex.stackexchange.com/questions/75168/get-current-section-name-without-label
+\hZeroDATA{} \hOneDATA{} \hTwoDATA{} \hThreeDATA{} \hFourDATA{} \hFiveDATA{} \hSixDATA{}
+}
+
+
+%based on html style
+% #1 = header level
+% #2 = header text
+% #3 = comments on header (e.g. assignment copied from workbook)
+%
+% How the levels can be used:
+% level  0 = Semester
+%        1 = Course in semester
+%        2 = Week in course
+%        3 = Assignment
+% Important to note, our level 0 is -1 according to https://en.wikibooks.org/wiki/LaTeX/Document_Structure
+\newcommand{\h}[3]{% We first set the heading, then apply the hOne name and clear the smaller
+  \ifnum#1=0
+    \part{#2} \hZero{#2} \hOne{} \hTwo{} \hThree{} \hFour{} \hFive{} \hSix{}
+    \hMetaData{part}{-1}{Part of book series}
+  \else
+    \ifnum#1=1
+      \chapter{#2} \hOne{#2} \hTwo{} \hThree{} \hFour{} \hFive{} \hSix{}
+      \hMetaData{chapter}{0}{Chapter in a book or report}
+    \else
+      \ifnum#1=2
+        \section{#2} \hTwo{$\supset$ #2} \hThree{} \hFour{} \hFive{} \hSix{}
+        \hMetaData{section}{1}{Section in a chapter}
+      \else
+        \ifnum#1=3
+          \subsection{#2} \hThree{$\supset$ #2} \hFour{} \hFive{} \hSix{}
+          \hMetaData{subsection}{2}{}
+        \else
+          \ifnum#1=4
+            \subsubsection{#2} \hFour{$\supset$ #2} \hFive{} \hSix{}
+            \hMetaData{subsubsection}{3}{}
+          \else
+            \ifnum#1=5
+              \paragraph{#2} \hFive{$\ni$ #2} \hSix{}
+              \hMetaData{paragraph}{4}{Not numbered and default not in ToC}
+            \else
+              \subparagraph{#2} \hSix{$\ni$ #2}
+              \hMetaData{subparagraph}{5}{}
+            \fi
+          \fi
+        \fi
+      \fi
+    \fi
+  \fi
+  \Comment{#3}
+}
+%used in \h{}
+%this needs to become a tooltip or whatever in the future
+\newcommand{\Comment}[1]{%
+\ifnum0=\boolhidecomments
+\ifNotEmpty{#1}{%
+ {\color{red}$<$Comment$>$ #1 $<$/Comment$>$}
+}%
+\fi%
+}
+
+\newcommand{\hMetaData}[3]{%
+\ifnum0=\boolhidecomments
+{\color{gray}%
+$<$h$>$
+CMD:#1;
+LVL:#2;
+\ifNotEmpty{#3}{%
+USAGE:#3;}
+$<$/h$>$
+}%
+\fi%
+}
+
+
+%\titleformat*{\paragraph}{\normalfont\color{gray}}

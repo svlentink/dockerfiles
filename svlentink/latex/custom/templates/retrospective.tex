@@ -1,0 +1,87 @@
+\newcommand{\retrospective}[9]{
+	\h{3}{Sprint#1}{
+	Sprint
+	\href{https://www.scrumalliance.org/community/articles/2007/march/glossary-of-scrum-terms}{goal}
+	should be described here
+	}
+	TODO, fix ifNotEmpty check, to accept itemize items (custom/templates/retrospective.tex)
+%  \ifNotEmpty{#2#3#4}{
+		\h{4}{User stories}{}
+%    }
+%    \ifNotEmpty{#2}{
+			\h{5}{Good}{}
+				\begin{itemize}
+					\item #2
+				\end{itemize}
+%        }
+%        \ifNotEmpty{#3}{
+			\h{5}{Could have done better}{}
+				\begin{itemize}
+					\item #3
+				\end{itemize}
+%        }
+%        \ifNotEmpty{#4}{
+			\h{5}{Improvement}{}
+				\begin{itemize}
+					\item #4
+				\end{itemize}
+%        }
+%        \ifNotEmpty{#5#6#7}{
+        		\h{4}{\scrum\ process}{}
+%            }
+%        \ifNotEmpty{#5}{
+			\h{5}{Good}{}
+				\begin{itemize}
+					\item #5
+				\end{itemize}
+%        }
+%        \ifNotEmpty{#6}{
+			\h{5}{Could have done better}{}
+				\begin{itemize}
+					\item #6
+				\end{itemize}
+%        }
+%        \ifNotEmpty{#7}{
+			\h{5}{Improvement}{}
+				\begin{itemize}
+					\item #7
+				\end{itemize}
+%        }
+%        \ifNotEmpty{#8#9}{
+		\h{4}{Personal development}{}
+%    }
+    \ifNotEmpty{#8}{
+			\h{5}{Reflection \roleSt}{}
+				#8
+        }
+        \ifNotEmpty{#9}{
+			\h{5}{Feedback \roleSu}{}
+				#9
+        }
+	\newpage
+}
+
+\newcommand{\renderRetroReport}{
+\retrospective{\retroSprintNbrAndGoalDATA%
+}{\retroStoriesGoodDATA%
+}{\retroStoriesCouldDATA%
+}{\retroStoriesImproveDATA%
+}{\retroScrumGoodDATA%
+}{\retroScrumCouldDATA%
+}{\retroScrumImproveDATA%
+}{\retroPersonalReflectDATA%
+}{\retroPersonalFeedbackDATA%
+}\emptyRetroReport
+}
+
+\newcommand{\emptyRetroReport}{
+\retroSprintNbrAndGoal{}
+\retroStoriesGood{}
+\retroStoriesCould{}
+\retroStoriesImprove{}
+\retroScrumGood{}
+\retroScrumCould{}
+\retroScrumImprove{}
+\retroPersonalReflect{}
+\retroPersonalFeedback{}
+}
