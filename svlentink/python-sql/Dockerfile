@@ -2,6 +2,7 @@ FROM python:alpine
 
 RUN pip install pyyaml #requirements.txt
 
+RUN apk add --no-cache gcc g++ #requirements for db connectors
 RUN apk add --no-cache postgresql-dev \
   && pip install psycopg2 #postgres
 RUN apk add --no-cache python-dev mariadb-dev \
