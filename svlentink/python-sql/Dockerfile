@@ -5,8 +5,8 @@ RUN pip install pyyaml #requirements.txt
 RUN apk add --no-cache gcc g++ #requirements for db connectors
 RUN apk add --no-cache postgresql-dev \
   && pip install psycopg2 #postgres
-RUN apk add --no-cache python-dev mariadb-dev \
-  && pip install MySQL-python #mysql
+RUN apk add --no-cache mariadb-dev \
+  && pip install mysqlclient
 
 # shared lib, which enable you to 'from dblib import db_sql'
 COPY dblib.py /tmp/dblib.py
