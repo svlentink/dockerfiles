@@ -13,6 +13,7 @@ services:
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
     links:
+      - db
       - db:mysql
     ports:
       - 8080:80
