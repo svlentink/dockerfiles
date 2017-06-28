@@ -4,8 +4,8 @@ services:
     image: mysql
     environment:
       MYSQL_ROOT_PASSWORD: 5ecr37
-    expose:
-      - 3306
+#    expose:
+#      - 3306
     volumes:
   #    - /tmp/mysql:/var/lib/mysql
   # https://github.com/docker-library/docs/tree/master/mysql#initializing-a-fresh-instance
