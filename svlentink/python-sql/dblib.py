@@ -1,14 +1,14 @@
 #!/usr/bin/env python
 
-#specify this line in your own script before importing
-#usingMYSQLinsteadOfPOSTGRES = True
-
-if usingMYSQLinsteadOfPOSTGRES:
-  import MySQLdb
-else:
-  import psycopg2
-import yaml
 from os import getenv
+if getenv('MYSQL_INSTEAD_OF_POSTGRES'):
+  usingMYSQLinsteadOfPOSTGRES = True
+  import MySQLdb #also needed for MariaDB
+else:
+  usingMYSQLinsteadOfPOSTGRES = False
+  import psycopg2
+
+import yaml
 
 dbconfloc = getenv('DB_CONFIG_LOC') or '/proj/config.yml'
 with open(dbconfloc, 'r') as ymlfile:

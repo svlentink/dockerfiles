@@ -5,6 +5,7 @@ usage:
 FROM svlentink/python-sql
 COPY requirements.txt /
 RUN pip install -r /requirements.txt
+ENV MYSQL_INSTEAD_OF_POSTGRES IfThisKeyExistsWeUseMysqlValueDoesNotMatter
 COPY $PWD /proj #your project
 ```
 
@@ -22,6 +23,5 @@ and: another
 importing in your code:
 ```python
 #!/usr/bin/env python
-usingMYSQLinsteadOfPOSTGRES = True
 from dblib import db_sql
 ```
