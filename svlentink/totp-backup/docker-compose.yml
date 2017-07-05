@@ -1,0 +1,6 @@
+version: '2'
+services:
+  TOTPbackup:
+    image: svlentink/totp-backup
+    volumes:
+      - $PWD:/storage # it will output secrets.json
