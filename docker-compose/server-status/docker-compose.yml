@@ -1,0 +1,6 @@
+version: '2'
+services:
+  status:
+    image: superbuddy/server-status
+    volumes:
+      - $PWD/tests:/totest:ro
