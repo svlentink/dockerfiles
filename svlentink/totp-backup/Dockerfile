@@ -2,7 +2,7 @@ FROM node:alpine
 
 RUN mkdir /app
 WORKDIR /app
-RUN npm install qrcode-terminal prompt
+RUN npm install qrcode-terminal prompt speakeasy
 
 # in/output file
 VOLUME /storage
