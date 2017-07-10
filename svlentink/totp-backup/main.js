@@ -7,6 +7,7 @@
   
   var qrcode = require('qrcode-terminal');
   var prompt = require('prompt');
+  var speakeasy = require("speakeasy");
   var fs = require('fs')
   
   fs.readFile(file, {encoding: 'utf-8'}, function(err,data){
@@ -58,11 +59,21 @@
     console.log(TOTP.data)
     chooseAction()
   }
+  TOTP.token = function() {
+    prompt.get(['name'],(err,result) => {
+      if (err) return console.log(err)
+      var n = result.name
+      var s = TOTP.data[n]
+      var token = speakeasy.totp({ secret: s, encoding: 'base32'})
+      console.log('Your token', token)
+      chooseAction()
+    })
+  }
   TOTP.exit = function() {
     console.log('Exiting', TOTP.data)
   }
   function chooseAction() {
-    var options = ['list','save','rm','get','exit']
+    var options = ['list','save','rm','get', 'token','exit']
     console.log('What do you want to do?',options)
     prompt.get(['action'],function (err, result){
       if (err) return console.log(err)
