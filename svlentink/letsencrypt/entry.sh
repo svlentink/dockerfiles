@@ -10,13 +10,17 @@ echo using email options: $MAILSTR
 
 # Note, whe have implemented revoking as a separate service!
 
-# chain multiple domains, currently, if an apex is provide, is should be first
-CERTNAME=$1
+if [ -z "$COMMONNAME" ]; then
+  # chain multiple domains, currently, if an apex is provide, is should be first
+  CERTNAME=$1
+else
+  CERTNAME=$COMMONNAME
+fi
 
 if [ ${#CERTNAME} -gt 64 ]; then
-  echo Error: domain too long
+  echo "Error: cert-name too long"
   echo "this is explained at: https://github.com/certbot/certbot/issues/1915#issuecomment-165262834"
-  echo you can fix this by adding a shorter domain as the first one
+  echo you can fix this by adding a shorter domain as the first one or setting env COMMONNAME
   exit 1
 fi
 

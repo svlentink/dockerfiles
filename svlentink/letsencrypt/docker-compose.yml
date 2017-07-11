@@ -20,7 +20,8 @@ services:
 # Test entrypoint for debugging
    # entrypoint: /test-entryp
     environment:
-      - EMAIL=ops@example.com
+      EMAIL: ops@example.com
+      COMMONNAME: lent.ink
     command: ssltest.lent.ink another.lent.ink
 volumes:
   cdn: {}
