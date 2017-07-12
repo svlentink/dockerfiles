@@ -10,11 +10,11 @@ echo using email options: $MAILSTR
 
 # Note, whe have implemented revoking as a separate service!
 
-if [ -z "$COMMONNAME" ]; then
+if [ -z "$OUTPUTDIRNAME" ]; then
   # chain multiple domains, currently, if an apex is provide, is should be first
   CERTNAME=$1
 else
-  CERTNAME=$COMMONNAME
+  CERTNAME=$OUTPUTDIRNAME
 fi
 
 if [ ${#CERTNAME} -gt 64 ]; then

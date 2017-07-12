@@ -21,7 +21,7 @@ services:
    # entrypoint: /test-entryp
     environment:
       EMAIL: ops@example.com
-      COMMONNAME: lent.ink
+      OUTPUTDIRNAME: sharedcert
     command: ssltest.lent.ink another.lent.ink
 volumes:
   cdn: {}
