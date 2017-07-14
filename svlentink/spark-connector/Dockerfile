@@ -13,14 +13,11 @@ ENV SPARK_DIST_CLASSPATH="$HADOOP_HOME/etc/hadoop/*:$HADOOP_HOME/share/hadoop/co
 RUN curl -sL --retry 3 \
   "http://d3kbcqa49mib13.cloudfront.net/${SPARK_PACKAGE}.tgz" \
   | gunzip \
-  | tar x -C /usr/
-RUN ls /usr/$SPARK_PACKAGE
-RUN echo next $SPARK_HOME
-RUN ln -s /usr/$SPARK_PACKAGE $SPARK_HOME \
- && chown -R root:root $SPARK_HOME
+  | tar x -C /usr/ \
+  && rm -rf $SPARK_HOME \
+  && ln -s /usr/$SPARK_PACKAGE $SPARK_HOME \
+  && chown -R root:root $SPARK_HOME
 
-RUN echo sparkhome $SPARK_HOME
-RUN ls -al $SPARK_HOME #/spark-2.0.2-bin-hadoop2.7
 
 # https://developer.couchbase.com/documentation/server/4.5/connectors/spark-2.0/download-links.html
 # https://spark-packages.org/package/couchbase/couchbase-spark-connector
