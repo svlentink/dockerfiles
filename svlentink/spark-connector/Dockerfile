@@ -32,5 +32,9 @@ RUN apt update \
   && apt install sbt -y \
   && apt-get clean && rm -rf /var/lib/apt/lists/*
 
+COPY build.sbt /usr/share/sbt/spark/
+RUN cd /usr/share/sbt/spark && sbt clean compile
+#RUN cd /usr/share/sbt/spark && sbt clean run
+
 #start Spark
 CMD bash -c "$SPARK_HOME/sbin/start-master.sh && $SPARK_HOME/sbin/start-thriftserver.sh && tail -f /var/log/lastlog"

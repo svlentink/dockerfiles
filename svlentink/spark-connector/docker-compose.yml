@@ -1,0 +1,25 @@
+version: '2'
+services:
+  couchbase:
+    image: couchbase
+    ports:
+      - "8091-8094:8091-8094" # Couchbase Web Console and some REST ports
+      - "11210:11210" # Used by smart client libraries or Moxi to directly connect to the data nodes. The XDCR client uses this port as well as the SDKs. This is a memcached port.
+    volumes:
+      - "/opt/couchbase/var:/opt/couchbase/var"
+      - $PWD/couchbase_conf.xml:/opt/couchbase/var/lib/couchbase/data/config.xml:ro
+  spark:
+    environment:
+      - SPARK_LOCAL_IP=172.18.0.3 #TODO, this does not work
+    image: svlentink/spark
+    ports:
+      - "8080-8081:8080-8081" # WebUI
+      - "7077:7077" # Submit job to cluster / Join cluster
+      - "6066:6066" # Master Spark REST URL
+      - "4040:4040"
+      - "10000:10000"
+    volumes:
+#      - $PWD/spark_conf:/usr/share/sbt/spark
+    links:
+      - couchbase
+      - couchbase:couchbase

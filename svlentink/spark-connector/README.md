@@ -1,5 +1,8 @@
 # spark-connector
 
+See [docker-compose.yml](https://github.com/svlentink/dockerfiles/blob/master/svlentink/spark-connector/docker-compose.yml)
+
+## OLD info
 The couchbase spark connector inside spark.
 
 How to
@@ -17,35 +20,6 @@ val spark = SparkSession
 
 // The SparkContext for easy access
 val sc = spark.sparkContext
-```
-
-Example of `docker-compose.yml`
-
-```yaml
-version: '2'
-services:
-  couchbase:
-    image: couchbase
-    ports:
-      - "8091-8094:8091-8094" # Couchbase Web Console and some REST ports
-      - "11210:11210" # Used by smart client libraries or Moxi to directly connect to the data nodes. The XDCR client uses this port as well as the SDKs. This is a memcached port.
-    volumes:
-      - "/opt/couchbase/var:/opt/couchbase/var"
-  spark:
-    image: svlentink/spark-connector
-    ports:
-      - "8080-8081:8080-8081" # WebUI Master and Worker
-      - "7077:7077" # Submit job to cluster / Join cluster
-      - "6066:6066" # Master Spark REST URL
-#      - "4040:4040"
-    depends_on:
-      - couchbase
-    links:
-      - couchbase
-      - couchbase:couchbase
-    command: bash -c "bin/spark-class org.apache.spark.deploy.master.Master & sleep 1 && bin/spark-shell --master spark://spark:7077"
-# The last line is based on https://github.com/gettyimages/docker-spark/blob/master/Dockerfile#L73
-# it does not work atm, we're still debugging it
 ```
 
 Documentation about
