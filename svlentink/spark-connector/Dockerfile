@@ -37,4 +37,4 @@ RUN cd /usr/share/sbt/spark && sbt clean compile
 #RUN cd /usr/share/sbt/spark && sbt clean run
 
 #start Spark
-CMD bash -c "$SPARK_HOME/sbin/start-master.sh && $SPARK_HOME/sbin/start-thriftserver.sh && tail -f /var/log/lastlog"
+CMD bash -c "export SPARK_LOCAL_IP=`hostname -i` && $SPARK_HOME/sbin/start-master.sh && $SPARK_HOME/sbin/start-thriftserver.sh && tail -f /var/log/lastlog"
