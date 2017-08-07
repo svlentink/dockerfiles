@@ -35,8 +35,7 @@ RUN apt update \
 COPY build.sbt /usr/share/sbt/spark/
 RUN mkdir -p   /usr/share/sbt/spark/src/main/scala/
 COPY QuickStart.scala /usr/share/sbt/spark/src/main/scala/
-RUN cd /usr/share/sbt/spark && sbt clean compile
-#RUN cd /usr/share/sbt/spark && sbt clean run
+RUN cd /usr/share/sbt/spark && sbt clean compile # run
 
 #start Spark
 CMD bash -c "export SPARK_LOCAL_IP=`hostname -i` && $SPARK_HOME/sbin/start-master.sh && $SPARK_HOME/sbin/start-thriftserver.sh && tail -f /var/log/lastlog"

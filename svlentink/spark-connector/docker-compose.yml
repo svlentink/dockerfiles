@@ -16,7 +16,7 @@ services:
       - "6066:6066" # Master Spark REST URL
       - "4040:4040"
       - "10000:10000"
-    volumes:
+#    volumes:
 #      - $PWD/spark_conf:/usr/share/sbt/spark
     links:
       - couchbase
