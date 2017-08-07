@@ -33,6 +33,8 @@ RUN apt update \
   && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 COPY build.sbt /usr/share/sbt/spark/
+RUN mkdir -p   /usr/share/sbt/spark/src/main/scala/
+COPY QuickStart.scala /usr/share/sbt/spark/src/main/scala/
 RUN cd /usr/share/sbt/spark && sbt clean compile
 #RUN cd /usr/share/sbt/spark && sbt clean run
 
