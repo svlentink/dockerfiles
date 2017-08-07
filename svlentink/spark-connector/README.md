@@ -2,25 +2,18 @@
 
 See [docker-compose.yml](https://github.com/svlentink/dockerfiles/blob/master/svlentink/spark-connector/docker-compose.yml)
 
+## Links
+
+https://developer.couchbase.com/documentation/server/4.6/connectors/spark-2.0/getting-started.html
+https://developer.couchbase.com/documentation/server/4.6/connectors/spark-2.0/working-with-rdds.html
+https://developer.couchbase.com/documentation/server/4.6/connectors/spark-2.0/dev-workflow.html
+https://docs.databricks.com/spark/latest/data-sources/couchbase.html
+=>register dataframes
+
+
 ## OLD info
 The couchbase spark connector inside spark.
 
-How to
-[configure](https://developer.couchbase.com/documentation/server/4.5/connectors/spark-2.0/getting-started.html)
-Spark:
-```java
-// Configure Spark
-val spark = SparkSession
-      .builder()
-      .appName("KeyValueExample")
-      .master("local[*]") // use the JVM as the master, great for testing
-      .config("spark.couchbase.nodes", "couchbase") // connect to couchbase via docker links
-      .config("spark.couchbase.bucket.travel-sample", "") // open the travel-sample bucket with empty password
-      .getOrCreate()
-
-// The SparkContext for easy access
-val sc = spark.sparkContext
-```
 
 Documentation about
 [spark](https://spark.apache.org/docs/latest/security.html#configuring-ports-for-network-security)
