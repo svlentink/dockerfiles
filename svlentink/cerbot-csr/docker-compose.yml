@@ -1,0 +1,12 @@
+version: '2'
+services:
+  csr:
+    image:svlentink/certbot-csr
+    volumes:
+      - /tmp/openssl-req.conf:/openssl.conf:ro
+    environemnt:
+      ORGANIZATION: Mijndomein
+      COUNTRY_CODE: NL
+      PROVINCE: Flevoland
+      CITY: Lelystad
+    command: www.mijndomein.nl www.mijndomein.be #fqdn
