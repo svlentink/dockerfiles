@@ -5,8 +5,9 @@ TODO, in progress, just skip this.
 ## Variables
 
 ```javascript
-apex (e.g. yourmail.co.uk, someblog.com)
-
+var d = destination //e.g. 'yourmail.co.uk', 'someblog.com', 'macbook'
+var u = userid //e.g. 'myeamil@as.login', 'someusername'
+var 
 ```
 
 ## Function
@@ -16,8 +17,22 @@ lc(inp,x) // last x char of input, default x=1 (recursive function, third param 
 fc(inp,x) // first x char of input
 up(inp) // uppercase
 lo(inp) // lowercase
-rb(inp,{x:y}) // replace all x by y, default {e:3,l:7,o:0}
+rb(inp,{x:y}) // replace all x by y, default {e:3,s:5,l:7,o:0,a:'@'}
 tr(inp,x) // truncate, default x=16
+cv(inp) // count vowels
+ie(inp) // is even, counts if the length of the string is even, returns 1 or 0
+'somestring'.length // length is a build in javascript function
+
+```
+
+## Example usage
+```javascript
+// provided by environment
+var d = 'somedomain.tld'
+
+// example password generation part
+var fixedstr = '3@T' //fixed string (eat; a number, special char and uppercase)
+var pwd = lc(d,cv(d)) + '_' + fixedstr + d.length
 ```
 
 ## Links
