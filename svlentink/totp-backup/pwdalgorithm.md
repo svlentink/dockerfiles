@@ -5,16 +5,16 @@ TODO, in progress, just skip this.
 ## Structure
 
 This concept consists of three
-## Master passphrase
+## Passphrase
 
-The password algorithm uses a master passphrase as input.
-You should change this master passphrase at least once a year.
+The password algorithm uses a passphrase as input.
+You should change this passphrase at least once a year.
 
 ```javascript
-var mp = "My v3ry lo0ong master passphrase."
+var p = "My v3ry lo0ong passphrase."
 ```
 
-You could use a separate `mp` for different subsets of logins.
+You could use a separate `p` for different subsets of logins.
 E.g. one for work, one for social media, one for banking etc.
 
 ## Variables
@@ -63,7 +63,7 @@ var pwd = lc(d,cv(d)) + '_' + fixedstr + d.length
 
 ## FAQ
 
-### Why a master passphrase, couldn't we just include it as a variable in an algorithm.
+### Why a passphrase, couldn't we just include it as a variable in an algorithm.
 
 Spot on! This assumtion is correct.
 Techniqually this is the right way to go, reducing complexity.
