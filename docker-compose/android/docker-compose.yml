@@ -1,0 +1,26 @@
+version: '2'
+services:
+  avd:
+    image: jacekmarchwicki/android
+    environment:
+      DISPLAY: 'novnc:0.0'
+      ANDROID_EMULATOR_FORCE_32BIT: 'true'
+    depends_on:
+      - novnc
+    networks:
+      - x11
+    command: bash -c "ln -s /opt/android-sdk-linux/tools/emulator64-arm /opt/android-sdk-linux/tools/emulator-arm && emulator -avd test"
+#    volumes:
+#      - /etc/timezone:/etc/timezone:ro
+  novnc:  
+    image: psharkey/novnc
+    environment:
+      - DISPLAY_WIDTH=1200
+      - DISPLAY_HEIGHT=900
+    ports:
+      - "8080:8080"
+    networks:
+      - x11
+networks:
+  x11:
+

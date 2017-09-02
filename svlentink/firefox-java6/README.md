@@ -7,34 +7,7 @@ Dell iDRAC needs a Java Plugin to access the console of a server.
 
 ## Run it
 
-Example of `docker-compose.yml`
-
-```yaml
-version: '3'
-services:
-  browser:
-    image: svlentink/dell-idrac
-    environment:
-      - DISPLAY=novnc:0.0
-    depends_on:
-      - novnc
-    networks:
-      - x11
-#    volumes:
-#      - /etc/timezone:/etc/timezone:ro
-  novnc:  
-    image: psharkey/novnc
-    environment:
-      - DISPLAY_WIDTH=1200
-      - DISPLAY_HEIGHT=900
-    ports:
-      - "8080:8080"
-    networks:
-      - x11
-networks:
-  x11:
-```
-
+Run [this](https://github.com/svlentink/dockerfiles/blob/master/svlentink/firefox-java6/docker-compose.yml),
 When it is launched, go to
 `http://localhost:8080/vnc_auto.html`
 
