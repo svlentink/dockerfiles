@@ -4,6 +4,7 @@ Firefox and Java, accessible through your browser.
 
 Why? Because I want to be able to work on a Chromebook.
 Dell iDRAC needs a Java Plugin to access the console of a server.
+(last optimized on 6sep17, to use with the version at the SNE lab)
 
 ## Run it
 
