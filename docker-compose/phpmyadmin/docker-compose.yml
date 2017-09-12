@@ -4,7 +4,7 @@ services:
     image: mysql
     environment:
       MYSQL_ROOT_PASSWORD: 5ecr37
-#    expose:
+#    expose: # Expose is never needed, it only serves for documentation purpose
 #      - 3306
     volumes:
   #    - /tmp/mysql:/var/lib/mysql
@@ -15,8 +15,19 @@ services:
     links:
       - db
       - db:mysql
-    ports:
+    ports: # ports actually map them to the host, while expose does nothing
       - 8080:80
-    environment:
+    environment: # I haven't tried it without the botton two, but they may be obmitted I assume
       MYSQL_USERNAME: root
       MYSQL_ROOT_PASSWORD: 5ecr37
+# The following code is not done
+# but serves an illustrative purpose
+#  proxy: #proxy can be used to do basicauth or ip filtering
+#    image: nginx:alpine
+#    links:
+#      - phpmyadmin
+#      - phpmyadmin:phpmyadmin
+#    ports:
+#      - 80:80
+#    volumes:
+#      - $PWD/nginx.conf:/etc/nginx/nginx.conf:ro
