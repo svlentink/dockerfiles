@@ -1,0 +1,9 @@
+version: '2'
+services:
+  cnvrtr:
+    image:  conoria/alpine-pandoc
+    command: pandoc --from markdown_github --to dokuwiki -o /outputdir/paste_to_wiki.txt /input
+    volumes:
+      - $PWD/lab3.md:/input:ro
+      - $PWD:/outputdir
+
