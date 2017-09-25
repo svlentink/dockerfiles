@@ -1,26 +1,31 @@
-#!/bin/bash -e
+#!/bin/sh -e
 
+OUTPUT_LOC=/outputdir
 OPENSSL_REQ_FILE_LOC=/openssl.conf
-KEY_FILE_LOC=/pubkey.pem
-CSR_FILE_LOC=/csr.pem
+KEY_FILE_LOC=$OUTPUT_LOC/key.pem
+CSR_FILE_LOC=$OUTPUT_LOC/csr.pem
 
-function createReqFile {
+createReqFile () {
   echo Entering $FUNCNAME with $@
   local Fqdns=$@
-  [[ -z "$Fqdns" ]] \
-    && echo No domains provide \
-    && exit 1
-  ( [[ -z "$COUNTRY_CODE" ]] \
-    || ( [[ -z "$PROVINCE" ]] && [[ -z "$STATE" ]] ) \
-    || [[ -z "$CITY" ]] ) \
-    && echo Location info missing \
-    && exit 1
-  [[ -z "ORGANIZATION" ]] \
-    && echo Organization name missing \
-    && exit 1
-  [[ -z "$COMMONNAME" ]] \
-    && echo No commonname found, using $1 \
-    && local COMMONNAME=$1
+  if [ -z "$Fqdns" ]; then
+    echo No domains provide
+    exit 1
+  fi
+  if ( [ -z "$COUNTRY_CODE" ] \
+    || ( [ -z "$PROVINCE" ] && [ -z "$STATE" ] ) \
+    || [ -z "$CITY" ] ); then
+    echo Location info missing
+    exit 1
+  fi
+  if [ -z "ORGANIZATION" ]; then
+    echo Organization name missing
+    exit 1
+  fi
+  if [ -z "$COMMONNAME" ]; then
+    echo No commonname found, using $1
+    local COMMONNAME=$1
+  fi
 
 cat << EOF > $OPENSSL_REQ_FILE_LOC
 # openssl req -config this_config_file.cnf -new -out csr.pem
@@ -40,7 +45,7 @@ stateOrProvinceName    = "$STATE$PROVINCE" # ST=
 localityName           = "$CITY"           # L=
 organizationName       = "$ORGANIZATION"   # O=
 organizationalUnitName = "Operations"      # OU=
-commonName             = "$C" # CN=
+commonName             = "$COMMONNAME" # CN=
 
 [ v3_req ] # req_extensions
 # https://www.openssl.org/docs/manmaster/man5/x509v3_config.html
@@ -51,9 +56,12 @@ EOF
   done
 }
 
-if [[ ! -f $OPENSSL_REQ_FILE_LOC ]]; then
+if [ ! -f $OPENSSL_REQ_FILE_LOC ]; then
   echo Composing $OPENSSL_REQ_FILE_LOC
   createReqFile $@
+else
+  echo Using the existing config found at $OPENSSL_REQ_FILE_LOC
 fi
 
 openssl req -config $OPENSSL_REQ_FILE_LOC -new -out $CSR_FILE_LOC
+openssl req -text -noout -in $CSR_FILE_LOC | head

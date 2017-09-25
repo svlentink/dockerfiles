@@ -3,10 +3,11 @@ services:
   csr:
     image:svlentink/certbot-csr
     volumes:
-      - /tmp/openssl-req.conf:/openssl.conf:ro
-    environemnt:
-      ORGANIZATION: Mijndomein
+#      - $PWD/openssl-req.conf:/openssl.conf:ro # using this prevents the generation
+      - /tmp:/outputdir
+    environment:
+      ORGANIZATION: Os3.nl SSN lab assignment
       COUNTRY_CODE: NL
       PROVINCE: Flevoland
       CITY: Lelystad
-    command: www.mijndomein.nl www.mijndomein.be #fqdn
+    command: sanderlentink.nl lent.ink curly.ninja #fqdn
