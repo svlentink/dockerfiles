@@ -1,0 +1,6 @@
+version: '2'
+services:
+  jupyter:
+    image: jupyter/r-notebook
+    ports:
+      - 8080:8888
