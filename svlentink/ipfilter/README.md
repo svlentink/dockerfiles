@@ -3,7 +3,7 @@
 Used for getting things only quickly while developing.
 Less secure than Iptables, but way faster when using docker.
 
-See [this](https://github.com/svlentink/dockerfiles/blob/master/svlentink/ipfilter/README.md) example.
+See [this](https://github.com/svlentink/dockerfiles/blob/master/svlentink/ipfilter/docker-compose.yml) example.
 
 
 ## Production
