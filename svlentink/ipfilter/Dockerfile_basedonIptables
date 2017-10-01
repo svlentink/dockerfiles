@@ -1,0 +1,23 @@
+# this attempt required privileged mode
+FROM alpine
+
+RUN apk add --no-cache iptables #iproute2
+
+#ENV ALLOWED_TCP_PORTS 80,443
+#ENV ALLOWED_UDP_PORTS 53,123
+ENV ALLOWED_IPS 127.0.0.1/30,8.8.8.8/32
+ENV INTERVAL 60
+
+# https://help.ubuntu.com/community/IptablesHowTo
+CMD iptables -F || echo run container with --privileged \
+  && iptables -A INPUT -i lo -j ACCEPT \
+  && if [[ -n "$ALLOWED_TCP_PORTS$ALLOWED_UDP_PORTS" ]]; then \
+    for prt in $ALLOWED_TCP_PORTS; do \
+    iptables -A INPUT -p tcp --dport $prt -j ACCEPT -s $ALLOWED_IPS; done \
+    && for prt in $ALLOWED_UDP_PORTS; do \
+    iptables -A INPUT -p udp --dport $prt -j ACCEPT -s $ALLOWED_IPS; done \
+  else echo No ports defined && iptables -A INPUT -j ACCEPT -s $ALLOWED_IPS; fi \
+  && iptables -A INPUT -j DROP \
+  && iptables -L -v && sleep 5 \
+  && watch -n $INTERVAL -d iptables -nvL
+# instead of for, you can also use '--match multiport --dports 110,143,993,995', but this will error when no ports are provided
