@@ -22,7 +22,7 @@ docker run -it --rm \
 ![example](example.png "example")
 
 
-##TODO
+## TODO
 I should put recommendations here about how to store the passwords.
 So only use this tool if you know how to store your secrets.json file.
 
