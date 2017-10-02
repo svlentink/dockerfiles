@@ -4,11 +4,12 @@ services:
     image: sapk/cloud9
     mem_limit: 128m
     volumes:
-      - ~/.ssh:/root/.ssh:ro
+      - ~/.ssh:/root/.ssh:ro # only use locally, not on your server!
       - ~/:/workspace/
-      - ~/.gitconfig:/root/.gitconfig
+#      - ~/.gitconfig:/root/.gitconfig
 # the following line is outcommented due to OSx, does work on Linux!
 #      - /etc/timezone:/etc/timezone:ro
     ports:
       - "163:80"
 # 163 looks like IdE
+    command: ["-a", "$MYUSER:$PASSWD"] # .env should contain these variables
