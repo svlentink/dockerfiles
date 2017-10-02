@@ -10,6 +10,6 @@ services:
 # the following line is outcommented due to OSx, does work on Linux!
 #      - /etc/timezone:/etc/timezone:ro
     ports:
-      - "163:80"
+      - "163:8181"
 # 163 looks like IdE
     command: ["-a", "$MYUSER:$PASSWD"] # .env should contain these variables
