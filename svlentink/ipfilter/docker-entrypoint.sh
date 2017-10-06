@@ -1,6 +1,7 @@
 #!/bin/sh
 
 CONFIG=/etc/nginx/conf.d/default.conf
+FILTERCONF=/nginx-filter-options.conf
 
 if [ -z "$APP_PORT" ]; then
   echo Missing env variable APP_PORT
@@ -32,20 +33,23 @@ server {
 
 EOF
 
+> $FILTERCONF
 if [ -n "$ALLOWED_IPS" ];then
   echo ALLOWED_IPS is set
   for iprange in $ALLOWED_IPS; do
-    echo "allow $iprange;" >> /nginx-filter-options.conf
+    echo "allow $iprange;" >> $FILTERCONF
   done
-  echo "deny all;" >> /nginx-filter-options.conf
+  echo "deny all;" >> $FILTERCONF
 fi
 if [ -d /passdir ]; then
   echo Using basic auth
   echo 'auth_basic "closed site"; auth_basic_user_file /passdir/.htpasswd;' \
-  >> /nginx-filter-options.conf
+  >> $FILTERCONF
 fi
 
+echo BEGIN content of nginx filter
 cat /nginx-filter-options.conf
+echo END content of nginx filter
 
 genCert () {
   openssl req -x509 \
