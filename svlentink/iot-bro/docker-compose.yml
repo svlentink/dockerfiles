@@ -1,0 +1,9 @@
+version: '2'
+services:
+  bro:
+    build: .
+#    image: svlentink/iot-bro
+    volumes:
+      - ~/cloud9/logbook/henk/wlan0.pcapng:/input:ro
+
+#docker run -it --rm --entrypoint sh -v /root/cloud9/logbook/henk/wlan0.pcapng:/input temp
