@@ -1,6 +1,6 @@
 #!/bin/sh
 
-bro -r /input
+bro -r /input #test-all-policy
 
 # since the script we use from github does not include all field types, we just change some
 for log in *.log

@@ -5,5 +5,6 @@ services:
 #    image: svlentink/iot-bro
     volumes:
       - ~/cloud9/logbook/henk/wlan0.pcapng:/input:ro
+      - $PWD/main.py:/main.py
 
 #docker run -it --rm --entrypoint sh -v /root/cloud9/logbook/henk/wlan0.pcapng:/input temp
