@@ -3,8 +3,8 @@
 from brologparse import parse_log
 from glob import glob
 from fnmatch import fnmatch
+import json
 
-INPUT='/input'
 OUTPUTDIR='/output'
 
 def debug():
@@ -23,16 +23,7 @@ def debug():
     except Exception as e:
       print('ERROR content of file was not displayed:',e)
 
-debug()
-
-ips={}
-#for line in parse_log('conn.log'):
-#  print(line)
-#  print(type(line))
-#  print(line._fields)
-#  print(line._asdict())
-#  ip=line.id_orig_h
-#  print(ip)
+#debug()
 
 
 
@@ -65,16 +56,36 @@ def filter_bro_log(filename):
       line[f] = logline[f]
     result.append(line)
   return result
-  
+
+def filter_on_index(data):
+  indices_tree = {
+    "*.log" : [ 'id_orig_h' ]
+  }
+  result = {}
+  for filename in data:
+    if data[filename] and len(data[filename]):
+      for fileid in indices_tree: #     for every filename in data
+        if fnmatch(filename, fileid): # check if we found a match in indices_tree
+          result[filename] = {}
+          for indx in indices_tree[fileid]:
+            result[filename][indx] = {}
+            for line in data[filename]:
+              indx_id = str(line[indx])
+              if indx_id in result[filename][indx]:
+                result[filename][indx][indx_id].append(line)
+              else:
+                result[filename][indx][indx_id] = [line]
+  return result
+          
+
 data = {}
 for file in glob("*.log"):
   data[file] = filter_bro_log(file)
-print(data)
 
+indexed_data = filter_on_index(data)
 
-
-
-
+with open(OUTPUTDIR + '/blob.json', 'w') as fp:
+  json.dump(indexed_data, fp, default=str)
 
 
 

@@ -6,5 +6,15 @@ services:
     volumes:
       - ~/cloud9/logbook/henk/wlan0.pcapng:/input:ro
       - $PWD/main.py:/main.py
+      - webroot:/output
+  cdn:
+    image: nginx:alpine
+    volumes:
+      - webroot:/usr/share/nginx/html:ro #default location of container
+    ports:
+      - 8080:80
+volumes:
+  webroot:
+
 
 #docker run -it --rm --entrypoint sh -v /root/cloud9/logbook/henk/wlan0.pcapng:/input temp

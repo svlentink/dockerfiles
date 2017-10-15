@@ -19,3 +19,4 @@ VOLUME /output # directory in which we dump our results
 ENTRYPOINT ["/docker-entrypoint.sh"]
 COPY docker-entrypoint.sh /
 COPY main.py /
+COPY index.html /
