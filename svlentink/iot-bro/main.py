@@ -4,6 +4,7 @@ from brologparse import parse_log
 from glob import glob
 from fnmatch import fnmatch
 import json
+import collections
 
 OUTPUTDIR='/output'
 
@@ -60,22 +61,33 @@ def filter_bro_log(filename):
 def filter_on_index(data):
   indices_tree = {
     "*.log" : [ 'id_orig_h' ],
-    "dns.log" : [ 'query' ]
+    "dns.log" : [ 'answers' ]
   }
+  
+  def addval(filename,indx,indx_id,line):
+    if indx_id in result[filename][indx]:
+      result[filename][indx][indx_id].append(line)
+    else:
+      result[filename][indx][indx_id] = [line]
   result = {}
   for filename in data:
     if data[filename] and len(data[filename]):
       for fileid in indices_tree: #     for every filename in data
         if fnmatch(filename, fileid): # check if we found a match in indices_tree
-          result[filename] = {}
+          if filename not in result:
+            result[filename] = {}
           for indx in indices_tree[fileid]:
             result[filename][indx] = {}
             for line in data[filename]:
-              indx_id = str(line[indx])
-              if indx_id in result[filename][indx]:
-                result[filename][indx][indx_id].append(line)
-              else:
-                result[filename][indx][indx_id] = [line]
+              indx_id = line[indx]
+              if isinstance(indx_id, str):
+                addval(filename,indx,indx_id,line)
+              elif isinstance(indx_id, collections.Iterable):
+                for i in indx_id:
+                  addval(filename,indx,i,line)
+              else: # just cast it to str
+                addval(filename,indx,str(indx_id),line)
+              
   return result
           
 
@@ -98,3 +110,4 @@ with open(OUTPUTDIR + '/blob.json', 'w') as fp:
 
 
 print('Python finished')
+
