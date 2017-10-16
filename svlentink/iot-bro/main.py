@@ -59,7 +59,8 @@ def filter_bro_log(filename):
 
 def filter_on_index(data):
   indices_tree = {
-    "*.log" : [ 'id_orig_h' ]
+    "*.log" : [ 'id_orig_h' ],
+    "dns.log" : [ 'query' ]
   }
   result = {}
   for filename in data:
