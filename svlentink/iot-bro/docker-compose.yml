@@ -1,8 +1,8 @@
 version: '2'
 services:
   bro:
-    build: .
-#    image: svlentink/iot-bro
+#    build: .
+    image: svlentink/iot-bro
     volumes:
       - ~/cloud9/logbook/henk/wlan0.pcapng:/input:ro
       - $PWD/main.py:/main.py
