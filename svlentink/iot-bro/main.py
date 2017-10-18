@@ -70,7 +70,7 @@ def filter_on_index(data, indices_tree):
     if data[filename] and len(data[filename]):
       for fileid in indices_tree: #     for every filename in data
         if fnmatch(filename, fileid): # check if we found a match in indices_tree
-          print('Found a match', filename, fileid)
+          #print('Found a match', filename, fileid)
           if filename not in result:
             result[filename] = {}
           for indx in indices_tree[fileid]:
@@ -86,31 +86,54 @@ def filter_on_index(data, indices_tree):
                 addval(filename,indx,str(indx_id),line)
               
   return result
-          
 
-data = {}
+
+
+      
+# first we parse all the log files
+logfilesdata = {}
 for file in glob("*.log"):
-  data[file] = filter_bro_log(file)
+  logfilesdata[file] = filter_bro_log(file)
 
+
+
+
+# Then we do the first indexing
+# based on original address and the answers for the dns queries
 indx01 = {
     "*.log" : [ 'id_orig_h' ],
     "dns.log" : [ 'answers' ]
   }
 
-indexed_data01 = filter_on_index(data,indx01)
+firstindexing = filter_on_index(logfilesdata,indx01)
 
+
+
+
+# Next we get it sorted by which ip connects to which one
 indx02 = {
-  "*" : [ 'id_resp_h', 'id_resp_p' ]
+  "*" : [ 'id_resp_h'] #, 'id_resp_p' ]
 }
 
-#for ip in indexed_data01['conn.log']['id_orig_h']:
-#  device = indexed_data01['conn.log']['id_orig_h'][ip]
+sortedbyip = filter_on_index(firstindexing['conn.log']['id_orig_h'],indx02)
 
-indexed_data01['dev_ip_to_ext_ip'] = filter_on_index(indexed_data01['conn.log']['id_orig_h'],indx02)
 
+
+
+# Now we will sort the traffic per port for every host it connects to
+sortedbyport = {}
+for ip in sortedbyip:
+  sortedbyport[ip] = filter_on_index(sortedbyip[ip]['id_resp_h'], { "*" : ["id_resp_p"] } )
+#  for host in sortedbyip[ip]['id_resp_h']:
+#    sortedbyport[ip][host] = filter_on_index(sortedbyip[ip]['id_resp_h'][host], { "*" : ["id_resp_p"] } )
+
+outp = {
+  "devices_hosts_ports" : sortedbyport,
+  "dns": firstindexing["dns.log"]["answers"]
+}
 
 with open(OUTPUTDIR + '/blob.json', 'w') as fp:
-  json.dump(indexed_data01, fp, default=str)
+  json.dump(outp, fp, default=str)
 
 
 
