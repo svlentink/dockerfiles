@@ -4,14 +4,19 @@
   src="https://code.jquery.com/jquery-3.2.1.min.js"
   integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
   crossorigin="anonymous"></script>
+  <script src="https://rawgit.com/yesmeck/jquery-jsonview/master/dist/jquery.jsonview.js"></script>
     <script>
     $.getJSON( "blob.json", function( json ) {
           window.data_from_server = json
           console.log(json)
+          var data = window.data_from_server['dnsmapped']
+          $("#output").JSONView(data,{ collapsed: true });
         });
     </script>
   </head>
   <body>
-    Currently, we only load the load, no visuals atm., see browser console.
+    <h3>For a better view, use the object in the console of your browser: window.data_from_server</h3>
+    <hr/>
+    <div id="output"></div>
   </body>
 </html>

@@ -127,9 +127,23 @@ for ip in sortedbyip:
 #  for host in sortedbyip[ip]['id_resp_h']:
 #    sortedbyport[ip][host] = filter_on_index(sortedbyip[ip]['id_resp_h'][host], { "*" : ["id_resp_p"] } )
 
+
+# Next we replace all hostnames which have a DNS mapping
+dnsmapped = {}
+for ip in sortedbyport:
+  dnsmapped[ip] = {}
+  for host in sortedbyport[ip]:
+    requests_to_host = sortedbyport[ip][host]
+    if host in firstindexing["dns.log"]["answers"]:
+      key = firstindexing["dns.log"]["answers"][host][0]['query']
+      dnsmapped[ip][key] = requests_to_host
+    else:
+      dnsmapped[ip][host] = requests_to_host
+
 outp = {
   "devices_hosts_ports" : sortedbyport,
-  "dns": firstindexing["dns.log"]["answers"]
+  "dns": firstindexing["dns.log"]["answers"],
+  "dnsmapped" : dnsmapped
 }
 
 with open(OUTPUTDIR + '/blob.json', 'w') as fp:
