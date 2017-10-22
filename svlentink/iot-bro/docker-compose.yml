@@ -1,20 +1,15 @@
 version: '2'
 services:
   bro:
-#    build: .
     image: svlentink/iot-bro
     volumes:
-      - ~/cloud9/logbook/henk/wlan0.pcapng:/input:ro
-      - $PWD/main.py:/main.py
-      - webroot:/output
+      - ~/cloud9/logbook/henk/wlan0.pcapng:/input:ro # your input file
+      - webroot:/output # used for the webview
   cdn:
     image: nginx:alpine
     volumes:
-      - webroot:/usr/share/nginx/html:ro #default location of container
+      - webroot:/usr/share/nginx/html:ro #default location of nginx container
     ports:
       - 8080:80
 volumes:
-  webroot:
-
-
-#docker run -it --rm --entrypoint sh -v /root/cloud9/logbook/henk/wlan0.pcapng:/input temp
+  webroot: # cross mounting between containers
