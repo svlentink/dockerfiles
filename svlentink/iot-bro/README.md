@@ -9,7 +9,7 @@ allowing an admin to make informed decicions when configuring a firewall.
 
 Get a tcpdump (`.pcap`).
 
-We recommand to start collecting before turning your device on.
+We recommend to start collecting before turning your device on.
 The initial DNS lookups will give meaning to the IP addresses it connects to.
 
 #### Step 02
@@ -35,11 +35,12 @@ This tool is developed as part as our research for a course of os3.nl
 ![design](draw_io.png 'edit this image on draw.io')
 
 Bro can directly be used to gather data or load a file.
-It outputs multiple log files (dependant on the configuration of Bro).
+It outputs multiple log files (dependent on the configuration of Bro).
 
 We then parse this data in `main.py`,
 which is constructed generic, but configured to aim at IoT.
+(You could tweak it do show very different results)
 
 The output is send to the browser,
-in which the data can be displayed (out of scope)
-via something like d3js.
+in which the data displayed in a basic tree structure.
+Using d3js would be better but required too much time.
