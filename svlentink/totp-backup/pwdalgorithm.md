@@ -22,22 +22,20 @@ E.g. one for work, one for social media, one for banking etc.
 ```javascript
 // environment specific
 var d = destination //e.g. 'yourmail.co.uk', 'someblog.com', 'macbook'
-// changable, needed for login but avoid using in alogrithm
+// changable; needed for login but avoid using in algorithm
 var u = userlogin //e.g. 'myeamil@as.login', 'someusername'
-var 
 ```
 
 ## Function
 
 ```javascript
-lc(inp,x) // last x char of input, default x=1 (recursive function, third param is pointer)
-fc(inp,x) // first x char of input
+lc(inp,x) // last x char(s) of input, default x=1
+fc(inp,x) // first x char(s) of input, default x=1 (e.g. truncate to max 16 chars)
 up(inp) // uppercase
 lo(inp) // lowercase
-rb(inp,{x:y}) // replace all x by y, default {e:3,s:5,o:0,a:'@'}
-tr(inp,x) // truncate, default x=16
-cv(inp) // count vowels
-ie(inp) // is even, counts if the length of the string is even, returns 1 or 0
+tr(inp,{x:y}) // replace all x by y, default {e:3,s:5,o:0,a:'@'} (tr=translate function in Perl)
+vc(inp) // vowels count
+el(inp) // even length?, returns 1 or 0
 'somestring'.length // length is a build in javascript function
 
 ```
@@ -49,7 +47,7 @@ var d = 'somedomain.tld'
 
 // example password generation part
 var fixedstr = '3@T' //fixed string (eat; a number, special char and uppercase)
-var pwd = lc(d,cv(d)) + '_' + fixedstr + d.length
+var pwd = lc(d,vc(d)) + '_' + fixedstr + d.length
 ```
 
 ## Links
@@ -69,6 +67,9 @@ Spot on! This assumtion is correct.
 Techniqually this is the right way to go, reducing complexity.
 However, we want to store the algorithms in non-volatile storage,
 since the entering/remembering the algorithms is less simple.
+
+You can consider the algorithm as "something you have"
+and the passphrase as "something you know".
 
 ### How to store your secrets
 

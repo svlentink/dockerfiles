@@ -3,7 +3,7 @@ services:
   bro:
     image: svlentink/iot-bro
     volumes:
-      - ~/cloud9/logbook/henk/wlan0.pcapng:/input:ro # your input file
+      - ~/cloud9/logbook/henk/initial_gateway_connection.pcapng:/input:ro # your input file
       - webroot:/output # used for the webview
   cdn:
     image: nginx:alpine
