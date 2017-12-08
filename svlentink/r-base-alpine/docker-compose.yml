@@ -1,0 +1,7 @@
+version: '2'
+services:
+  r:
+    image: svlentink/r-base-alpine
+    volumes:
+      - $PWD:my-script:/script:ro
+    command: ['/script']
