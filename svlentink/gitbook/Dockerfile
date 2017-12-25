@@ -2,7 +2,7 @@ FROM node:alpine
 
 RUN npm install --global gitbook-cli \
   && gitbook fetch latest \
-  && npm cache clear \
+  && npm cache clear --force \
   && rm -rf /tmp/*
 
 WORKDIR /gitbook
