@@ -1,20 +1,17 @@
 version: '2'
 services:
-  ide:
-    image: kdelfour/cloud9-docker
-#    mem_limit: 128m
-    volumes:
-      - $PWD:/workspace/
-  proxy:
-    image: nginx:alpine # svlentink/naxsi
-    volumes:
-      - $PWD/htpasswd:/htpasswd:ro # login
-      - $PWD/nginx.conf:/etc/nginx/conf.d/default.conf:ro
-      - $PWD/public:/public:ro # content
+  firewall:
+    image: svlentink/ipfilter
     links:
-      - ide
-      - ide:ide
+      - app
+      - app:app #creating a reference that we'll use
     ports:
-      - "80:8001"
-      - "163:163"
-# 163 looks like IdE
+      - 163:4321 # edit only the first part to specify the port for the host
+    environment:
+#      ALLOWED_IPS: 83.96.180.101/32 8.8.8.8/32
+      APP_PORT: 8181 # The port the app wants exposed
+  app:
+    image: sapk/cloud9
+    volumes:
+      - ~/cloud9:/workspace
+    command: ["--auth", "$MYUSER:$PASSWD"] # .env should contain these variables
