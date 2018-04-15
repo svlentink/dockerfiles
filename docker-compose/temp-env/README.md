@@ -1,16 +1,9 @@
 # temp-env
 
-As the name suggests, a docker-compose for creating a temp. environment.
-I use this when I know that I'll be in a place, where I can't use my own machine.
+This script run a cloud9 WebIDE on your server
+and asks you to type in credentials for basic_auth.
 
-T
-## Step01
-I'll spin up a new instance on a [VPS provider](https://scaleway.com), select docker as image and smallest VPS (64bit).
-
-## Step02
-I `ssh` into the machine and run your basics (e.g. `apt install ufw`, update etc.).
-
-## Step03
+## Installing it
 Run this script
 ```shell
 curl -sSL \

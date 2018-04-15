@@ -24,14 +24,16 @@ services:
       - ide
       - ide:ide
   ide:
-    image: sapk/cloud9
+    build:
+      dockerfile: ide.Dockerfile
     volumes:
       - ~/cloud9:/workspace
     command: ["-a", "$MYUSER:$PASSWD"] # .env should contain these variables
 
 # TODO create cdn.lent.ink/js compiler
   download-cryptojs:
-    build: .
+    build:
+      dockerfile: bower.Dockerfile
     volumes:
       - $PWD/generated:/generated
 #  compile-resume:
