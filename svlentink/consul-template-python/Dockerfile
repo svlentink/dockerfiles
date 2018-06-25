@@ -7,7 +7,7 @@ FROM python:alpine
 #                         | grep Location | grep -oE '[0-9]+\.[0-9]+\.[0-9]+') || true
 
 # since Hasicorp does not tag their release with latest, we do it hard coded for now...
-ENV CTMPL_VERSION 0.18.5
+ENV CTMPL_VERSION 0.19.5
 
 RUN apk add --no-cache wget unzip && cd /tmp && \
   wget https://releases.hashicorp.com/consul-template/${CTMPL_VERSION}/consul-template_${CTMPL_VERSION}_linux_amd64.zip && \
