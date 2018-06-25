@@ -25,6 +25,7 @@ services:
       - ide:ide
   ide:
     build:
+      context: .
       dockerfile: ide.Dockerfile
     volumes:
       - ~/cloud9:/workspace
@@ -33,6 +34,7 @@ services:
 # TODO create cdn.lent.ink/js compiler
   download-cryptojs:
     build:
+      context: .
       dockerfile: bower.Dockerfile
     volumes:
       - $PWD/generated:/generated
