@@ -1,5 +1,5 @@
 FROM wordpress
-
+  
 # wordpress.org/plugins/sqlite-integration/#installation
 ENV PLUGIN_VERSION 1.8.1
 RUN curl -o /sqlite-plugin.zip \
@@ -17,6 +17,19 @@ RUN curl -o /sqlite-plugin.zip \
 #    RANDOM=$(echo `date && hostname` | sha1sum) \
 #    && sed -i 's/put your unique phrase here/$RANDOM/g' /var/www/wp-config.php
 
-RUN curl -o /var/www/wp-config.php https://raw.githubusercontent.com/milanboers/wordpress-sqlite/master/config/wp-config.php
+#RUN curl -o /var/www/wp-config.php https://raw.githubusercontent.com/milanboers/wordpress-sqlite/master/config/wp-config.php
+#RUN curl https://raw.githubusercontent.com/milanboers/wordpress-sqlite/master/config/wp-config.php|head -34 > /var/www/wp-config.php
+RUN echo "<?php \$table_prefix = 'wp_'; require_once(ABSPATH . 'wp-settings.php');" \
+  > /var/www/wp-config.php
 RUN chown -R www-data:www-data /var/www
+
+
+
+
+
+
+
+
+
+
 
