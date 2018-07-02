@@ -1,0 +1,7 @@
+version: '3'
+services:
+  converter:
+    image: svlentink/wordpress-to-sqlite
+    volumes:
+      - $PWD/*archive.zip:/archive.zip
+      - $PWD/html:/outp
