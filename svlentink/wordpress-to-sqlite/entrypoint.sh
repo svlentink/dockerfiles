@@ -42,8 +42,8 @@ cp $ZIPC/wp-content/plugins/sqlite-integration/db.php $ZIPC/wp-content
 
 echo '=== moving to output'
 mv $ZIPC/* /outp/
-echo "=== The output dir can be mounted in svlentink/wordpress-sqlite at /var/www/html"
-echo "=== example: docker run -it --rm -v \$PWD/html:/var/www/html -p 80:80 svlentink/wordpress-sqlite"
+echo "=== The output dir can be mounted in wordpress at /var/www/html"
+echo "=== example: docker run -it --rm -v \$PWD/html:/var/www/html -p 80:80 wordpress"
 echo "=== You may want to add the following two to wp-config.php:"
 echo "define('WP_HOME','http://example.com:8080/');"
 echo "define('WP_SITEURL','http://127.0.0.1:80/');"
