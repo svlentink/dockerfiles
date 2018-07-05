@@ -42,6 +42,7 @@ cp $ZIPC/wp-content/plugins/sqlite-integration/db.php $ZIPC/wp-content
 
 echo '=== moving to output'
 mv $ZIPC/* /outp/
+mv $ZIPC/.[!.]* /outp/ #.htaccess file
 echo "=== The output dir can be mounted in wordpress at /var/www/html"
 echo "=== example: docker run -it --rm -v \$PWD/html:/var/www/html -p 80:80 wordpress"
 echo "=== You may want to add the following two to wp-config.php:"

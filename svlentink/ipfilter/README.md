@@ -16,3 +16,8 @@ You can use the
 ```shell
 DOCKER_OPTS="--dns 8.8.8.8 --dns 8.8.4.4 --iptables=false"
 ```
+
+## alternative
+
+Instead of IP filter, you can expand the barrier from network to device (just like beyondcorp):
+https://github.com/bitly/oauth2_proxy
