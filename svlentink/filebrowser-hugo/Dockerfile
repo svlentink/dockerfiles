@@ -33,5 +33,8 @@ VOLUME /tmp
 VOLUME /srv
 EXPOSE 80
 
-ENTRYPOINT ["/filebrowser","--staticgen","hugo", "--config", "/go/src/github.com/filebrowser/filebrowser/Docker.json"]
-ENTRYPOINT ["/bin/sh"]
+COPY filebrowser.yml /
+#RUN cd /srv; hugo new site mywebsite
+
+ENTRYPOINT ["/filebrowser","--staticgen","hugo", "--config"]
+CMD ["/filebrowser.yml"] #"/go/src/github.com/filebrowser/filebrowser/Docker.json"]

@@ -1,0 +1,9 @@
+# https://filebrowser.github.io/configuration/
+port: 80
+baseURL: /admin
+log: stdout
+plugin: 'http.hugo'
+scope: "/srv"
+commands:
+- git
+- hugo
