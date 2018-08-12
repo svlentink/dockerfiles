@@ -1,0 +1,3 @@
+# The first line of hacdias/filebrowser, could also be used as a start
+FROM filebrowser/filebrowser
+CMD ["--staticgen","hugo"]
