@@ -21,3 +21,7 @@ DOCKER_OPTS="--dns 8.8.8.8 --dns 8.8.4.4 --iptables=false"
 
 Instead of IP filter, you can expand the barrier from network to device (just like beyondcorp):
 https://github.com/bitly/oauth2_proxy
+https://zero.pritunl.com
+
+Or instead of this layer 4 (application layer),
+you could use layer 3 filtering.
