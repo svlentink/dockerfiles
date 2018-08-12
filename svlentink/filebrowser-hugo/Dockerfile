@@ -12,24 +12,22 @@ RUN apk --no-cache add \
   go get github.com/golang/dep/cmd/dep; \
   go get github.com/GeertJohan/go.rice/rice; \
   git clone https://github.com/filebrowser/filebrowser.git /go/src/github.com/filebrowser/filebrowser; \
-  git clone https://github.com/filebrowser/frontend.git    /go/src/github.com/filebrowser/frontend; \
+  git clone https://github.com/filebrowser/frontend.git    /go/src/github.com/filebrowser/filebrowser/frontend; \
   git clone https://github.com/gohugoio/hugo.git           /go/src/github.com/gohugoio/hugo/; \
   cd /go/src/github.com/gohugoio/hugo; \
   dep ensure -vendor-only; \
   go install -ldflags '-s -w'; \
-  ln -s /go/bin/hugo /hugo;
-RUN \
+  ln -s /go/bin/hugo /hugo; \
+  cd /go/src/github.com/filebrowser/filebrowser/frontend; \
+  yarn install; \
+  yarn build; \
   cd /go/src/github.com/filebrowser/filebrowser; \
   dep ensure -vendor-only; \
   rice embed-go; \
   cd /go/src/github.com/filebrowser/filebrowser/cmd/filebrowser; \
   go build -a; \
   mv filebrowser /go/bin/filebrowser; \
-  ln -s /go/bin/filebrowser /filebrowser; \
-  cd /go/src/github.com/filebrowser/frontend; \
-  yarn install; \
-  yarn build; \
-  ln -s /go/src/github.com/filebrowser/frontend /go/src/github.com/filebrowser/filebrowser/frontend;
+  ln -s /go/bin/filebrowser /filebrowser;
 
 VOLUME /tmp
 VOLUME /srv
