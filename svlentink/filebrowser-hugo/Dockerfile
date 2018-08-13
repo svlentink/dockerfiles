@@ -29,7 +29,6 @@ RUN apk --no-cache add \
   mv filebrowser /go/bin/filebrowser; \
   ln -s /go/bin/filebrowser /filebrowser;
 
-VOLUME /tmp
 VOLUME /srv
 EXPOSE 80
 
