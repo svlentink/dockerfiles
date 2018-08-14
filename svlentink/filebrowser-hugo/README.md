@@ -2,9 +2,19 @@
 
 Run it using:
 ```shell
-docker run -it --rm -p 8080:80 -v $PWD:/srv svlentink/filebrowser-hugo
+docker run -it --rm \
+  -p 8080:80 \
+  -v $PWD:/srv \
+  svlentink/filebrowser-hugo
 ```
-You can now visit `localhost:8080/admin` in your browser.
+
+## Quickstart
+You can now visit `localhost:8080/admin` in your browser (login with admin admin).
+
+The search bar (top left) allows you to run commands, such as
+```shell
+$ls /hugosite
+```
 
 ### credits
 The current Dockerfile is inspired by:

@@ -29,11 +29,13 @@ RUN apk --no-cache add \
   mv filebrowser /go/bin/filebrowser; \
   ln -s /go/bin/filebrowser /filebrowser;
 
-VOLUME /srv
+VOLUME /hugosite
 EXPOSE 80
 
 COPY filebrowser.yml /
-#RUN cd /srv; hugo new site mywebsite
+COPY entrypoint.sh /
 
 ENTRYPOINT ["/filebrowser","--staticgen","hugo", "--config"]
-CMD ["/filebrowser.yml"] #"/go/src/github.com/filebrowser/filebrowser/Docker.json"]
+ENTRYPOINT ["/entrypoint.sh"]
+CMD ["/go/src/github.com/filebrowser/filebrowser/Docker.json"]
+CMD ["/filebrowser.yml"]

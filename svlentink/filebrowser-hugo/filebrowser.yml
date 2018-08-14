@@ -3,7 +3,9 @@ port: 80
 baseURL: /admin
 log: stdout
 plugin: 'http.hugo'
-scope: "/srv"
+scope: "/hugosite"
 commands:
 - git
 - hugo
+- sh
+- ls
