@@ -137,10 +137,9 @@ init_master
 echo ===> Deploying pod network
 deploy_weave
 disable_master_isolation
+update-grub || true
 echo ====> Installing dashboard
 install_dashboard
-
-update-grub || true
 
 kubectl get pods --all-namespaces
 
