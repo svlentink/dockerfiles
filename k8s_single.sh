@@ -55,7 +55,8 @@ init_master() { #https://kubernetes.io/docs/setup/independent/create-cluster-kub
   #https://kubernetes.io/docs/setup/independent/create-cluster-kubeadm/#more-information
   #https://github.com/kubernetes/kubernetes/issues/48378
   export KUBECONFIG=/etc/kubernetes/kubelet.conf
-  sleep 300 # just to be sure the master is all fired up
+  sleep 120 # just to be sure the master is all fired up
+  kubectl get pods --all-namespaces|grep dns|grep -i running||(echo init_master failed && exit)
 }
 deploy_flannel() { #https://kubernetes.io/docs/setup/independent/create-cluster-kubeadm/#pod-network
   sysctl net.bridge.bridge-nf-call-iptables=1
@@ -65,7 +66,10 @@ deploy_flannel() { #https://kubernetes.io/docs/setup/independent/create-cluster-
 deploy_weave() { #https://kubernetes.io/docs/setup/independent/create-cluster-kubeadm/#pod-network
   echo "net.bridge.bridge-nf-call-iptables=1" >> /etc/sysctl.conf
   sysctl -p
+  sleep 10
   kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$(kubectl version | base64 | tr -d '\n')"
+  sleep 120
+  kubectl get pods --all-namespaces|grep weave|grep -i running||(echo deploy_weave failed && exit)
 }
 disable_master_isolation() { #https://kubernetes.io/docs/setup/independent/create-cluster-kubeadm/#master-isolation
   kubectl taint nodes --all node-role.kubernetes.io/master-
@@ -99,6 +103,9 @@ EOF
 
   kubectl create -f /tmp/service-account.yaml
   kubectl create -f /tmp/dashboard-admin.yaml
+  
+  sleep 60
+  kubectl get pods --all-namespaces|grep dashboard|grep -i running||(echo install_dashboard failed && exit)
   
   DASHBOARD_TOKEN_NAME=`kubectl -n kube-system get secret|grep dashboard-token|awk '{print $1}'`
   kubectl -n kube-system describe secret ${DASHBOARD_TOKEN_NAME}
@@ -138,7 +145,7 @@ update-grub || true
 
 kubectl get pods --all-namespaces
 
-echo "kubectl describe po -n kube-system"
+echo "debugging: kubectl describe po -n kube-system"
 echo "kubectl proxy -p 8080 --accept-hosts='^*\$' --address="$IPADDR
 #https://kubernetes.io/docs/tasks/access-application-cluster/web-ui-dashboard/#master-server
 echo "http://$IPADDR:8080/api/v1/namespaces/kube-system/services/https:kubernetes-dashboard:/proxy/"
