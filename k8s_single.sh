@@ -73,7 +73,7 @@ disable_master_isolation() { #https://kubernetes.io/docs/setup/independent/creat
 install_dashboard() { #https://github.com/kubernetes/dashboard#getting-started
   kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/master/src/deploy/recommended/kubernetes-dashboard.yaml
   # https://github.com/kubernetes/dashboard/wiki/Access-control#official-release
-cat <<EOF> /tmp/dashboard-admin.yml
+cat <<EOF> /tmp/dashboard-admin.yaml
 apiVersion: rbac.authorization.k8s.io/v1beta1
 kind: ClusterRoleBinding
 metadata:
