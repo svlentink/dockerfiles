@@ -1,5 +1,5 @@
 #!/bin/bash -e
-
+set -e
 # STATUS: WIP
 
 # based on
@@ -56,7 +56,6 @@ init_master() { #https://kubernetes.io/docs/setup/independent/create-cluster-kub
   #https://github.com/kubernetes/kubernetes/issues/48378
   export KUBECONFIG=/etc/kubernetes/kubelet.conf
   sleep 120 # just to be sure the master is all fired up
-  kubectl get pods --all-namespaces|grep dns|grep -i running||(echo init_master failed && exit)
 }
 deploy_flannel() { #https://kubernetes.io/docs/setup/independent/create-cluster-kubeadm/#pod-network
   sysctl net.bridge.bridge-nf-call-iptables=1
@@ -81,7 +80,7 @@ cat <<EOF> /tmp/dashboard-admin.yaml
 apiVersion: rbac.authorization.k8s.io/v1beta1
 kind: ClusterRoleBinding
 metadata:
-  name: kubernetes-dashboard
+  name: admin-user
   labels:
     k8s-app: kubernetes-dashboard
 roleRef:
@@ -90,14 +89,14 @@ roleRef:
   name: cluster-admin
 subjects:
 - kind: ServiceAccount
-  name: kubernetes-dashboard
+  name: admin-user
   namespace: kube-system
 EOF
 cat <<EOF> /tmp/service-account.yaml
 apiVersion: v1
 kind: ServiceAccount
 metadata:
-  name: kubernetes-dashboard
+  name: admin-user
   namespace: kube-system
 EOF
 
