@@ -55,6 +55,7 @@ init_master() { #https://kubernetes.io/docs/setup/independent/create-cluster-kub
   #https://kubernetes.io/docs/setup/independent/create-cluster-kubeadm/#more-information
   #https://github.com/kubernetes/kubernetes/issues/48378
   export KUBECONFIG=/etc/kubernetes/kubelet.conf
+  sleep 300 # just to be sure the master is all fired up
 }
 deploy_flannel() { #https://kubernetes.io/docs/setup/independent/create-cluster-kubeadm/#pod-network
   sysctl net.bridge.bridge-nf-call-iptables=1
@@ -64,7 +65,6 @@ deploy_flannel() { #https://kubernetes.io/docs/setup/independent/create-cluster-
 deploy_weave() { #https://kubernetes.io/docs/setup/independent/create-cluster-kubeadm/#pod-network
   echo "net.bridge.bridge-nf-call-iptables=1" >> /etc/sysctl.conf
   sysctl -p
-  sleep 30 # just to be sure the master is all fired up
   kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$(kubectl version | base64 | tr -d '\n')"
 }
 disable_master_isolation() { #https://kubernetes.io/docs/setup/independent/create-cluster-kubeadm/#master-isolation
