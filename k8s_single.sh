@@ -139,7 +139,7 @@ update-grub || true
 kubectl get pods --all-namespaces
 
 echo "kubectl describe po -n kube-system"
-echo "kubectl proxy -p 8080 --accept-hosts='^*\$' --address="%IPADDR
+echo "kubectl proxy -p 8080 --accept-hosts='^*\$' --address="$IPADDR
 #https://kubernetes.io/docs/tasks/access-application-cluster/web-ui-dashboard/#master-server
 echo "http://$IPADDR:8080/api/v1/namespaces/kube-system/services/https:kubernetes-dashboard:/proxy/"
 }
