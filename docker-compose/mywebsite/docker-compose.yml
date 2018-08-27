@@ -1,4 +1,4 @@
-version: '2'
+version: '3'
 services:
   cdn:
     image: svlentink/mywebsite
@@ -28,7 +28,9 @@ services:
       context: .
       dockerfile: ide.Dockerfile
     volumes:
-      - ~/cloud9:/workspace
+      - ~/Dropbox/webIDE:/workspace
+    env_file:
+      - ~/.webIDE.env
     command: ["-a", "$MYUSER:$PASSWD"] # .env should contain these variables
 
 # TODO create cdn.lent.ink/js compiler

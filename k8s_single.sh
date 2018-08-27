@@ -65,7 +65,7 @@ deploy_flannel() { #https://kubernetes.io/docs/setup/independent/create-cluster-
 deploy_weave() { #https://kubernetes.io/docs/setup/independent/create-cluster-kubeadm/#pod-network
   echo "net.bridge.bridge-nf-call-iptables=1" >> /etc/sysctl.conf
   sysctl -p
-  sleep 10
+  sleep 120
   kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$(kubectl version | base64 | tr -d '\n')"
   sleep 120
   kubectl get pods --all-namespaces|grep weave|grep -i running||(echo deploy_weave failed && exit)
@@ -74,7 +74,8 @@ disable_master_isolation() { #https://kubernetes.io/docs/setup/independent/creat
   kubectl taint nodes --all node-role.kubernetes.io/master-
 }
 install_dashboard() { #https://github.com/kubernetes/dashboard#getting-started
-  kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/master/src/deploy/recommended/kubernetes-dashboard.yaml
+  dpkg --print-architecture|grep arm && ARMSTRING='-arm'
+  kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/master/src/deploy/recommended/kubernetes-dashboard$ARMSTRING.yaml
   # https://github.com/kubernetes/dashboard/wiki/Access-control#official-release
 cat <<EOF> /tmp/dashboard-admin.yaml
 apiVersion: rbac.authorization.k8s.io/v1beta1
