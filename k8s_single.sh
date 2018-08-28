@@ -1,11 +1,5 @@
 #!/bin/bash -e
 set -e
-# STATUS: WIP
-
-# based on
-# https://medium.com/@smijar/installing-kubernetes-all-in-one-on-a-low-resource-vps-1c89dd5f0096
-# https://hostadvice.com/how-to/how-to-set-up-kubernetes-in-ubuntu/
-# https://ninetaillabs.com/setting-up-a-single-node-kubernetes-cluster/
 
 disable_swap() {
   swapoff -a
@@ -111,8 +105,8 @@ EOF
   kubectl -n kube-system describe secret ${DASHBOARD_TOKEN_NAME}
 }
 
+dpkg --print-architecture|grep arm && echo "Detected ARM architecture. Dashboard won't work."
 
-function_for_safe_piping() {
 echo Create single instance k8s master and node
 
 [[ $USER != "root" ]] && echo Please run as root && exit 1
@@ -148,5 +142,4 @@ echo "debugging: kubectl describe po -n kube-system"
 echo "kubectl proxy -p 8080 --accept-hosts='^*\$' --address="$IPADDR
 #https://kubernetes.io/docs/tasks/access-application-cluster/web-ui-dashboard/#master-server
 echo "http://$IPADDR:8080/api/v1/namespaces/kube-system/services/https:kubernetes-dashboard:/proxy/"
-}
-function_for_safe_piping
+
