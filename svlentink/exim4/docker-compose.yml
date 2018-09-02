@@ -1,0 +1,10 @@
+version: '3'
+services:
+  exim:
+    image: svlentink/exim4
+    ports:
+      - '25:25'
+    volumes:
+      - '/etc/letsencrypt/archive/lent.ink/fullchain.pem:/cert.pem'
+      - '/etc/letsencrypt/archive/lent.ink/privkey.pem:/priv.pem'
+      - '$PWD/my-exim.conf:/etc/exim/conf.d/default.conf' #overwriting default conf
