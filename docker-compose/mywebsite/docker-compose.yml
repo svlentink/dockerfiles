@@ -17,12 +17,15 @@ services:
       - $PWD/generated:/var/www/cdn.lent.ink/generated:ro
 # filesharing
       - /tmp/filesharing:/filesharing:ro
+      - ~/wordpressdir/nginx.conf:/etc/nginx/conf.d/wordpress.conf:ro
     ports:
       - "80:80"
       - "443:443"
     links:
       - ide
       - ide:ide
+      - wordpress
+      - wordpress:wordpress
   ide:
     build:
       context: .
@@ -45,3 +48,10 @@ services:
 #    volumes:
 #      - $PWD:/data
 #    command: texi2pdf --tidy --shell-escape --output=/data/resume.pdf /data/resume.tex
+
+
+  wordpress:
+    image: wordpress:apache
+    volumes:
+      - ~/wordpressdir:/var/www
+

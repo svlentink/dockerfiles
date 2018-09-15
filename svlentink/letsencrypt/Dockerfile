@@ -1,6 +1,6 @@
 FROM certbot/certbot
-COPY entry.sh /entryp
-COPY entry-test.sh /test-entryp
+COPY docker-entrypoint.sh /docker-entrypoint.sh
+COPY test-entrypoint.sh /test-entrypoint
 COPY auth.sh /auth
 RUN ln -s /auth /cleanup
-ENTRYPOINT ["/entryp"]
+ENTRYPOINT ["/docker-entrypoint.sh"]

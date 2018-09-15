@@ -3,25 +3,24 @@ services:
   cdn:
     image: nginx:alpine
     volumes:
-      - cdn:/usr/share/nginx/html:ro
+      - shared-challenge-volume:/usr/share/nginx/html/.well-known/acme-challenge:ro
     ports:
       - "80:80"
   ssl:
     image: svlentink/letsencrypt
     volumes:
-      - cdn:/tmp/challenge
+      - shared-challenge-volume:/challenge/.well-known/acme-challenge
+      - $PWD/certificatefiles:/pemfiles
 # Example options:
-      # This will enable you to get the actual files, instead of JSON
-#      - $PWD/something:/etc/letsencrypt
       # auth-hook; https://certbot.eff.org/docs/using.html#pre-and-post-validation-hooks
 #      - $PWD/auth.sh:/auth:ro
       # cleanup hook; https://certbot.eff.org/docs/using.html#pre-and-post-validation-hooks
 #      - $PWD/cleanup.sh:/cleanup:ro
 # Test entrypoint for debugging
-   # entrypoint: /test-entryp
+   # entrypoint: /test-entrypoint
     environment:
       EMAIL: ops@example.com
-      OUTPUTDIRNAME: sharedcert
     command: ssltest.lent.ink another.lent.ink
 volumes:
-  cdn: {}
+  shared-challenge-volume: {}
+

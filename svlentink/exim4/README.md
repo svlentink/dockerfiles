@@ -17,3 +17,5 @@ You can also mount `/etc/exim/conf.d/`
 https://www.exim.org/exim-html-current/doc/html/spec_html/ch-the_default_configuration_file.html
 https://github.com/biig-io/docker-exim-relay/tree/master/conf.d
 https://github.com/primesign/docker-exim4
+https://www.rosehosting.com/blog/setup-a-mailserver-with-exim-and-dovecot-on-a-centos-7-vps/
+
