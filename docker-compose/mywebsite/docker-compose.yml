@@ -51,7 +51,9 @@ services:
 
 
   wordpress:
-    image: wordpress:apache
+    image: svlentink/wordpress-sqlite #wordpress:apache
     volumes:
       - ~/wordpressdir:/var/www
+    working_dir: /var/www/html
+    entrypoint: ["apache2-foreground"]
 
