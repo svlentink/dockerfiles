@@ -8,7 +8,7 @@ services:
 #      - $PWD/passwd:/passwd:ro # password for sharing homework
 #      - ~/cloud9:/workspace:ro # static content from cloud9
 # SSL
-      - /etc/letsencrypt:/etc/letsencrypt:ro # content certificates
+      - ~/sslcerts:/sslcerts:ro # content certificates
       - /tmp/.well-known:/tmp/.well-known:ro # hub.docker.com/r/svlentink/letsencrypt
 # static content for cdn.lent.ink
       - /data/pdf:/var/www/cdn.lent.ink/pdf:ro
