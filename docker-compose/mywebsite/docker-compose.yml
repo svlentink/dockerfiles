@@ -8,8 +8,9 @@ services:
 #      - $PWD/passwd:/passwd:ro # password for sharing homework
 #      - ~/cloud9:/workspace:ro # static content from cloud9
 # SSL
-      - ~/sslcerts:/sslcerts:ro # content certificates
+      - ~/.sekretoj/sslcerts:/sslcerts:ro # content certificates
       - /tmp/.well-known:/tmp/.well-known:ro # hub.docker.com/r/svlentink/letsencrypt
+      - ~/.sekretoj/wordpress:/authdir:ro
 # static content for cdn.lent.ink
       - /data/pdf:/var/www/cdn.lent.ink/pdf:ro
       - /data/tar:/var/www/cdn.lent.ink/tar:ro
@@ -17,7 +18,7 @@ services:
       - $PWD/generated:/var/www/cdn.lent.ink/generated:ro
 # filesharing
       - /tmp/filesharing:/filesharing:ro
-      - ~/wordpressdir/nginx.conf:/etc/nginx/conf.d/wordpress.conf:ro
+      - ~/wordpress-backup/nginx.conf:/etc/nginx/conf.d/wordpress.conf:ro
     ports:
       - "80:80"
       - "443:443"
@@ -33,7 +34,7 @@ services:
     volumes:
       - ~/Dropbox/webIDE:/workspace
     env_file:
-      - ~/.webIDE.env
+      - ~/.sekretoj/webIDE/.webIDE.env
     command: ["-a", "$MYUSER:$PASSWD"] # .env should contain these variables
 
 # TODO create cdn.lent.ink/js compiler
@@ -53,7 +54,7 @@ services:
   wordpress:
     image: svlentink/wordpress-sqlite #wordpress:apache
     volumes:
-      - ~/wordpressdir:/var/www
+      - ~/wordpress-backup/html:/var/www/html
     working_dir: /var/www/html
     entrypoint: ["apache2-foreground"]
 
