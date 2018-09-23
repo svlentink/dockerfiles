@@ -7,12 +7,14 @@ services:
       - ~/.sekretoj/sslcerts:/sslcerts:ro
       - /tmp/.well-known:/tmp/.well-known:ro # hub.docker.com/r/svlentink/letsencrypt
       - ~/.sekretoj/wordpress:/authdir:ro
-      - /data/pdf:/var/www/cdn.lent.ink/pdf:ro
-      - /data/tar:/var/www/cdn.lent.ink/tar:ro
-      - /data/img:/var/www/cdn.lent.ink/img:ro
+      - ~/Dropbox/cdndata/pdf:/var/www/cdn.lent.ink/pdf:ro
+      - ~/Dropbox/cdndata/tar:/var/www/cdn.lent.ink/tar:ro
+      - ~/Dropbox/cdndata/img:/var/www/cdn.lent.ink/img:ro
       - $PWD/generated:/var/www/cdn.lent.ink/generated:ro
       - /tmp/filesharing:/filesharing:ro
       - ~/wordpress-backup/nginx.conf:/etc/nginx/conf.d/wordpress.conf:ro
+      - ~/lois:/lois:ro
+      - ~/lois/nginx.conf:/etc/nginx/conf.d/lois.conf:ro
     ports:
       - "80:80"
       - "443:443"
@@ -58,5 +60,5 @@ services:
       - ~/sslcerts:/pemfiles
     environment:
       EMAIL: ssl@lent.ink
-    command: lent.ink dev.lent.ink cdn.lent.ink lisanne.lent.ink
+    command: lent.ink blog.lent.ink cdn.lent.ink dev.lent.ink lisanne.lent.ink loiszoektwerk.nl loiszoektwerk.be
 
