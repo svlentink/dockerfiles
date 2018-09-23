@@ -3,20 +3,14 @@ services:
   cdn:
     image: svlentink/mywebsite
     volumes:
-# Cloud9 webIDE for homework
-      - $PWD/homework.conf:/etc/nginx/conf.d/homework.conf:ro # nginx config
-#      - $PWD/passwd:/passwd:ro # password for sharing homework
-#      - ~/cloud9:/workspace:ro # static content from cloud9
-# SSL
-      - ~/.sekretoj/sslcerts:/sslcerts:ro # content certificates
+      - $PWD/homework.conf:/etc/nginx/conf.d/homework.conf:ro
+      - ~/.sekretoj/sslcerts:/sslcerts:ro
       - /tmp/.well-known:/tmp/.well-known:ro # hub.docker.com/r/svlentink/letsencrypt
       - ~/.sekretoj/wordpress:/authdir:ro
-# static content for cdn.lent.ink
       - /data/pdf:/var/www/cdn.lent.ink/pdf:ro
       - /data/tar:/var/www/cdn.lent.ink/tar:ro
       - /data/img:/var/www/cdn.lent.ink/img:ro
       - $PWD/generated:/var/www/cdn.lent.ink/generated:ro
-# filesharing
       - /tmp/filesharing:/filesharing:ro
       - ~/wordpress-backup/nginx.conf:/etc/nginx/conf.d/wordpress.conf:ro
     ports:
@@ -50,11 +44,19 @@ services:
 #      - $PWD:/data
 #    command: texi2pdf --tidy --shell-escape --output=/data/resume.pdf /data/resume.tex
 
-
   wordpress:
-    image: svlentink/wordpress-sqlite #wordpress:apache
+    image: svlentink/wordpress-sqlite
     volumes:
       - ~/wordpress-backup/html:/var/www/html
     working_dir: /var/www/html
     entrypoint: ["apache2-foreground"]
+
+  ssl:
+    image: svlentink/letsencrypt
+    volumes:
+      - /tmp:/challenge
+      - ~/sslcerts:/pemfiles
+    environment:
+      EMAIL: ssl@lent.ink
+    command: lent.ink dev.lent.ink cdn.lent.ink lisanne.lent.ink
 
