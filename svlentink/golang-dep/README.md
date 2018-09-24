@@ -1,3 +1,5 @@
-# Golang:alpine + dep
-
-Golang with `dep` useful as a base image.
+# Deprecated
+Just use:
+```
+go get github.com/golang/dep/cmd/dep;
+```

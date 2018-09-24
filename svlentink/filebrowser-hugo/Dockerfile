@@ -1,4 +1,4 @@
-FROM golang:alpine
+FROM golang:alpine AS builder
 
 #https://github.com/gohugoio/hugo/blob/master/Dockerfile
 ENV CGO_ENABLED=0
@@ -17,7 +17,6 @@ RUN apk --no-cache add \
   cd /go/src/github.com/gohugoio/hugo; \
   dep ensure -vendor-only; \
   go install -ldflags '-s -w'; \
-  ln -s /go/bin/hugo /hugo; \
   cd /go/src/github.com/filebrowser/filebrowser/frontend; \
   yarn install; \
   yarn build; \
@@ -26,16 +25,22 @@ RUN apk --no-cache add \
   rice embed-go; \
   cd /go/src/github.com/filebrowser/filebrowser/cmd/filebrowser; \
   go build -a; \
-  mv filebrowser /go/bin/filebrowser; \
-  ln -s /go/bin/filebrowser /filebrowser;
+  mv filebrowser /go/bin/filebrowser;
+
+ENTRYPOINT ["/go/bin/filebrowser","--staticgen","hugo", "--config"]
+CMD ["/go/src/github.com/filebrowser/filebrowser/Docker.json"]
+
+FROM alpine
+
+COPY --from=builder /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/ca-certificates.crt
+COPY --from=builder /go/bin/filebrowser /
+COPY --from=builder /go/bin/hugo /bin/hugo
+RUN apk add --no-cache git
 
 VOLUME /hugosite
 EXPOSE 80
 
 COPY filebrowser.yml /
 COPY entrypoint.sh /
-
-ENTRYPOINT ["/filebrowser","--staticgen","hugo", "--config"]
 ENTRYPOINT ["/entrypoint.sh"]
-CMD ["/go/src/github.com/filebrowser/filebrowser/Docker.json"]
 CMD ["/filebrowser.yml"]
