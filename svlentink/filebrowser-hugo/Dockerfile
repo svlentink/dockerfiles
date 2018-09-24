@@ -8,24 +8,32 @@ RUN apk --no-cache add \
   ca-certificates \
   git \
   musl-dev \
-  yarn; \
-  go get github.com/golang/dep/cmd/dep; \
-  go get github.com/GeertJohan/go.rice/rice; \
-  git clone https://github.com/filebrowser/filebrowser.git /go/src/github.com/filebrowser/filebrowser; \
-  git clone https://github.com/filebrowser/frontend.git    /go/src/github.com/filebrowser/filebrowser/frontend; \
-  git clone https://github.com/gohugoio/hugo.git           /go/src/github.com/gohugoio/hugo/; \
-  cd /go/src/github.com/gohugoio/hugo; \
-  dep ensure -vendor-only; \
-  go install -ldflags '-s -w'; \
-  cd /go/src/github.com/filebrowser/filebrowser/frontend; \
-  yarn install; \
-  yarn build; \
-  cd /go/src/github.com/filebrowser/filebrowser; \
-  dep ensure -vendor-only; \
-  rice embed-go; \
-  cd /go/src/github.com/filebrowser/filebrowser/cmd/filebrowser; \
-  go build -a; \
-  mv filebrowser /go/bin/filebrowser;
+  yarn;
+
+RUN go get github.com/golang/dep/cmd/dep
+RUN go get github.com/GeertJohan/go.rice/rice
+RUN git clone https://github.com/filebrowser/filebrowser.git /go/src/github.com/filebrowser/filebrowser
+RUN git clone https://github.com/filebrowser/frontend.git    /go/src/github.com/filebrowser/filebrowser/frontend
+RUN git clone https://github.com/gohugoio/hugo.git           /go/src/github.com/gohugoio/hugo/
+
+ENV GO111MODULE=on
+WORKDIR /go/src/github.com/gohugoio/hugo
+RUN go mod vendor
+#RUN dep ensure -vendor-only
+RUN go install -ldflags '-s -w'
+
+WORKDIR /go/src/github.com/filebrowser/filebrowser/frontend
+RUN yarn install; \
+  yarn build;
+
+WORKDIR /go/src/github.com/filebrowser/filebrowser/cli
+RUN go mod vendor
+RUN go install #-ldflags '-s -w'
+RUN rice embed-go
+
+WORKDIR /go/src/github.com/filebrowser/filebrowser/cmd/filebrowser
+RUN go build -a
+RUN mv filebrowser /go/bin/filebrowser
 
 ENTRYPOINT ["/go/bin/filebrowser","--staticgen","hugo", "--config"]
 CMD ["/go/src/github.com/filebrowser/filebrowser/Docker.json"]
