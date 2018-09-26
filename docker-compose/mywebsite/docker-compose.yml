@@ -24,8 +24,6 @@ services:
       - ide:ide
       - php
       - php:php
-#      - wordpress
-#      - wordpress:wordpress
   ide:
     build:
       context: .
@@ -49,21 +47,10 @@ services:
 #      - $PWD:/data
 #    command: texi2pdf --tidy --shell-escape --output=/data/resume.pdf /data/resume.tex
 
-#  wordpress:
-#    image: svlentink/wordpress-sqlite
-#    volumes:
-#      - ~/wordpress-backup/html:/var/www/html
-#    working_dir: /var/www/html
-#    entrypoint: ["apache2-foreground"]
-
   php:
     image: php:fpm-alpine
     volumes:
       - ~/wordpress-backup:/var/php
-#    working_dir: /var/php
-#    command: ["php-fpm","-d","cgi.fix_pathinfo=0","--allow-to-run-as-root","--nodaemonize"]
- #   command: ["php-fpm","--allow-to-run-as-root","--nodaemonize"]
- #   user: 0:0
 
   ssl:
     image: svlentink/letsencrypt
