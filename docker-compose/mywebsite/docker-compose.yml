@@ -13,6 +13,7 @@ services:
       - $PWD/generated:/var/www/cdn.lent.ink/generated:ro
       - /tmp/filesharing:/filesharing:ro
       - ~/wordpress-backup/nginx.conf:/etc/nginx/conf.d/wordpress.conf:ro
+      - ~/wordpress-backup:/var/php
       - ~/lois:/lois:ro
       - ~/lois/nginx.conf:/etc/nginx/conf.d/lois.conf:ro
     ports:
@@ -21,8 +22,10 @@ services:
     links:
       - ide
       - ide:ide
-      - wordpress
-      - wordpress:wordpress
+      - php
+      - php:php
+#      - wordpress
+#      - wordpress:wordpress
   ide:
     build:
       context: .
@@ -46,12 +49,21 @@ services:
 #      - $PWD:/data
 #    command: texi2pdf --tidy --shell-escape --output=/data/resume.pdf /data/resume.tex
 
-  wordpress:
-    image: svlentink/wordpress-sqlite
+#  wordpress:
+#    image: svlentink/wordpress-sqlite
+#    volumes:
+#      - ~/wordpress-backup/html:/var/www/html
+#    working_dir: /var/www/html
+#    entrypoint: ["apache2-foreground"]
+
+  php:
+    image: php:fpm-alpine
     volumes:
-      - ~/wordpress-backup/html:/var/www/html
-    working_dir: /var/www/html
-    entrypoint: ["apache2-foreground"]
+      - ~/wordpress-backup:/var/php
+#    working_dir: /var/php
+#    command: ["php-fpm","-d","cgi.fix_pathinfo=0","--allow-to-run-as-root","--nodaemonize"]
+ #   command: ["php-fpm","--allow-to-run-as-root","--nodaemonize"]
+ #   user: 0:0
 
   ssl:
     image: svlentink/letsencrypt
@@ -60,5 +72,5 @@ services:
       - ~/sslcerts:/pemfiles
     environment:
       EMAIL: ssl@lent.ink
-    command: lent.ink blog.lent.ink cdn.lent.ink dev.lent.ink lisanne.lent.ink loiszoektwerk.nl loiszoektwerk.be
+    command: lent.ink blog.lent.ink cdn.lent.ink dev.lent.ink lisanne.lent.ink loiszoektwerk.nl loiszoektwerk.be juflisanne.nl
 
