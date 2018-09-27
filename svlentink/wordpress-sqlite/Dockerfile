@@ -11,9 +11,5 @@ RUN curl -o /sqlite-plugin.zip \
     unzip /sqlite-plugin.zip \
       -d /usr/src/wordpress/wp-content/plugins/; \
     rm /sqlite-plugin.zip; \
-    cp    /usr/src/wordpress/wp-content/plugins/sqlite-integration/db.php /usr/src/wordpress/wp-content; \
-    echo "<?php \$table_prefix = 'wp_';" \
-      "if (isset(\$_SERVER['HTTP_X_FORWARDED_PROTO']) && \$_SERVER['HTTP_X_FORWARDED_PROTO'] === 'https') \$_SERVER['HTTPS'] = 'on';" \
-      "require_once(ABSPATH . 'wp-settings.php');" \
-      > /var/www/wp-config.php; \
+    cp /usr/src/wordpress/wp-content/plugins/sqlite-integration/db.php /usr/src/wordpress/wp-content; \
     chown -R www-data:www-data /var/www
