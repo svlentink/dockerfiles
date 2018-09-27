@@ -10,6 +10,11 @@ docker run --rm -it -p 8080:80 svlentink/wordpress-sqlite
 It has minimal a minimal installation and configuration,
 see the `Dockerfile`.
 
+## fpm
+
+The tag `fpm` is a smaller, more efficient container.
+But latest comes with apache, which is easier.
+
 ## Wordpress removal issues
 
 The wordpress entrypoint can delete your wordpress website,
