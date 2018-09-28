@@ -48,9 +48,11 @@ services:
 #    command: texi2pdf --tidy --shell-escape --output=/data/resume.pdf /data/resume.tex
 
   php:
-    image: php:fpm-alpine
+    image: svlentink/wordpress-sqlite:fpm
     volumes:
       - ~/wordpress-backup:/var/php
+    #command: ["php-fpm","-d","cgi.fix_pathinfo=0","--allow-to-run-as-root","--nodaemonize"]
+    entrypoint: ["php-fpm"]
 
   ssl:
     image: svlentink/letsencrypt
@@ -60,4 +62,11 @@ services:
     environment:
       EMAIL: ssl@lent.ink
     command: lent.ink blog.lent.ink cdn.lent.ink dev.lent.ink lisanne.lent.ink loiszoektwerk.nl loiszoektwerk.be juflisanne.nl
+
+  wordpress:
+    image: svlentink/wordpress-sqlite
+    volumes:
+      - ~/wordpress-backup/lisanne.lent.ink:/var/www/html
+    working_dir: /var/www/html
+    entrypoint: ["apache2-foreground"]
 

@@ -13,7 +13,25 @@ see the `Dockerfile`.
 ## fpm
 
 The tag `fpm` is a smaller, more efficient container.
-But latest comes with apache, which is easier.
+Latest comes with apache, which is easier.
+
+NOTE: for some reason, sqlite does not work with the fpm (which uses php-fpm).
+Therefore, please use latest since I have no plan on fixing the fpm container
+anytime soon, but feel free to submit a pull request.
+
+## Simple config file
+
+The bare minimum:
+```
+$ cat /var/www/html/wp-config.php 
+<?php $table_prefix = 'wp_';
+$_SERVER['HTTPS'] = 'on';
+define('WP_HOME','https://lent.ink');
+define('WP_SITEURL','https://lent.ink');
+require_once(ABSPATH . 'wp-settings.php');
+
+```
+
 
 ## Wordpress removal issues
 
