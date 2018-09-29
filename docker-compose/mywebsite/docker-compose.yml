@@ -13,7 +13,7 @@ services:
       - $PWD/generated:/var/www/cdn.lent.ink/generated:ro
       - /tmp/filesharing:/filesharing:ro
       - ~/wordpress-backup/nginx.conf:/etc/nginx/conf.d/wordpress.conf:ro
-      - ~/wordpress-backup:/var/php
+#      - ~/wordpress-backup:/var/php
       - ~/lois:/lois:ro
       - ~/lois/nginx.conf:/etc/nginx/conf.d/lois.conf:ro
     ports:
@@ -22,8 +22,6 @@ services:
     links:
       - ide
       - ide:ide
-      - php
-      - php:php
   ide:
     build:
       context: .
@@ -63,10 +61,17 @@ services:
       EMAIL: ssl@lent.ink
     command: lent.ink blog.lent.ink cdn.lent.ink dev.lent.ink lisanne.lent.ink loiszoektwerk.nl loiszoektwerk.be juflisanne.nl
 
-  wordpress:
+  wp1:
     image: svlentink/wordpress-sqlite
     volumes:
       - ~/wordpress-backup/lisanne.lent.ink:/var/www/html
+    working_dir: /var/www/html
+    entrypoint: ["apache2-foreground"]
+
+  wp2:
+    image: svlentink/wordpress-sqlite
+    volumes:
+      - ~/wordpress-backup/juflisanne.nl:/var/www/html
     working_dir: /var/www/html
     entrypoint: ["apache2-foreground"]
 
