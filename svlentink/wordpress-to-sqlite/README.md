@@ -20,3 +20,16 @@ require_once(ABSPATH . 'wp-settings.php');
 
 ```
 
+## Warning
+Please use this as an example environment,
+sqlite is not a good idea for production,
+had too much issues with it.
+
+Try something like this (it did not work for me):
+```shell
+apt install -y sqlite3 sqlfairy libdbd-sqlite3-perl
+sqlite3 .ht.sqlite .dump > sqlite.dump
+sqlt --from DBI --dsn dbi:SQLite:./MYsqlite.db --to MySQL > dump.sql
+sed -e 's/text NOT NULL DEFAULT/text NOT NULL, --/g' -i dump.sql
+sqlt --from SQLite --to MySQL .ht.sqlite > dump.sql
+```

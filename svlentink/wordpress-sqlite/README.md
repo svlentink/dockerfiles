@@ -18,6 +18,7 @@ Latest comes with apache, which is easier.
 NOTE: for some reason, sqlite does not work with the fpm (which uses php-fpm).
 Therefore, please use latest since I have no plan on fixing the fpm container
 anytime soon, but feel free to submit a pull request.
+My first try would be to install php-fpm inside the latest tagged container and see if ubuntu vs. alpine is the problem.
 
 ## Simple config file
 
@@ -40,3 +41,7 @@ as discussed [here](https://github.com/docker-library/wordpress/issues/84).
 
 Just use `entrypoint: ["apache2-foreground"]`
 
+## Warning
+Please use this as an example environment,
+sqlite is not a good idea for production,
+had too much issues with it.

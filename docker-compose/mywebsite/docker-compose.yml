@@ -12,16 +12,14 @@ services:
       - ~/Dropbox/cdndata/img:/var/www/cdn.lent.ink/img:ro
       - $PWD/generated:/var/www/cdn.lent.ink/generated:ro
       - /tmp/filesharing:/filesharing:ro
-      - ~/wordpress-backup/nginx.conf:/etc/nginx/conf.d/wordpress.conf:ro
-#      - ~/wordpress-backup:/var/php
+      - ~/wordpress-backup/nginx-fpm.conf:/etc/nginx/conf.d/wordpress.conf:ro
+      - ~/wordpress-backup:/var/php
       - ~/lois:/lois:ro
       - ~/lois/nginx.conf:/etc/nginx/conf.d/lois.conf:ro
     ports:
       - "80:80"
       - "443:443"
-    links:
-      - ide
-      - ide:ide
+
   ide:
     build:
       context: .
@@ -46,11 +44,15 @@ services:
 #    command: texi2pdf --tidy --shell-escape --output=/data/resume.pdf /data/resume.tex
 
   php:
-    image: svlentink/wordpress-sqlite:fpm
+    image: wordpress:fpm-alpine
+    env_file:
+      - ~/.sekretoj/wordpress/.db
     volumes:
       - ~/wordpress-backup:/var/php
     #command: ["php-fpm","-d","cgi.fix_pathinfo=0","--allow-to-run-as-root","--nodaemonize"]
     entrypoint: ["php-fpm"]
+    depends_on:
+      - wpdb
 
   ssl:
     image: svlentink/letsencrypt
@@ -61,17 +63,12 @@ services:
       EMAIL: ssl@lent.ink
     command: lent.ink blog.lent.ink cdn.lent.ink dev.lent.ink lisanne.lent.ink loiszoektwerk.nl loiszoektwerk.be juflisanne.nl
 
-  wp1:
-    image: svlentink/wordpress-sqlite
+  wpdb:
+    image: mariadb
+    env_file:
+      - ~/.sekretoj/wordpress/.db
     volumes:
-      - ~/wordpress-backup/lisanne.lent.ink:/var/www/html
-    working_dir: /var/www/html
-    entrypoint: ["apache2-foreground"]
-
-  wp2:
-    image: svlentink/wordpress-sqlite
-    volumes:
-      - ~/wordpress-backup/juflisanne.nl:/var/www/html
-    working_dir: /var/www/html
-    entrypoint: ["apache2-foreground"]
-
+      - ~/wordpress-backup/dbdir:/var/lib/mysql
+    environment:
+      MYSQL_DATABASE: wordpress
+      MYSQL_USER: wordpress
