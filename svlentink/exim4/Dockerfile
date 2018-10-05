@@ -1,8 +1,7 @@
 FROM alpine
 
-
+# No needed anymore: --repository http://dl-cdn.alpinelinux.org/alpine/edge/testing \
 RUN apk --no-cache \
-  --repository http://dl-cdn.alpinelinux.org/alpine/edge/testing \
   add exim; \
   ln -s /dev/stdout /var/log/exim/main; \
   ln -s /dev/stderr /var/log/exim/panic; \
