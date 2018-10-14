@@ -1,0 +1,12 @@
+version: '3'
+services:
+  image: svlentink/dnssec
+  ENVIRONMENT:
+    IPV4MASTER 10.20.30.40
+    IPV4SLAVE 10.20.30.40
+    SERVERTYPE master
+  volumes:
+    - $PWD/myzones:/zonefiles
+  ports:
+    - 53:53/tcp
+    - 53:53/udp
