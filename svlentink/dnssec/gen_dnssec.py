@@ -68,9 +68,9 @@ zskf = {}
 for f in glob(keydir + '/K*.key'):
   zone = os.path.basename(f)[1:].split('+')[0]
   if '; This is a key-signing key' in open(f).read():
-    kskf[z] = f
+    kskf[zone] = f
   if '; This is a zone-signing key' in open(f).read():
-    zskf[z] = f
+    zskf[zone] = f
 
 
 outpf = outp + '/named.conf'
