@@ -105,15 +105,21 @@ EOF
   kubectl -n kube-system describe secret ${DASHBOARD_TOKEN_NAME}
 }
 
+# Have tested it on ARM 64bit, which gave errors, not sure if they were x86 compatible
 dpkg --print-architecture|grep arm && echo "Detected ARM architecture. Dashboard won't work."
 
 echo Create single instance k8s master and node
 
 [[ $USER != "root" ]] && echo Please run as root && exit 1
 
-ip a
 echo "The current hostname is "$(hostname)" if you want to change this, hit CTRL-C"
-read -p "Please provide the (public) IP of this machine, on which you'll connect to webui/API-endpoint:" IPADDR
+
+if [[ -z "$PUBLIC_IPv4" ]]; then
+  ip a
+  read -p "Please provide the (public) IP of this machine, on which you'll connect to webui/API-endpoint:" IPADDR
+else
+  IPADDR=$PUBLIC_IPv4
+fi
 
 echo Installing curl etc.
 apt update

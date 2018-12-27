@@ -61,7 +61,7 @@ services:
       - ~/sslcerts:/pemfiles
     environment:
       EMAIL: ssl@lent.ink
-    command: lent.ink blog.lent.ink cdn.lent.ink dev.lent.ink lisanne.lent.ink loiszoektwerk.nl loiszoektwerk.be juflisanne.nl
+    command: lent.ink blog.lent.ink cdn.lent.ink dev.lent.ink lisanne.lent.ink loiszoektwerk.nl loiszoektwerk.be juflisanne.nl lentink.consulting
 
   wpdb:
     image: mariadb
