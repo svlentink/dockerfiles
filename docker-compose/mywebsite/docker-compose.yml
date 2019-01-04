@@ -10,7 +10,7 @@ services:
       - ~/Dropbox/cdndata/pdf:/var/www/cdn.lent.ink/pdf:ro
       - ~/Dropbox/cdndata/tar:/var/www/cdn.lent.ink/tar:ro
       - ~/Dropbox/cdndata/img:/var/www/cdn.lent.ink/img:ro
-      - $PWD/generated:/var/www/cdn.lent.ink/generated:ro
+#      - $PWD/generated:/var/www/cdn.lent.ink/generated:ro
       - /tmp/filesharing:/filesharing:ro
       - ~/wordpress-backup/nginx-fpm.conf:/etc/nginx/conf.d/wordpress.conf:ro
       - ~/wordpress-backup:/var/php
@@ -30,13 +30,12 @@ services:
       - ~/.sekretoj/webIDE/.webIDE.env
     command: ["-a", "$MYUSER:$PASSWD"] # .env should contain these variables
 
-# TODO create cdn.lent.ink/js compiler
-  download-cryptojs:
-    build:
-      context: .
-      dockerfile: bower.Dockerfile
-    volumes:
-      - $PWD/generated:/generated
+#  download-cryptojs:
+#    build:
+#      context: .
+#      dockerfile: bower.Dockerfile
+#    volumes:
+#      - $PWD/generated:/generated
 #  compile-resume:
 #    image: svlentink/texlive-full
 #    volumes:
