@@ -1,0 +1,61 @@
+version: '3'
+services:
+
+  firewall:
+    image: svlentink/ipfilter
+    links:
+      - erp
+      - erp:dontchangethisalias
+    volumes:
+      - $PWD:/passdir:ro #used to get the .htpasswd, don't mount this dir if you do not want it
+    ports:
+      - 8080:4321 # edit only the first part to specify the port for the host
+    environment:
+      APP_PORT: 80 # The port the app wants exposed
+  pwd:
+    image: m31271n/htpasswd
+    volumes:
+      - $PWD:/outputdir
+    entrypoint: ["htpasswd","-bc","/outputdir/.htpasswd"]
+    command: ["myUSERname","myPASSphrase"]
+
+#  proxy:
+#    image: nginx:alpine
+#    volumes:
+#      - $PWD/nginx.conf:/etc/nginx/conf.d/default.conf:ro
+#      - webroot:/webroot:ro
+#    ports:
+#      - "8080:80"
+
+  erp:
+    image: monogramm/docker-dolibarr #:fpm
+#    env_file:
+#      - ~/erpsecrets/db
+    volumes:
+      - webroot:/var/www/html
+    environment:
+      DOLI_DB_PASSWORD: shouldBeInEnvFile
+      DOLI_DB_HOST: db
+      DOLI_DB_NAME: dolibarr
+      DOLI_DB_USER: dolibarr
+      DOLI_URL_ROOT: 'https://lent.ink:8080/'
+    depends_on:
+      - db
+#    ports:
+#      - 8080:80
+
+  db:
+    image: mariadb
+#    env_file:
+#      - ~/erpsecrets/db
+#    volumes:
+#      - ~/erp/db:/var/lib/mysql
+    environment:
+      MYSQL_PASSWORD: shouldBeInEnvFile
+      MYSQL_DATABASE: dolibarr
+      MYSQL_USER: dolibarr
+      MYSQL_RANDOM_ROOT_PASSWORD: 'yes'
+    command: --character_set_client=utf8 --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci --character-set-client-handshake=FALSE
+
+volumes:
+  webroot:

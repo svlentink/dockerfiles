@@ -3,8 +3,8 @@ services:
   firewall:
     image: svlentink/ipfilter
     links:
-      - app
-      - app:app #creating a reference that we'll use
+      - someapp
+      - someapp:dontchangethisalias #creating a reference that we'll use
     volumes:
       - $PWD:/passdir:ro #used to get the .htpasswd, don't mount this dir if you do not want it
     ports:
@@ -19,5 +19,5 @@ services:
     entrypoint: ["htpasswd","-bc","/outputdir/.htpasswd"]
     command: ["myUSERname","myPASSphrase"]
 
-  app: #specify here your app, but don't use the ports option (or expose)
+  someapp: #specify here your app, but don't use the ports option (or expose)
     image: svlentink/polymer-example

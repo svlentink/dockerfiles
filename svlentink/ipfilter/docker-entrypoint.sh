@@ -10,7 +10,7 @@ fi
 
 cat << EOF > $CONFIG
 upstream app_upstream {
-  server app:$APP_PORT;
+  server dontchangethisalias:$APP_PORT;
 }
 server {
   listen 4321      ssl http2 default_server;
@@ -28,6 +28,10 @@ server {
 
   location / {
     proxy_pass http://app_upstream;
+    proxy_set_header Host $host;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header X-Forwarded-Proto $scheme;
   }
 }
 
@@ -68,6 +72,7 @@ genCert () {
 
 if ! [ -f /dhparam.pem ]; then
   genCert
+  echo DONE generating cert.
 fi
 
 # https://github.com/nginxinc/docker-nginx/blob/1d2e2ccae2f6e478f628f4091d8a5c36a122a157/mainline/alpine/Dockerfile#L143

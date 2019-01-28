@@ -1,7 +1,10 @@
-version: '2'
+version: '3'
 services:
   dropbox:
-    image: janeczku/dropbox
+    image: oddlid/dropbox #janeczku/dropbox
+    user: root
+    entrypoint: /entry
     volumes:
-      - ~/Dropbox:/dbox/Dropbox
-      - ~/.dropbox:/dbox/.dropbox
+      - ~/Dropbox:/root/Dropbox
+      - $PWD/docker-entrypoint.sh:/entry:ro
+
