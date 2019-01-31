@@ -1,13 +1,16 @@
 #!/bin/bash -e
 set -e
 
-disable_swap() {
-  swapoff -a
-  grep -v swap /etc/fstab > /etc/fstab.noswap
-  mv /etc/fstab /etc/fstab.swap
-  mv /etc/fstab.noswap /etc/fstab
+deprecated_install_kubectl() {
+  # https://kubernetes.io/docs/tasks/tools/install-kubectl/#install-kubectl-binary-using-native-package-management
+  apt update
+  apt install -y apt-transport-https
+  curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
+  echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" | tee -a /etc/apt/sources.list.d/kubernetes.list
+  apt update
+  apt install -y kubectl
 }
-install_docker_long() { # https://kubernetes.io/docs/setup/independent/install-kubeadm/#installing-docker
+deprecated_install_docker_long() { # https://kubernetes.io/docs/setup/independent/install-kubeadm/#installing-docker
   apt -y install \
     apt-transport-https \
     ca-certificates \
@@ -25,9 +28,19 @@ install_docker() {
   apt install -y \
     docker.io
 }
-install_kubeadm() { # https://kubernetes.io/docs/setup/independent/install-kubeadm/#installing-kubeadm-kubelet-and-kubectl
+deprecated_install_kubeadm() { # https://kubernetes.io/docs/setup/independent/install-kubeadm/#installing-kubeadm-kubelet-and-kubectl
   curl -fsSL https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
-  add-apt-repository "deb https://apt.kubernetes.io/ kubernetes-$(lsb_release -cs) main"
+  
+  local DIST=kubernetes-$(lsb_release -cs)
+  if [ curl --silent https://packages.cloud.google.com/apt/dists|grep $DIST ]; then
+    echo using $DIST
+  else
+    echo $DIST not found
+    local DIST=kubernetes-stretch
+    echo using $DIST
+  fi
+  
+  add-apt-repository "deb https://apt.kubernetes.io/ $DIST main"
   apt update
   apt install -y \
     kubelet \
@@ -35,9 +48,32 @@ install_kubeadm() { # https://kubernetes.io/docs/setup/independent/install-kubea
     kubernetes-cni
   #apt-mark hold kubelet kubeadm kubectl
 }
+
+
+disable_swap() {
+  swapoff -a
+  grep -v swap /etc/fstab > /etc/fstab.noswap
+  mv /etc/fstab /etc/fstab.swap
+  mv /etc/fstab.noswap /etc/fstab
+}
+install_kubeadm() {
+#https://kubernetes.io/docs/setup/independent/install-kubeadm/#installing-kubeadm-kubelet-and-kubectl
+apt-get update && apt-get install -y apt-transport-https curl
+curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
+cat <<EOF >/etc/apt/sources.list.d/kubernetes.list
+deb https://apt.kubernetes.io/ kubernetes-xenial main
+EOF
+apt-get update
+apt-get install -y kubelet kubeadm kubectl
+}
+
+
+
 init_master() { #https://kubernetes.io/docs/setup/independent/create-cluster-kubeadm/#initializing-your-master
   echo y|kubeadm reset
   #https://stackoverflow.com/questions/44305615/pods-are-not-starting-networkplugin-cni-failed-to-set-up-pod
+
+# if the following fails: https://github.com/kubernetes/kubernetes/issues/67933
   kubeadm init \
     --apiserver-advertise-address=$IPADDR
 #    --pod-network-cidr=10.224.0.0/16
@@ -123,6 +159,7 @@ fi
 
 echo Installing curl etc.
 apt update
+apt upgrade -y
 apt install -y \
   apt-transport-https \
   curl \
