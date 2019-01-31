@@ -1,6 +1,9 @@
 #!/bin/bash -e
 set -e
 
+echo please try microk8s
+exit
+
 deprecated_install_kubectl() {
   # https://kubernetes.io/docs/tasks/tools/install-kubectl/#install-kubectl-binary-using-native-package-management
   apt update
@@ -27,6 +30,8 @@ deprecated_install_docker_long() { # https://kubernetes.io/docs/setup/independen
 install_docker() {
   apt install -y \
     docker.io
+  systemctl enable docker
+  systemctl start docker
 }
 deprecated_install_kubeadm() { # https://kubernetes.io/docs/setup/independent/install-kubeadm/#installing-kubeadm-kubelet-and-kubectl
   curl -fsSL https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
@@ -74,8 +79,8 @@ init_master() { #https://kubernetes.io/docs/setup/independent/create-cluster-kub
   #https://stackoverflow.com/questions/44305615/pods-are-not-starting-networkplugin-cni-failed-to-set-up-pod
 
 # if the following fails: https://github.com/kubernetes/kubernetes/issues/67933
-  kubeadm init \
-    --apiserver-advertise-address=$IPADDR
+  kubeadm init
+#    --apiserver-advertise-address=$IPADDR
 #    --pod-network-cidr=10.224.0.0/16
 
   mkdir -p $HOME/.kube 
@@ -95,6 +100,8 @@ deploy_flannel() { #https://kubernetes.io/docs/setup/independent/create-cluster-
 deploy_weave() { #https://kubernetes.io/docs/setup/independent/create-cluster-kubeadm/#pod-network
   echo "net.bridge.bridge-nf-call-iptables=1" >> /etc/sysctl.conf
   sysctl -p
+  #kubectl create clusterrolebinding weave-net --clusterrole=cluster-admin --user=myname@example.org
+  kubectl create clusterrolebinding cluster-admin-binding --clusterrole cluster-admin --user $USER
   sleep 120
   kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$(kubectl version | base64 | tr -d '\n')"
   sleep 120
