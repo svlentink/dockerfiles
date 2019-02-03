@@ -55,8 +55,8 @@ if [ -n "$AUTH_PASS" ]; then
   echo Using basic auth
   echo 'auth_basic "closed site"; auth_basic_user_file /.htpasswd;' \
   >> $FILTERCONF
-  if [ -n "$AUTH_USER" ]; then
-    export AUTH_PASS=admin
+  if [ -z "$AUTH_USER" ]; then
+    AUTH_USER=admin
   fi
   echo -n $AUTH_USER':' > /.htpasswd
   openssl passwd -apr1 "$AUTH_PASS" >> /.htpasswd
