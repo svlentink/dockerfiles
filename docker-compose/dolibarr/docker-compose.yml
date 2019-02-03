@@ -12,12 +12,12 @@ services:
       - 8080:4321 # edit only the first part to specify the port for the host
     environment:
       APP_PORT: 80 # The port the app wants exposed
-  pwd:
-    image: m31271n/htpasswd
-    volumes:
-      - $PWD:/outputdir
-    entrypoint: ["htpasswd","-bc","/outputdir/.htpasswd"]
-    command: ["myUSERname","myPASSphrase"]
+# Use one or both of the following options:
+  # filter based on IP
+      ALLOWED_IPS: 8.8.8.8/32 85.144.250.1/22
+  # filter using basic auth
+      AUTH_USER: myUSERname
+      AUTH_PASS: myPASSphrase
 
 #  proxy:
 #    image: nginx:alpine

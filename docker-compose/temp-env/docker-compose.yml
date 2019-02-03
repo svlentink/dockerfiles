@@ -4,12 +4,19 @@ services:
     image: svlentink/ipfilter
     links:
       - app
-      - app:app #creating a reference that we'll use
+      - app:dontchangethisalias #creating a reference that we'll use
     ports:
       - 163:4321 # edit only the first part to specify the port for the host
     environment:
-#      ALLOWED_IPS: 83.96.180.101/32 8.8.8.8/32
       APP_PORT: 8181 # The port the app wants exposed
+# Use one or both of the following options:
+  # filter based on IP
+      ALLOWED_IPS: 8.8.8.8/32 85.144.250.1/22
+  # filter using basic auth
+      AUTH_USER: myUSERname
+      AUTH_PASS: myPASSphrase
+
+
   app:
     image: sapk/cloud9
     volumes:
