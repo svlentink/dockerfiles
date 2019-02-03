@@ -87,4 +87,5 @@ if ! [ -f /dhparam.pem ]; then
 fi
 
 # https://github.com/nginxinc/docker-nginx/blob/1d2e2ccae2f6e478f628f4091d8a5c36a122a157/mainline/alpine/Dockerfile#L143
-nginx -g "daemon off;"
+grep Alpine /etc/issue && nginx -g "daemon off;"
+# we check if we are inside a docker container by checking if it's alpine linux

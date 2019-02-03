@@ -15,13 +15,15 @@ install_microk8s() {
   sleep 120
   microk8s.start
   microk8s.status
-  snap alias microk8s.kubectl kubectl
+  which kubectl || snap alias microk8s.kubectl kubectl
   microk8s.enable dashboard dns
   
   kubectl get all --all-namespaces
+  kubectl cluster-info
 }
 
 echo please try microk8s
+echo see https://blog.lent.ink/tags/kubernetes
 exit
 
 deprecated_install_kubectl() {
