@@ -5,19 +5,16 @@ services:
     links:
       - someapp
       - someapp:dontchangethisalias #creating a reference that we'll use
-    volumes:
-      - $PWD:/passdir:ro #used to get the .htpasswd, don't mount this dir if you do not want it
     ports:
       - 8888:4321 # edit only the first part to specify the port for the host
     environment:
-      ALLOWED_IPS: 8.8.8.8/32 85.144.250.1/22
       APP_PORT: 8080 # The port the app wants exposed
-  pwd:
-    image: m31271n/htpasswd
-    volumes:
-      - $PWD:/outputdir
-    entrypoint: ["htpasswd","-bc","/outputdir/.htpasswd"]
-    command: ["myUSERname","myPASSphrase"]
+# Use one or both of the following options:
+  # filter based on IP
+      ALLOWED_IPS: 8.8.8.8/32 85.144.250.1/22
+  # filter using basic auth
+      AUTH_USER: myUSERname
+      AUTH_PASS: myPASSphrase
 
   someapp: #specify here your app, but don't use the ports option (or expose)
     image: svlentink/polymer-example

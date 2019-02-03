@@ -1,6 +1,26 @@
 #!/bin/bash -e
 set -e
 
+
+install_microk8s() {
+  apt update
+  apt upgrade -y
+  apt install -y \
+    apt-transport-https \
+    curl \
+    sudo \
+    tmux \
+    vim
+  snap install microk8s --classic
+  sleep 120
+  microk8s.start
+  microk8s.status
+  snap alias microk8s.kubectl kubectl
+  microk8s.enable dashboard dns
+  
+  kubectl get all --all-namespaces
+}
+
 echo please try microk8s
 exit
 

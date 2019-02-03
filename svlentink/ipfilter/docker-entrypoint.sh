@@ -8,6 +8,12 @@ if [ -z "$APP_PORT" ]; then
   exit 1
 fi
 
+if [ -d /passdir ]; then
+  echo 'You are using the old container format, please check'
+  echo 'hub.docker.com/r/svlentink/ipfilter'
+  exit
+fi
+
 cat << EOF > $CONFIG
 upstream app_upstream {
   server dontchangethisalias:$APP_PORT;
@@ -45,10 +51,15 @@ if [ -n "$ALLOWED_IPS" ];then
   done
   echo "deny all;" >> $FILTERCONF
 fi
-if [ -d /passdir ]; then
+if [ -n "$AUTH_PASS" ]; then
   echo Using basic auth
-  echo 'auth_basic "closed site"; auth_basic_user_file /passdir/.htpasswd;' \
+  echo 'auth_basic "closed site"; auth_basic_user_file /.htpasswd;' \
   >> $FILTERCONF
+  if [ -n "$AUTH_USER" ]; then
+    export AUTH_PASS=admin
+  fi
+  echo -n $AUTH_USER':' > /.htpasswd
+  openssl passwd -apr1 "$AUTH_PASS" >> /.htpasswd
 fi
 
 echo BEGIN content of nginx filter
