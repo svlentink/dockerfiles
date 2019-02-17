@@ -1,7 +1,7 @@
 version: '3'
 services:
   ide:
-    svlentink/orion.client
+    image: svlentink/orion.client
     volumes:
       - /etc/localtime:/etc/localtime:ro
 #      - $PWD/code:/code

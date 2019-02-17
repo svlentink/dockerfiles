@@ -4,5 +4,5 @@ RUN git clone https://github.com/eclipse/orion.client.git /orion.client; \
   cd $APPDIR; \
   npm install;
 WORKDIR $APPDIR
-CMD server.js
-
+ENTRYPOINT ["/usr/local/bin/node"]
+CMD ["server.js"]
