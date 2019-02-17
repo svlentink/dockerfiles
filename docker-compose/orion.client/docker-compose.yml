@@ -5,6 +5,9 @@ services:
     volumes:
       - /etc/localtime:/etc/localtime:ro
 #      - $PWD/code:/code
+    environment:
+      VIRTUALHOSTS: *.lent.ink
+      PUBLICPORT: 8888
 
   firewall:
     image: svlentink/ipfilter
@@ -14,7 +17,7 @@ services:
     ports:
       - 8888:4321 # edit only the first part to specify the port for the host
     environment:
-      APP_PORT: 80 # The port the app wants exposed
+      APP_PORT: 8081 # The port the app wants exposed
   # filter using basic auth
       AUTH_USER: myUSERname
       AUTH_PASS: myPASSphrase
