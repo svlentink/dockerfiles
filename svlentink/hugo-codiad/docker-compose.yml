@@ -1,0 +1,9 @@
+version: '3'
+services:
+  ide:
+    image: svlentink/hugo-codiad
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - $PWD/hugo:/code/workspace/hugo
+#      - $PWD/code:/code
+

@@ -15,4 +15,4 @@ if ! ls /hugosite/config.*; then
   hugo
 fi
 
-/filebrowser --staticgen hugo --config $@
+hugo --watch
