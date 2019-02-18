@@ -2,6 +2,8 @@ version: '3'
 services:
   ide:
     image: svlentink/hugo-codiad
+    ports:
+      - 80:80
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - $PWD/hugo:/code/workspace/hugo
