@@ -5,8 +5,8 @@ if ! ls /hugosite/config.*; then
   # https://gohugo.io/getting-started/quick-start
   cd /tmp
   hugo new site examplesite
-  mv /tmp/examplesite/* /hugosite/
-  cd /hugosite
+  mv /tmp/examplesite/* /code/workspace/hugo
+  cd /code/workspace/hugo
   git init
   git submodule add https://github.com/budparr/gohugo-theme-ananke.git themes/ananke
   echo 'theme = "ananke"' >> config.toml
@@ -14,5 +14,6 @@ if ! ls /hugosite/config.*; then
   echo created website, now building it
   hugo
 fi
+hugo --watch
 
 hugo --watch
