@@ -14,6 +14,5 @@ if ! ls /hugosite/config.*; then
   echo created website, now building it
   hugo
 fi
-hugo --watch
 
 hugo --watch
