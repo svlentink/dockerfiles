@@ -11,4 +11,5 @@ RUN mkdir -p /code/workspace/hugo/public; \
   rm -rf /var/lib/apt/lists/*
 COPY hugo.sh /etc/s6/hugo/run
 
+WORKDIR /code/workspace/hugo
 VOLUME /code/workspace/hugo

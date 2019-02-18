@@ -1,7 +1,7 @@
 #!/bin/sh
 
-if ! ls /hugosite/config.*; then
-  echo 'No config found at /hugosite/config.*, creating new examplesite'
+if ! ls /code/workspace/hugo/config.*; then
+  echo 'No config found at /code/workspace/hugo/config.*, creating new examplesite'
   # https://gohugo.io/getting-started/quick-start
   cd /tmp
   hugo new site examplesite
