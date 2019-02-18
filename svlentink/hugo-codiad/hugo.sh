@@ -13,6 +13,7 @@ if ! ls /code/workspace/hugo/config.*; then
   hugo new posts/my-first-post.md
   echo created website, now building it
   hugo
+  chmod -R 777 /code/workspace/hugo
 fi
 
 hugo --watch
