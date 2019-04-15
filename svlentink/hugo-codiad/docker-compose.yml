@@ -4,9 +4,22 @@ services:
     image: svlentink/hugo-codiad
     ports:
       - 80:80
-      - 8080:8080
+#      - 8080:8080 # we expose it via the firewall container
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - $PWD/hugo:/code/workspace/hugo
 #      - $PWD/code:/code
+
+  firewall:
+    image: svlentink/ipfilter
+    links:
+      - ide
+      - ide:dontchangethisalias #creating a reference that we'll use
+    ports:
+      - 8080:4321 # edit only the first part to specify the port for the host
+    environment:
+      APP_PORT: 8080# The port the app wants exposed
+  # filter using basic auth
+      AUTH_USER: myUSERname
+      AUTH_PASS: myPASSphrase
 

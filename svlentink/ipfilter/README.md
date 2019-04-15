@@ -27,3 +27,10 @@ https://zero.pritunl.com
 
 Or instead of this layer 4 (application layer),
 you could use layer 3 filtering.
+
+## TLS 1.3
+
+Since Apr. 2019 this container only supports TLS 1.3,
+this prevents corporate environments to do TLS interception.
+This will only work in modern browsers like Chrome,
+not in Edge or IE.

@@ -1,0 +1,10 @@
+version: '2'
+services:
+  cnvrtr:
+    image: svlentink/texlive-with-libraries #conoria/alpine-pandoc
+#    command: pandoc --from markdown_github --to dokuwiki -o /data/paste_to_wiki.txt /data/ssnlab3.md
+    command: pandoc --from markdown --latex-engine=xelatex --toc -o /data/ANlab3_gr4.pdf /data/task0.md
+                                   #--pdf-engine <- used in newer version
+    volumes:
+      - $PWD:/data
+    working_dir: /data

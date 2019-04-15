@@ -27,7 +27,9 @@ server {
   ssl_certificate_key /selfsigned.key;
   ssl_dhparam         /dhparam.pem;
   
-  ssl_protocols TLSv1.2;
+  ssl_protocols TLSv1.3;
+  ssl_ciphers TLS13-CHACHA20-POLY1305-SHA256:TLS13-AES-256-GCM-SHA384:TLS13-AES-128-GCM-SHA256;
+  ssl_prefer_server_ciphers on;
   add_header X-Frame-Options DENY;
   
   include /nginx-filter-options.conf;

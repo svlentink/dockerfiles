@@ -1,23 +1,34 @@
 version: '3'
 services:
-  cdn:
-    image: svlentink/mywebsite
+  tls-proxy:
+    build:
+      context: .
+      dockerfile: tls-proxy.Dockerfile
     volumes:
       - $PWD/homework.conf:/etc/nginx/conf.d/homework.conf:ro
       - ~/.sekretoj/sslcerts:/sslcerts:ro
       - /tmp/.well-known:/tmp/.well-known:ro # hub.docker.com/r/svlentink/letsencrypt
       - ~/.sekretoj/wordpress:/authdir:ro
-      - ~/Dropbox/cdndata/pdf:/var/www/cdn.lent.ink/pdf:ro
-      - ~/Dropbox/cdndata/tar:/var/www/cdn.lent.ink/tar:ro
-      - ~/Dropbox/cdndata/img:/var/www/cdn.lent.ink/img:ro
-      - /tmp/filesharing:/filesharing:ro
       - ~/wordpress-backup/nginx-fpm.conf:/etc/nginx/conf.d/wordpress.conf:ro
       - ~/wordpress-backup:/var/php
-      - ~/lois:/lois:ro
-      - ~/lois/nginx.conf:/etc/nginx/conf.d/lois.conf:ro
+#      - ~/Dropbox/liblog/hugo/public:/var/www/juflisanne.nl:ro
+#      - ~/Dropbox/liblog/nginx.conf:/etc/nginx/conf.d/liblog.conf:ro
     ports:
       - "80:80"
       - "443:443"
+    links:
+      - cdn
+      - ide
+      - php
+
+  cdn:
+    image: svlentink/mywebsite
+    volumes:
+      - ~/.sekretoj/wordpress:/authdir:ro
+      - ~/Dropbox/cdndata/pdf:/var/www/cdn.lent.ink/pdf:ro
+      - ~/Dropbox/cdndata/tar:/var/www/cdn.lent.ink/tar:ro
+      - ~/Dropbox/cdndata/img:/var/www/cdn.lent.ink/img:ro
+      - /tmp/filesharing:/var/www/fs.lent.ink:ro
 
   ide:
     build:
