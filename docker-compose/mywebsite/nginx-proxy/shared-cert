@@ -1,0 +1,5 @@
+# https://letsecure.me/secure-web-deployment-with-lets-encrypt-and-nginx/
+ssl_certificate         /sslcerts/fullchain1.pem;
+ssl_certificate_key     /sslcerts/privkey1.pem;
+include /etc/nginx/conf.d/tls-config;
+

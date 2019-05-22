@@ -1,11 +1,14 @@
 version: '3'
 services:
   tls-proxy:
-    build:
-      context: .
-      dockerfile: tls-proxy.Dockerfile
+    image: nginx:alpine
     volumes:
-      - $PWD/homework.conf:/etc/nginx/conf.d/homework.conf:ro
+      - $PWD/nginx-proxy/tls-config:/etc/nginx/conf.d/tls-config:ro
+      - $PWD/nginx-proxy/shared-cert:/etc/nginx/conf.d/shared-cert:ro
+      - $PWD/nginx-proxy/homework.conf:/etc/nginx/conf.d/homework.conf:ro
+# For some reason the order matters https://serverfault.com/questions/361134/nginx-includes-config-files-not-in-order
+      - $PWD/nginx-proxy/test.conf:/etc/nginx/conf.d/ztest.conf:ro
+      - $PWD/nginx-proxy/tls-proxy.conf:/etc/nginx/conf.d/default.conf:ro
       - ~/.sekretoj/sslcerts:/sslcerts:ro
       - /tmp/.well-known:/tmp/.well-known:ro # hub.docker.com/r/svlentink/letsencrypt
       - ~/.sekretoj/wordpress:/authdir:ro
@@ -59,7 +62,8 @@ services:
       - ~/sslcerts:/pemfiles
     environment:
       EMAIL: ssl@lent.ink
-    command: lent.ink blog.lent.ink cdn.lent.ink dev.lent.ink lisanne.lent.ink loiszoektwerk.nl loiszoektwerk.be juflisanne.nl lentink.consulting
+    command: lent.ink blog.lent.ink cdn.lent.ink dev.lent.ink lisanne.lent.ink loiszoektwerk.nl juflisanne.nl lentink.consulting
+#    command: loiszoektwerk.be
 
   wpdb:
     image: mariadb
