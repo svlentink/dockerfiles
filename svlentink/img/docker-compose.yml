@@ -1,0 +1,6 @@
+version: '3'
+services:
+  img-builder:
+    image: svlentink/img
+    volumes:
+      - /tmp:/build-context:ro
