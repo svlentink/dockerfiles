@@ -21,6 +21,7 @@ CONTAINERNAME=`grep FROM Dockerfile|head -1|awk '{print $2}'`
 
 SCRIPT=/tmp/temp-build-tester
 echo "#!/bin/sh" > $SCRIPT
+echo 'WORKDIR () { mkdir -p $1; cd $1; }' >> $SCRIPT
 chmod +x $SCRIPT
 sed -z 's/\\\n/\ /g' Dockerfile \
   | grep -E "ENV|ARG|RUN|COPY|WORKDIR" >> $SCRIPT
@@ -28,7 +29,7 @@ sed -i "s/^ENV/export\ /g" $SCRIPT
 sed -i "s/^ARG/export\ /g" $SCRIPT
 sed -i "s/^RUN//g"         $SCRIPT
 sed -i "s/^COPY/cp\ /g"    $SCRIPT
-sed -i "s/^WORKDIR/cd\ /g" $SCRIPT
+#sed -i "s/^WORKDIR/cd\ /g" $SCRIPT
 
 docker run \
   --rm \
