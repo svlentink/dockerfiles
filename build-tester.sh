@@ -12,6 +12,7 @@ Dockerfile is able to build, you can use this script.
 
 USAGE:
 $0 build|run
+
 Just run call this script in the directory your Dockerfile lives.
 NOTE: we only support one FROM and ENV, ARG, RUN, COPY and WORKDIR.
 EOF
@@ -22,10 +23,10 @@ which podman && docker=podman
 CONTAINERNAME=`grep FROM Dockerfile|head -1|awk '{print $2}'`
 
 SCRIPT=/tmp/temp-build-tester
-cat <<EOF > $SCRIPT
+cat <<'EOF' > $SCRIPT
 #!/bin/sh
 set -ev
-'WORKDIR () { mkdir -p "$1"; cd "$1"; }
+WORKDIR () { mkdir -p "$1"; cd "$1"; }
 EOF
 
 chmod +x $SCRIPT
@@ -39,10 +40,11 @@ sed -i "s/^COPY/cp\ /g"    $SCRIPT
 
 if [ "$1" == "build" ] || [ "$1" == "run" ]; then
   [[ "$1" == "build" ]] && ENTRYPOINT="/entrypoint.sh"
-  [[ "$1" == "run" ]] && ENTRYPOINT="/bin/sh"
+  [[ "$1" == "run" ]] && ENTRYPOINT="/bin/sh" && RUNOPTIONS="-it"
   echo "Running $ENTRYPOINT inside $CONTAINERNAME"
   docker run \
     --rm \
+    $RUNOPTIONS \
     -v $PWD:/workdir:ro \
     --workdir "/workdir" \
     -v $SCRIPT:/entrypoint.sh \
