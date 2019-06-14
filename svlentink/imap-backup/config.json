@@ -1,0 +1,12 @@
+{
+  "accounts": [
+    {
+      "username": "svlentink@t-mobilethuis.nl",
+      "password": "plaintext secret",
+      "local_path": "/root/.imap-backup/svlentink_t-mobilethuis.nl",
+      "folders": [],
+      "server": "imap.t-mobilethuis.nl"
+    }
+  ],
+  "debug": false
+}

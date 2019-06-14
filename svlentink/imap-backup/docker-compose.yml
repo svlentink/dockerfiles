@@ -1,0 +1,6 @@
+version: '3'
+services:
+  imap-backup:
+    image: svlentink/imap-backup
+    volumes:
+      - $PWD:/root/.imap-backup
