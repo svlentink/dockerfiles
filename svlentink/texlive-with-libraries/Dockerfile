@@ -1,13 +1,5 @@
 # GPLv3
-
 FROM svlentink/texlive-full:latest
-MAINTAINER svlentink
-LABEL Description="texlive with document conversion libraries" \
-  Version="0.1"
-
-# https://github.com/phusion/baseimage-docker/issues/58
-# http://serverfault.com/questions/618994/when-building-from-dockerfile-debian-ubuntu-package-install-debconf-noninteract
-ENV DEBIAN_FRONTEND noninteractive
 
 # runs during installation and remove junk, as described in http://docs.docker.com/engine/articles/dockerfile_best-practices/#apt-get
 # libre office is used in convert_doc.sh, which enables to embed doc files inside tex

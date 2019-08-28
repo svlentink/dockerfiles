@@ -2,8 +2,6 @@
 
 USERS_LIST=~/.webide_users.txt
 
-which podman && docker=podman && echo Using podman instead of docker
-
 ALLUSERS=`getent passwd|grep bash|grep -oE '^[0-9a-z]*'`
 USERCOUNT=`echo $ALLUSERS|wc -l`
 

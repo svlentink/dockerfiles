@@ -11,6 +11,9 @@ available at an URL.
 
 ### usernames file
 
+You are required to create your own logic for creating passwords for users.
+An example has been given in `get_users_from_getent_example.sh`.
+
 We need a file containing the following format:
 ```
 user1:PASSWORD_HASH:optional_comment

@@ -7,9 +7,9 @@ else
   USERSFILE="$1"
 fi
 
-DOCKERCOMPOSELOC=/tmp/webIDE/docker-compose.yml
-mkdir -p "`dirname $DOCKERCOMPOSELOC`/users"
+#which podman && docker=podman && echo Using podman instead of docker
 
+DOCKERCOMPOSELOC=/tmp/webIDE/docker-compose.yml
 
 cat << 'EOF' > $DOCKERCOMPOSELOC
 version: '3'
@@ -53,6 +53,8 @@ server {
   }
 }
 EOF
+
+mkdir -p "`dirname $DOCKERCOMPOSELOC`/users"
 
 while read l; do
   USERNAME=`echo $l|sed "s/:.*//g"`
