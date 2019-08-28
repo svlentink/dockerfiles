@@ -12,6 +12,7 @@ fi
 DOCKERCOMPOSELOC=/tmp/webIDE/docker-compose.yml
 mkdir -p "`dirname $DOCKERCOMPOSELOC`/"
 cp $USERSFILE "`dirname $DOCKERCOMPOSELOC`/.htpasswd"
+chmod 444 "`dirname $DOCKERCOMPOSELOC`/.htpasswd"
 
 cat << 'EOF' > $DOCKERCOMPOSELOC
 version: '3'
