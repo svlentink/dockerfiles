@@ -28,7 +28,7 @@ services:
 #      ALLOWED_IPS: 10.0.0.0/8
     networks:
       - webidenetwork
-  proxy:
+  basic_auth:
     image: nginx:alpine
     volumes:
       - $PWD/nginx.conf:/etc/nginx/conf.d/default.conf:ro
@@ -58,8 +58,9 @@ mkdir -p "`dirname $DOCKERCOMPOSELOC`/users"
 
 while read l; do
   USERNAME=`echo $l|sed "s/:.*//g"`
-  echo "$l" > "`dirname $DOCKERCOMPOSELOC`/users/$USERNAME"
-  cat << EOF >> $DOCKERCOMPOSELOC
+  if [ -n "$USERNAME" ]; then
+    echo "$l" > "`dirname $DOCKERCOMPOSELOC`/users/$USERNAME"
+    cat << EOF >> $DOCKERCOMPOSELOC
   $USERNAME:
     networks:
       - webidenetwork
@@ -68,11 +69,12 @@ while read l; do
     image: sapk/cloud9 # kdelfour/cloud9-docker
     command: ["--auth", ":"] #, "--listen", "0.0.0.0"]
 EOF
+  fi
 done < $USERSFILE
 
 cat << EOF
 You can now run:
-cd basename $DOCKERCOMPOSELOC
+cd `dirname $DOCKERCOMPOSELOC`
 docker-compose up -d
 EOF
 
