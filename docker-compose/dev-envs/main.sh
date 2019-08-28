@@ -10,6 +10,8 @@ fi
 #which podman && docker=podman && echo Using podman instead of docker
 
 DOCKERCOMPOSELOC=/tmp/webIDE/docker-compose.yml
+mkdir -p "`dirname $DOCKERCOMPOSELOC`/"
+cp $USERSFILE "`dirname $DOCKERCOMPOSELOC`/.htpasswd"
 
 cat << 'EOF' > $DOCKERCOMPOSELOC
 version: '3'
@@ -19,8 +21,8 @@ services:
   firewall:
     image: svlentink/ipfilter
     links:
-      - proxy
-      - proxy:dontchangethisalias #creating a reference that we'll use
+      - basic_auth
+      - basic_auth:dontchangethisalias #creating a reference that we'll use
     ports:
       - 443:4321
     environment:
@@ -32,34 +34,27 @@ services:
     image: nginx:alpine
     volumes:
       - $PWD/nginx.conf:/etc/nginx/conf.d/default.conf:ro
-      - $PWD/users:/users:ro
+      - $PWD/.htpasswd:/.htpasswd:ro
     networks:
       - webidenetwork
 EOF
 
 NGINXCONF="`dirname $DOCKERCOMPOSELOC`/nginx.conf"
 cat << 'EOF' > $NGINXCONF
+resolver 127.0.0.11;
 server {
   server_name _;
   location / {
-    return 200 'please go to /YOUR_USERNAME';
-    add_header Content-Type text/plain;
-  }
-  location ~ ^/(?<username>[a-z]+) {
-    proxy_pass http://$username:8181;
+    proxy_pass http://$remote_user:8181;
     auth_basic "developer env";
-    auth_basic_user_file /users/$username;
-    rewrite ^/$username(/.*)$ $1 last;
+    auth_basic_user_file /.htpasswd;
   }
 }
 EOF
 
-mkdir -p "`dirname $DOCKERCOMPOSELOC`/users"
-
 while read l; do
   USERNAME=`echo $l|sed "s/:.*//g"`
   if [ -n "$USERNAME" ]; then
-    echo "$l" > "`dirname $DOCKERCOMPOSELOC`/users/$USERNAME"
     cat << EOF >> $DOCKERCOMPOSELOC
   $USERNAME:
     networks:
