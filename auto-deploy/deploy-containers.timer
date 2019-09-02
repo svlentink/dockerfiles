@@ -1,0 +1,12 @@
+# /etc/systemd/system/this.timer 
+[Unit]
+Description=auto deploy containers job
+
+[Timer]
+# To add a time of your choosing here: `man systemd.time`
+OnCalendar=hourly
+Unit=deploy-containers.service
+
+[Install]
+WantedBy=basic.target
+

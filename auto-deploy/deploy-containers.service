@@ -1,0 +1,14 @@
+#/etc/systemd/system/this.service  
+
+[Unit]
+Description=Auto deploy containers
+Wants=deploy-containers.timer
+
+[Service]
+Type=oneshot
+Nice=19
+ExecStart=/usr/local/bin/deploy-containers.sh
+
+[Install]
+WantedBy=basic.target
+

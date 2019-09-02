@@ -7,6 +7,7 @@ FROM svlentink/texlive-full:latest
 # poppler-utils: pdftoppm, is used for converting pdf to png images, as mentioned http://superuser.com/questions/185880/how-to-convert-a-pdf-document-to-png
 RUN apt-get update; \
   apt-get install -y \
+    aspell \
     curl \
     libreoffice \
     pandoc \
