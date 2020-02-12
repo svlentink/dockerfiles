@@ -27,6 +27,7 @@ services:
       - ~/Dropbox/cdndata/pdf:/var/www/cdn.lent.ink/pdf:ro
       - ~/Dropbox/cdndata/tar:/var/www/cdn.lent.ink/tar:ro
       - ~/Dropbox/cdndata/img:/var/www/cdn.lent.ink/img:ro
+      - ~/Dropbox/webIDE/gits/pp/lp:/var/www/cdn.lent.ink/lp:ro
       - /tmp/filesharing:/var/www/fs.lent.ink:ro
 
   ide:
