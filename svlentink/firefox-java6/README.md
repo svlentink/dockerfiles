@@ -53,3 +53,8 @@ Now you can
 + warm reboot
 + Your installer will now launch
 
+
+## TODO
+
+See if the following is a good alternative: guacamole.apache.org
+
