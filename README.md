@@ -10,7 +10,8 @@ Almost all of these live on dockerhub under [svlentink](http://hub.docker.com/r/
 On Debian/Ubuntu:
 ```shell
 apt update
-apt install -y docker.io python3-pip
+# install docker: https://docs.docker.com/engine/install/ubuntu/#install-using-the-repository
+apt install -y python3-pip
 pip3 install docker-compose
 
 ```

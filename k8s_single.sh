@@ -1,6 +1,8 @@
 #!/bin/bash -e
 set -e
 
+echo DEPRECATED see github.com/svlentink/myinfra
+exit 0
 
 install_microk8s() {
   apt update

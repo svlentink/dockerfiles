@@ -1,0 +1,10 @@
+version: '3'
+services:
+  bind:
+    build: .
+    ports:
+      - 53:53/tcp
+      - 53:53/udp
+    volumes:
+      - $PWD/zone.conf:/zonefiles/zone.conf:ro
+
