@@ -7,11 +7,13 @@ RUN apt update; \
   mkdir -p /example-certs; \
   cd /example-certs; \
   for i in `curl --silent https://cert.pkioverheid.nl/ | grep -o 'http.*\.cer'`; do \
-	  wget $i; \
+    echo "$i"; \
+	  wget --quiet "$i"; \
 	  sleep 1; \
 	done; \
+	echo Downloaded example certs; \
 	for i in `ls *.cer`; do \
 	  openssl x509 \
-	    -inform der -in $i \
-	    -outform pem -out $i.pem; \
+	    -inform der -in "$i" \
+	    -outform pem -out "$i.pem"; \
 	done;
