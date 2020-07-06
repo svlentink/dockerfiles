@@ -12,7 +12,7 @@ RUN apt update; \
 	  sleep 1; \
 	done; \
 	echo Downloaded example certs; \
-	for i in `ls *.cer`; do \
+	for i in *.cer; do \
 	  openssl x509 \
 	    -inform der -in "$i" \
 	    -outform pem -out "$i.pem"; \
