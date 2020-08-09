@@ -1,0 +1,25 @@
+version: '3'
+services:
+  ide:
+    image: codercom/code-server
+    command: ["--auth", "none"]
+    volumes:
+    - /mnt/stateful:/home/coder/project
+    - /mnt/stateful/.gitconfig:/root/.gitconfig
+#    - /etc/timezone:/etc/timezone:ro
+#    - /sshkey:/sshkey
+
+  firewall:
+    image: svlentink/ipfilter
+    links:
+    - ide
+    - ide:dontchangethisalias
+    volumes:
+    - $PWD/passdir:/passdir:ro #used to get the .htpasswd
+    ports:
+    - 443:4321 # edit only the first part to specify the port for the host
+    environment:
+      APP_PORT: 8080 # The port the app wants exposed
+  # filter based on IP
+#      ALLOWED_IPS: 8.8.8.8/32 85.144.250.1/22
+
