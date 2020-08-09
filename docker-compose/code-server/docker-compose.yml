@@ -3,8 +3,9 @@ services:
   ide:
     image: codercom/code-server
     command: ["--auth", "none"]
+    user: root # avoids issues with mounted volumes
     volumes:
-    - /mnt/stateful:/home/coder/project
+    - /mnt/stateful:/home/coder/stateful
     - /mnt/stateful/.gitconfig:/root/.gitconfig
 #    - /etc/timezone:/etc/timezone:ro
 #    - /sshkey:/sshkey
