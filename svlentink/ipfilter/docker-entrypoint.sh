@@ -12,6 +12,10 @@ cat << EOF > $CONFIG
 upstream app_upstream {
   server dontchangethisalias:$APP_PORT;
 }
+map \$http_upgrade \$connection_upgrade {
+  default upgrade;
+  '' close;
+}
 server {
   listen 4321      ssl http2 default_server;
   listen [::]:4321 ssl http2 default_server;
@@ -33,6 +37,9 @@ server {
     proxy_set_header X-Real-IP \$remote_addr;
     proxy_set_header X-Forwarded-For \$proxy_add_x_forwarded_for;
     proxy_set_header X-Forwarded-Proto \$scheme;
+    # the following allow websockets
+    proxy_set_header Upgrade \$http_upgrade;
+    proxy_set_header Connection \$connection_upgrade;
   }
 }
 
