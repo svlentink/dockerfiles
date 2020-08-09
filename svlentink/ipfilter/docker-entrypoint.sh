@@ -67,7 +67,7 @@ if [ -n "$AUTH_PASS" ]; then
   echo -n $AUTH_USER':' > /.htpasswd
   openssl passwd -apr1 "$AUTH_PASS" >> /.htpasswd
 fi
-if [ "$USING_BASIC_AUTH" == "yes"]; then
+if [ -n "$USING_BASIC_AUTH" ]; then
   echo Using basic auth
   echo 'auth_basic "closed site"; auth_basic_user_file /.htpasswd;' \
   >> $FILTERCONF
