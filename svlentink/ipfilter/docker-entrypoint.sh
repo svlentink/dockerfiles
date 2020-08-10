@@ -73,7 +73,7 @@ if [ -n "$USING_BASIC_AUTH" ]; then
   >> $FILTERCONF
 fi
 
-if [ -n "$USING_BASIC_AUTH$ALLOWED_IPS" ]; then
+if [ -z "$USING_BASIC_AUTH$ALLOWED_IPS" ]; then
   echo "No ALLOWED_IPS or basic auth config found."
   echo "Shutting down to prevent it from being open to the world."
   exit 1

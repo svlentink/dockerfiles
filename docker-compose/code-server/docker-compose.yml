@@ -7,8 +7,8 @@ services:
     volumes:
     - /mnt/stateful:/home/coder/stateful
     - /mnt/stateful/.gitconfig:/root/.gitconfig
+    - $PWD/sshkey:/sshkey:ro
 #    - /etc/timezone:/etc/timezone:ro
-#    - /sshkey:/sshkey
 
   firewall:
     image: svlentink/ipfilter
