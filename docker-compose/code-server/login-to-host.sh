@@ -1,2 +1,2 @@
 #!/bin/sh
-ssh -i /sshkey/id_pub root@172.17.0.1
+ssh -i /sshkey/id_rsa root@172.17.0.1
