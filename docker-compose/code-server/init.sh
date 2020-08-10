@@ -2,6 +2,14 @@
 
 echo Creating key for webide to access host
 mkdir -p sshkey
+
+cat << EOF > sshkey/login-to-host.sh
+#!/bin/sh
+ssh -i /sshkey/id_pub root@172.17.0.1
+EOF
+
+chmod +x sshkey/login-to-host.sh
+
 ssh-keygen -N '' -f sshkey/id_rsa
 cat sshkey/id_rsa.pub >> /root/.ssh/authorized_keys
 
