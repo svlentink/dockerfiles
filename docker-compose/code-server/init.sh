@@ -3,6 +3,7 @@
 echo Creating key for webide to access host
 mkdir -p sshkey
 ssh-keygen -N '' -f sshkey/id_rsa
+mkdir -p /root/.ssh
 cat sshkey/id_rsa.pub >> /root/.ssh/authorized_keys
 
 if [ ! -f passdir/.*passwd ]; then
