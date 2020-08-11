@@ -1,0 +1,35 @@
+<html>
+<!--
+This pages is an hack for when basic auth is not allowed to be set in the browser.
+The proxy allows basic auth from cookie.
+-->
+<head>
+  <title>Login</title>
+<style>
+  span { margin: 10px; min-width: 150px; display: inline-block; }
+  button { min-width: 350px; }
+</style>
+</head>
+<body>
+  <span>User</span>
+  <input id='user'/>
+  <br/>
+  <span>Password</span>
+  <input id='pass' type='password'/>
+  <br/>
+  <button onclick='submit()'>Log me in</button>
+<script>
+function set_basic_auth(user,password){
+  let b_str = btoa(user + ':' + password)
+  let str = 'basicauth=' + b_str + ';'
+  document.cookie = str
+}
+function submit(){
+  let u = document.getElementById('user').value
+  let p = document.getElementById('pass').value
+  set_basic_auth(u,p)
+  window.location = window.location // trigger reload
+}
+</script>
+</body>
+</html>

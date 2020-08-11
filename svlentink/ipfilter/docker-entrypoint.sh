@@ -36,6 +36,12 @@ server {
     proxy_set_header Upgrade $http_upgrade;
     proxy_set_header Connection $connection_upgrade;
   }
+  error_page 401 /login.html;
+  location = /login.html {
+    root /var/nginx/login;
+    auth_basic off;
+    internal;
+  }
 }
 server {
   listen 4321      ssl http2 default_server;
