@@ -13,7 +13,7 @@ upstream app_upstream {
   server dontchangethisalias:$APP_PORT;
 }
 EOF
-cat << 'EOF' > $CONFIG
+cat << 'EOF' >> $CONFIG
 upstream interim_upstream {
   server localhost;
 }
