@@ -34,3 +34,19 @@ Since Apr. 2019 this container only supports TLS 1.3,
 this prevents corporate environments to do TLS interception.
 This will only work in modern browsers like Chrome,
 not in Edge or IE.
+
+## Cookie
+
+It happened to me that a company managed browser prevented me to use basic-auth,
+thus you can also set the basic-auth string as a cookie using the following
+function in your browser console:
+
+```javascript
+function set_basic_auth(user,password){
+  let b_str = btoa(user + ':' + password)
+  let str = 'basicauth=' + b_str + ';'
+  document.cookie = str
+}
+
+```
+

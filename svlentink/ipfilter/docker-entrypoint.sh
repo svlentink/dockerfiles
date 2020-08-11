@@ -12,9 +12,30 @@ cat << EOF > $CONFIG
 upstream app_upstream {
   server dontchangethisalias:$APP_PORT;
 }
-map \$http_upgrade \$connection_upgrade {
+EOF
+cat << 'EOF' > $CONFIG
+upstream interim_upstream {
+  server localhost;
+}
+map $http_upgrade $connection_upgrade {
   default upgrade;
   '' close;
+}
+server {
+  listen 80;
+  server_name _; #localhost
+  include /nginx-filter-options.conf;
+  location / {
+    proxy_pass_request_headers on;
+    proxy_pass http://app_upstream;
+    proxy_set_header Host $host;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header X-Forwarded-Proto $scheme;
+    # the following allow websockets
+    proxy_set_header Upgrade $http_upgrade;
+    proxy_set_header Connection $connection_upgrade;
+  }
 }
 server {
   listen 4321      ssl http2 default_server;
@@ -29,17 +50,21 @@ server {
   ssl_prefer_server_ciphers on;
   add_header X-Frame-Options DENY;
   
-  include /nginx-filter-options.conf;
 
   location / {
-    proxy_pass http://app_upstream;
-    proxy_set_header Host \$host;
-    proxy_set_header X-Real-IP \$remote_addr;
-    proxy_set_header X-Forwarded-For \$proxy_add_x_forwarded_for;
-    proxy_set_header X-Forwarded-Proto \$scheme;
+    set $auth $http_authorization;
+    if ($cookie_basicauth) {
+      set $auth "Basic $cookie_basicauth";
+    }
+    proxy_set_header Authorization $auth;
+    proxy_pass http://interim_upstream;
+    proxy_set_header Host $host;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header X-Forwarded-Proto $scheme;
     # the following allow websockets
-    proxy_set_header Upgrade \$http_upgrade;
-    proxy_set_header Connection \$connection_upgrade;
+    proxy_set_header Upgrade $http_upgrade;
+    proxy_set_header Connection $connection_upgrade;
   }
 }
 
