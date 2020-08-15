@@ -1,0 +1,21 @@
+version: '3'
+services:
+  ide:
+    image: codercom/code-server
+    command: ["--auth", "none"]
+    user: root # avoids issues with mounted volumes
+    volumes:
+    - /mnt/stateful:/home/coder/stateful
+    - /mnt/stateful/.gitconfig:/root/.gitconfig
+    - $PWD/login-to-host.sh:/home/coder/login-to-host.sh:ro
+    - $PWD/sshkey:/sshkey:ro
+#    - /etc/timezone:/etc/timezone:ro
+
+  firewall:
+    image: caddy
+    volumes:
+    - $PWD/website:/app
+    - $PWD/passdir:/passdir:ro #used to get the .htpasswd
+    ports:
+    - 443:443
+
