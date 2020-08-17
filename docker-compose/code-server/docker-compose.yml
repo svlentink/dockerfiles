@@ -1,7 +1,7 @@
 version: '3'
 services:
   ide:
-    image: codercom/code-server
+    image: svlentink/code-server #codercom/code-server
     command: ["--auth", "none"]
     user: root # avoids issues with mounted volumes
     volumes:
