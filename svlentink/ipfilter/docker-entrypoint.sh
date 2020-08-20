@@ -54,7 +54,7 @@ server {
   
   ssl_protocols TLSv1.3;
   ssl_prefer_server_ciphers on;
-  add_header X-Frame-Options DENY;
+  add_header X-Frame-Options SAMEORIGIN always;
   
 
   location / {
