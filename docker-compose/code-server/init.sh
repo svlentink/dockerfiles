@@ -13,4 +13,9 @@ if [ ! -f passdir/.*passwd ]; then
   openssl passwd -apr1 "$PASSWORD" >> passdir/.htpasswd
 fi
 
-
+if which scw-metadata; then
+  CN=`scw-metadata PUBLIC_IP_ADDRESS`
+else
+  read -p "Please provide the public IP address or hostname to use for the commonname:" CN
+fi
+echo "COMMONNAME=$CN" > .env

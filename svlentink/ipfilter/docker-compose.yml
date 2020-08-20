@@ -15,6 +15,7 @@ services:
   # filter using basic auth
       AUTH_USER: myUSERname
       AUTH_PASS: myPASSphrase
+      COMMONNAME: 127.0.0.1 #provide IP or hostname for CN of certificate
 
   someapp: #specify here your app, but don't use the ports option (or expose)
     image: svlentink/polymer-example

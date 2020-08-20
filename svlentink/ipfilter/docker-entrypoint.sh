@@ -2,6 +2,9 @@
 
 CONFIG=/etc/nginx/conf.d/default.conf
 FILTERCONF=/nginx-filter-options.conf
+if [ -z "$COMMONNAME" ]; then
+  COMMONNAME='www.lent.ink'
+fi
 
 if [ -z "$APP_PORT" ]; then
   echo Missing env variable APP_PORT
@@ -122,7 +125,7 @@ genCert () {
   -keyout /selfsigned.key \
   -out /selfsigned.crt \
   -batch \
-  -subj "/C=NL/ST=NoordHolland/L=Amsterdam/O=Unknown/OU=Development/CN=www.lent.ink"
+  -subj "/C=NL/ST=NoordHolland/L=Amsterdam/O=Unknown/OU=Development/CN=$COMMONNAME"
   
   openssl dhparam \
   -out /dhparam.pem \

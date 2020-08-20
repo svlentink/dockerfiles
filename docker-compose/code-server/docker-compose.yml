@@ -24,4 +24,5 @@ services:
       APP_PORT: 8080 # The port the app wants exposed
   # filter based on IP
 #      ALLOWED_IPS: 8.8.8.8/32 85.144.250.1/22
-
+    env_file: # we need the CommonName since VS code want to set a service worker
+    - .env
