@@ -19,7 +19,7 @@ docker run -it --rm \
 ```
 ## Example usage:
 
-![example](example.png "example")
+![example](https://github.com/svlentink/dockerfiles/raw/master/svlentink/totp-backup/example.png "example.png")
 
 
 ## TODO
