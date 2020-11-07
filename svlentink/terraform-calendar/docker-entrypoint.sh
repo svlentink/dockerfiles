@@ -19,7 +19,7 @@ date
 pwd
 ls -al
 
-/calendar.py /tmp/state.txt "$CALENDAR_URL"
+/check-calendar.py /tmp/state.txt "$CALENDAR_URL"
 
 if [ ! -f /tmp/state.txt ]; then
   echo "ERROR: Python failed, is the calendar available and do we have internet?"
