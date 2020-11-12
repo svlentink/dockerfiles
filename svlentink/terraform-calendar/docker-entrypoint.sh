@@ -1,5 +1,5 @@
 #!/bin/sh
-set -v
+set -e
 
 if [ ! -f /bin/terraform ]; then
   echo 'This should be run inside the hashicorp/terraform:light container'
