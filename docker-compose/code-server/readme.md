@@ -8,3 +8,10 @@ Besides installing extensions via the GUI, one can use the CLI:
 code-server --install-extension ms-python.python
 ```
 
+## Auto setting git
+
+```
+export GIT_AUTHOR_NAME="john johnson"
+export EMAIL="john@johns.on
+```
+
