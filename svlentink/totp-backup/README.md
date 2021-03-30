@@ -22,10 +22,9 @@ docker run -it --rm \
 ![example](https://github.com/svlentink/dockerfiles/raw/master/svlentink/totp-backup/example.png "example.png")
 
 
-## TODO
-I should put recommendations here about how to store the passwords.
-So only use this tool if you know how to store your secrets.json file.
+## Encrypt
 
-http://www.binarytides.com/create-password-protected-zip-archive-ubuntu/
-
+You should
+[encrypt](https://github.com/svlentink/password-generator/blob/master/crypt.sh)
+your backup.
 
