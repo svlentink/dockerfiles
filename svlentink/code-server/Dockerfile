@@ -3,7 +3,7 @@ RUN cp `which terraform` /
 
 
 FROM bitnami/kubectl AS kubectl
-RUN cp `which kubectl` /
+RUN cp `which kubectl` / || cp /opt/bitnami/kubectl/bin/kubectl /
 
 
 FROM codercom/code-server
