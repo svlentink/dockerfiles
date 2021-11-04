@@ -13,7 +13,7 @@ FROM bitnami/kubectl AS kubectl
 #      cp /opt/bitnami/kubectl/bin/kubectl / )
 # https://github.com/GoogleContainerTools/kaniko/issues/1497
 USER 0
-RUN cp `which kubectl /
+RUN cp `which kubectl` /
 
 
 FROM codercom/code-server
