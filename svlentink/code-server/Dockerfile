@@ -3,7 +3,14 @@ RUN cp `which terraform` /
 
 
 FROM bitnami/kubectl AS kubectl
-RUN cp `which kubectl` / || cp /opt/bitnami/kubectl/bin/kubectl /
+RUN ( chown `id -u`:`id -g` `which kubectl` \
+      && \
+      cp `which kubectl` / ) \
+    || \
+    ( echo "using fallback here"; \
+      chown -R `id -u`:`id -g` `/opt/bitnami` \
+      && \
+      cp /opt/bitnami/kubectl/bin/kubectl / )
 
 
 FROM codercom/code-server
