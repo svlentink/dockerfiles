@@ -10,6 +10,7 @@ services:
     - $PWD/login-to-host.sh:/home/coder/login-to-host.sh:ro
     - $PWD/sshkey:/sshkey:ro
 #    - /etc/timezone:/etc/timezone:ro
+#    - $PWD/kubeconfig.yml:/home/coder/.kube/config.yml
 
   firewall:
     image: svlentink/ipfilter
