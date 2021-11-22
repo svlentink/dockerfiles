@@ -25,8 +25,8 @@ RUN code-server --install-extension ms-python.python; \
 #    code-server --install-extension vscodevim.vim; \
 
 USER root
-# https://docs.microsoft.com/en-us/cli/azure/install-azure-cli-linux?pivots=script
-RUN curl -L https://aka.ms/InstallAzureCli | bash; \
+# https://docs.microsoft.com/en-us/cli/azure/install-azure-cli-linux?pivots=apt
+RUN curl -L https://aka.ms/InstallAzureCLIDeb | bash; \
     curl -sS -o /usr/local/bin/crip \
       https://raw.githubusercontent.com/svlentink/crip/master/crip.sh; \
     chmod +x /usr/local/bin/crip; \
