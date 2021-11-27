@@ -30,6 +30,8 @@ RUN curl -L https://aka.ms/InstallAzureCLIDeb | bash; \
     curl -sS -o /usr/local/bin/crip \
       https://raw.githubusercontent.com/svlentink/crip/master/crip.sh; \
     chmod +x /usr/local/bin/crip; \
+    apt update; \
+    apt install -y vim dnsutils; \
     mkdir -p /root/.local/share/code-server; \
     ln -s /home/coder/.local/share/code-server/extensions /root/.local/share/code-server/extensions; \
     ln -s /home/coder/.kube /root/.kube; # for kubectl config.yml
