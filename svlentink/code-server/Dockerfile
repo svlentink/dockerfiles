@@ -26,15 +26,37 @@ RUN code-server --install-extension ms-python.python; \
 
 USER root
 # https://docs.microsoft.com/en-us/cli/azure/install-azure-cli-linux?pivots=apt
-RUN curl -L https://aka.ms/InstallAzureCLIDeb | bash; \
+RUN curl -L https://aka.ms/InstallAzureCLIDeb | bash \
+    && \
     curl -sS -o /usr/local/bin/crip \
-      https://raw.githubusercontent.com/svlentink/crip/master/crip.sh; \
-    chmod +x /usr/local/bin/crip; \
-    apt update; \
-    apt install -y vim dnsutils; \
-    mkdir -p /root/.local/share/code-server; \
-    ln -s /home/coder/.local/share/code-server/extensions /root/.local/share/code-server/extensions; \
-    ln -s /home/coder/.kube /root/.kube; # for kubectl config.yml
+      https://raw.githubusercontent.com/svlentink/crip/master/crip.sh \
+    && \
+    chmod +x /usr/local/bin/crip \
+    && \
+    curl -Lo skaffold https://storage.googleapis.com/skaffold/releases/latest/skaffold-linux-amd64 \
+    && \
+    install skaffold /usr/local/bin/ \
+    && \
+    apt update \
+    && \
+    apt install -y
+      dnsutils \
+      dos2unix \
+      file \
+      vim \
+    && \
+    mkdir -p /root/.local/share/code-server \
+    && \
+    ln -s /home/coder/.local/share/code-server/extensions /root/.local/share/code-server/extensions \
+    && \
+    mkdir -p /root/.kube \
+    && \
+    ln -s /home/coder/.kube /root/.kube # for kubectl config.yml
+    && \
+    ln -s /home/coder/.docker /root/.docker # for config.yml used by skaffold
+
+COPY kubeconfig.yml /root/.kube/config.yml
+COPY skaffold-example.yml /
 
 USER coder
 

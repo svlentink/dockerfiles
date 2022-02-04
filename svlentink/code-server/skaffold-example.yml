@@ -1,0 +1,18 @@
+apiVersion: skaffold/v2beta26
+kind: Config
+metadata:
+  name: skaffold-example
+build:
+  cluster:
+    namespace: skaffold
+    dockerConfig:
+      path: ~/.docker/config.json
+    artifacts:
+    - image: svlentink/skaffold-example
+      kaniko: {}
+deploy:
+  kubectl:
+    manifests:
+    - deploy.yml
+# kubectl create myapp —-image=svlentink/skaffold-example -o yaml --dry-run > deploy.yml
+
