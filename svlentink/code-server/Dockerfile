@@ -39,7 +39,7 @@ RUN curl -L https://aka.ms/InstallAzureCLIDeb | bash \
     && \
     apt update \
     && \
-    apt install -y
+    apt install -y \
       dnsutils \
       dos2unix \
       file \
@@ -51,7 +51,9 @@ RUN curl -L https://aka.ms/InstallAzureCLIDeb | bash \
     && \
     mkdir -p /root/.kube \
     && \
-    ln -s /home/coder/.kube /root/.kube # for kubectl config.yml
+    echo creating folder for kubectl config \
+    && \
+    ln -s /home/coder/.kube /root/.kube \
     && \
     ln -s /home/coder/.docker /root/.docker # for config.yml used by skaffold
 
