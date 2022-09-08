@@ -17,12 +17,19 @@ RUN cp `which kubectl` /
 
 
 FROM codercom/code-server
+# by default it uses open-vsx.org
 RUN code-server --install-extension ms-python.python; \
     code-server --install-extension msjsdiag.debugger-for-chrome; \
     code-server --install-extension esbenp.prettier-vscode; \
     code-server --install-extension chenxsan.vscode-standardjs; \
-    code-server --list-extensions;
+    code-server --install-extension janisdd.vscode-edit-csv; \
+    code-server --install-extension bierner.markdown-mermaid; \
+    code-server --list-extensions; 
 #    code-server --install-extension vscodevim.vim; \
+
+# but other extensions we get from the MS store
+ENV EXTENSIONS_GALLERY='{"serviceUrl": "https://marketplace.visualstudio.com/_apis/public/gallery","cacheUrl": "https://vscode.blob.core.windows.net/gallery/index","itemUrl": "https://marketplace.visualstudio.com/items"}'
+
 
 USER root
 # https://docs.microsoft.com/en-us/cli/azure/install-azure-cli-linux?pivots=apt
@@ -64,5 +71,3 @@ USER coder
 
 COPY --from=tf /terraform /bin/terraform
 COPY --from=kubectl /kubectl /bin/kubectl
-
-ENV EXTENSIONS_GALLERY='{"serviceUrl": "https://marketplace.visualstudio.com/_apis/public/gallery","cacheUrl": "https://vscode.blob.core.windows.net/gallery/index","itemUrl": "https://marketplace.visualstudio.com/items"}'
