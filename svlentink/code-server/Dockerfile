@@ -19,13 +19,18 @@ RUN cp `which kubectl` /
 FROM codercom/code-server
 # by default it uses open-vsx.org
 RUN code-server --install-extension ms-python.python; \
-    code-server --install-extension msjsdiag.debugger-for-chrome; \
+    code-server --install-extension foam.foam-vscode; \
     code-server --install-extension esbenp.prettier-vscode; \
     code-server --install-extension chenxsan.vscode-standardjs; \
     code-server --install-extension janisdd.vscode-edit-csv; \
     code-server --install-extension bierner.markdown-mermaid; \
+    code-server --install-extension tomoki1207.pdf; \
     code-server --list-extensions; 
 #    code-server --install-extension vscodevim.vim; \
+
+# Dendron did not work on my vs-code server;
+# {"stack":"Error: Network Error\n    at e.exports (https://vscode-remote+dev-002elent-002eink.vscode-resource.vscode-cdn.net/root/.local/share/code-server/extensions/dendron.dendron-0.114.0/dist/static/js/index.bundle.js:2:1439006)\n    at p.onerror (https://vscode-remote+dev-002elent-002eink.vscode-resource.vscode-cdn.net/root/.local/share/code-server/extensions/dendron.dendron-0.114.0/dist/static/js/index.bundle.js:2:1437975)","message":"Network Error","config":{}}
+# Therefore we use Foam (Logseq does not run in VScode)
 
 # but other extensions we get from the MS store
 ENV EXTENSIONS_GALLERY='{"serviceUrl": "https://marketplace.visualstudio.com/_apis/public/gallery","cacheUrl": "https://vscode.blob.core.windows.net/gallery/index","itemUrl": "https://marketplace.visualstudio.com/items"}'
