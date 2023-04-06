@@ -24,7 +24,7 @@ RUN code-server --install-extension ms-python.python; \
     code-server --install-extension chenxsan.vscode-standardjs; \
     code-server --install-extension janisdd.vscode-edit-csv; \
     code-server --install-extension bierner.markdown-mermaid; \
-    code-server --install-extension tomoki1207.pdf; \
+    code-server --install-extension analytic-signal.preview-pdf; \
     code-server --list-extensions; 
 #    code-server --install-extension vscodevim.vim; \
 
