@@ -19,7 +19,4 @@ RUN pip3 install eccodes
 
 FROM scratch
 ARG PYTHON_PATH=/usr/local/lib/python3.12/site-packages
-WORKDIR $PYTHON_PATH
-COPY --from=base $PYTHON_PATH/eccodes eccodes
-COPY --from=base $PYTHON_PATH/gribapi gribapi
-COPY --from=base $PYTHON_PATH/eccodes-1.7.0.dist-info eccodes-1.7.0.dist-info
+COPY --from=base $PYTHON_PATH $PYTHON_PATH
