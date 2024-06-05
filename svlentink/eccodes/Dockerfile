@@ -7,7 +7,7 @@ RUN rm /tmp/eccodes.tgz
 RUN mv /tmp/eccodes-* /tmp/eccodes
 
 RUN apt update
-RUN apt install -y cmake gfortran ecbuild libaec-dev
+RUN apt install -y cmake gfortran ecbuild libaec-dev libeccodes-tools
 
 WORKDIR /tmp/build
 RUN mkdir /app
@@ -17,6 +17,6 @@ RUN ctest
 RUN make install
 RUN pip3 install eccodes
 
-FROM scratch
-ARG PYTHON_PATH=/usr/local/lib/python3.12/site-packages
-COPY --from=base $PYTHON_PATH $PYTHON_PATH
+#FROM scratch
+#ARG PYTHON_PATH=/usr/local/lib/python3.12/site-packages
+#COPY --from=base $PYTHON_PATH $PYTHON_PATH
