@@ -21,11 +21,8 @@ FROM codercom/code-server
 RUN code-server --install-extension ms-python.python; \
     code-server --install-extension foam.foam-vscode; \
     code-server --install-extension esbenp.prettier-vscode; \
-    code-server --install-extension chenxsan.vscode-standardjs; \
     code-server --install-extension janisdd.vscode-edit-csv; \
     code-server --install-extension bierner.markdown-mermaid; \
-    code-server --install-extension analytic-signal.preview-pdf; \
-    code-server --install-extension mathematic.vscode-pdf; \
     code-server --list-extensions; 
 #    code-server --install-extension vscodevim.vim; \
 
@@ -35,7 +32,10 @@ RUN code-server --install-extension ms-python.python; \
 
 # but other extensions we get from the MS store
 ENV EXTENSIONS_GALLERY='{"serviceUrl": "https://marketplace.visualstudio.com/_apis/public/gallery","cacheUrl": "https://vscode.blob.core.windows.net/gallery/index","itemUrl": "https://marketplace.visualstudio.com/items"}'
-
+RUN code-server --install-extension mathematic.vscode-pdf; \
+    code-server --install-extension analytic-signal.preview-pdf; \
+    code-server --install-extension chenxsan.vscode-standardjs; \
+    code-server --list-extensions; 
 
 USER root
 # https://docs.microsoft.com/en-us/cli/azure/install-azure-cli-linux?pivots=apt
