@@ -17,4 +17,5 @@ services:
               count: 1
               capabilities: [gpu]
 
-
+# ghcr.io/open-webui/open-webui:main
+# ghcr.io/berriai/litellm:main-stable

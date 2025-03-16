@@ -7,7 +7,6 @@ services:
     volumes:
     - /mnt/stateful:/home/coder/stateful
     - /mnt/stateful/.gitconfig:/root/.gitconfig
-    - $PWD/login-to-host.sh:/home/coder/login-to-host.sh:ro
     - $PWD/sshkey:/sshkey:ro
 #    - /etc/timezone:/etc/timezone:ro
 #    - $PWD/kubeconfig.yml:/home/coder/.kube/config.yml

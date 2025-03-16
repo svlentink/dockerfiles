@@ -18,11 +18,14 @@ RUN cp `which kubectl` /
 
 FROM codercom/code-server
 # by default it uses open-vsx.org
-RUN code-server --install-extension ms-python.python; \
-    code-server --install-extension foam.foam-vscode; \
-    code-server --install-extension esbenp.prettier-vscode; \
-    code-server --install-extension janisdd.vscode-edit-csv; \
-    code-server --install-extension bierner.markdown-mermaid; \
+RUN for ext in  formulahendry.auto-rename-tag \
+                ms-python.pythonfoam.foam-vscode \
+                esbenp.prettier-vscode \
+                janisdd.vscode-edit-csv \
+                bierner.markdown-mermaid \
+    ;do \
+      code-server --install-extension $ext; \
+    done; \
     code-server --list-extensions; 
 #    code-server --install-extension vscodevim.vim; \
 
@@ -56,7 +59,13 @@ RUN curl -L https://aka.ms/InstallAzureCLIDeb | bash \
       dnsutils \
       dos2unix \
       file \
+      iputils-ping \
+      python3-dev \
+      python3-pip \
       vim \
+      pipx \
+    && \
+    pipx install --include-deps ansible \
     && \
     mkdir -p /root/.local/share/code-server \
     && \
@@ -77,3 +86,4 @@ USER coder
 
 COPY --from=tf /terraform /bin/terraform
 COPY --from=kubectl /kubectl /bin/kubectl
+COPY login-to-host.sh /home/coder/login-to-host.sh
