@@ -1,8 +1,8 @@
-FROM hashicorp/terraform AS tf
+FROM docker.io/hashicorp/terraform AS tf
 RUN cp `which terraform` /
 
 
-FROM bitnami/kubectl AS kubectl
+FROM docker.io/bitnami/kubectl AS kubectl
 #RUN ( chown `id -u`:`id -g` `which kubectl` \
 #      && \
 #      cp `which kubectl` / ) \
@@ -16,7 +16,7 @@ USER 0
 RUN cp `which kubectl` /
 
 
-FROM codercom/code-server
+FROM docker.io/codercom/code-server
 # by default it uses open-vsx.org
 RUN for ext in  formulahendry.auto-rename-tag \
                 ms-python.pythonfoam.foam-vscode \
@@ -81,9 +81,9 @@ RUN curl -L https://aka.ms/InstallAzureCLIDeb | bash \
 
 COPY kubeconfig.yml /root/.kube/config.yml
 COPY skaffold-example.yml /
+COPY login-to-host.sh /home/coder/
 
 USER coder
 
 COPY --from=tf /terraform /bin/terraform
 COPY --from=kubectl /kubectl /bin/kubectl
-COPY login-to-host.sh /home/coder/login-to-host.sh
