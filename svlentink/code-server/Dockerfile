@@ -46,12 +46,11 @@ RUN curl -L https://aka.ms/InstallAzureCLIDeb | bash \
     && \
     curl -sS -o /usr/local/bin/crip \
       https://raw.githubusercontent.com/svlentink/crip/master/crip.sh \
+      && chmod +x /usr/local/bin/crip \
     && \
-    chmod +x /usr/local/bin/crip \
-    && \
-    curl -Lo skaffold https://storage.googleapis.com/skaffold/releases/latest/skaffold-linux-amd64 \
-    && \
-    install skaffold /usr/local/bin/ \
+    curl -Lo /usr/local/bin/skaffold \
+      https://storage.googleapis.com/skaffold/releases/latest/skaffold-linux-amd64 \
+      && chmod +x /usr/local/bin/ \
     && \
     apt update \
     && \
