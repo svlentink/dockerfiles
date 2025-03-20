@@ -1,31 +1,8 @@
-FROM docker.io/hashicorp/terraform AS tf
-RUN cp `which terraform` /
-
-
-FROM docker.io/bitnami/kubectl AS kubectl
-#RUN ( chown `id -u`:`id -g` `which kubectl` \
-#      && \
-#      cp `which kubectl` / ) \
-#    || \
-#    ( echo "using fallback here"; \
-#      chown -R `id -u`:`id -g` `/opt/bitnami` \
-#      && \
-#      cp /opt/bitnami/kubectl/bin/kubectl / )
-# https://github.com/GoogleContainerTools/kaniko/issues/1497
-USER 0
-RUN cp `which kubectl` /
-
-# We put this stage in between
-# so our server can already remove the two images
-# above from its cache
-FROM scratch AS bundle
-WORKDIR /bin
-COPY --from=tf /terraform /bin/terraform
-COPY --from=kubectl /kubectl /bin/kubectl
 
 FROM docker.io/codercom/code-server
 
-COPY --from=bundle / /
+COPY --from=docker.io/hashicorp/terraform /bin/terraform /bin/terraform
+COPY --from=docker.io/bitnami/kubectl /opt/bitnami/kubectl/bin/kubectl /bin/kubectl
 COPY kubeconfig.yml /root/.kube/config.yml
 COPY skaffold-example.yml /
 COPY login-to-host.sh /home/coder/
