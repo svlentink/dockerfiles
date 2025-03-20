@@ -15,8 +15,21 @@ FROM docker.io/bitnami/kubectl AS kubectl
 USER 0
 RUN cp `which kubectl` /
 
+# We put this stage in between
+# so our server can already remove the two images
+# above from its cache
+FROM scratch AS bundle
+WORKDIR /bin
+COPY --from=tf /terraform /bin/terraform
+COPY --from=kubectl /kubectl /bin/kubectl
 
 FROM docker.io/codercom/code-server
+
+COPY --from=bundle / /
+COPY kubeconfig.yml /root/.kube/config.yml
+COPY skaffold-example.yml /
+COPY login-to-host.sh /home/coder/
+
 # by default it uses open-vsx.org
 RUN for ext in  formulahendry.auto-rename-tag \
                 ms-python.pythonfoam.foam-vscode \
@@ -72,17 +85,10 @@ RUN curl -L https://aka.ms/InstallAzureCLIDeb | bash \
     && \
     mkdir -p /root/.kube \
     && \
-    echo creating folder for kubectl config \
-    && \
     ln -s /home/coder/.kube /root/.kube \
     && \
     ln -s /home/coder/.docker /root/.docker # for config.yml used by skaffold
 
-COPY kubeconfig.yml /root/.kube/config.yml
-COPY skaffold-example.yml /
-COPY login-to-host.sh /home/coder/
-
 USER coder
 
-COPY --from=tf /terraform /bin/terraform
-COPY --from=kubectl /kubectl /bin/kubectl
+
