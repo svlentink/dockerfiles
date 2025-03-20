@@ -8,7 +8,7 @@ COPY login-to-host.sh /home/coder/
 WORKDIR /bin
 COPY --from=docker.io/hashicorp/terraform /bin/terraform /bin/terraform
 COPY --from=docker.io/bitnami/kubectl /opt/bitnami/kubectl/bin/kubectl /bin/kubectl
-WORKDIR /tmp # trying to bypass some weird kaniko bug
+
 
 FROM docker.io/codercom/code-server
 
