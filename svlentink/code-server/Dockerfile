@@ -1,11 +1,16 @@
 
-FROM docker.io/codercom/code-server
-
+FROM scratch as bundler
+COPY skaffold-example.yml /
+WORKDIR /bin
 COPY --from=docker.io/hashicorp/terraform /bin/terraform /bin/terraform
 COPY --from=docker.io/bitnami/kubectl /opt/bitnami/kubectl/bin/kubectl /bin/kubectl
+WORKDIR /root/.kube
 COPY kubeconfig.yml /root/.kube/config.yml
-COPY skaffold-example.yml /
+WORKDIR /home/coder
 COPY login-to-host.sh /home/coder/
+
+
+FROM docker.io/codercom/code-server
 
 # by default it uses open-vsx.org
 RUN for ext in  formulahendry.auto-rename-tag \
@@ -68,4 +73,4 @@ RUN curl -L https://aka.ms/InstallAzureCLIDeb | bash \
 
 USER coder
 
-
+COPY --from=bundler / /
