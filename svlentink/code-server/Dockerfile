@@ -7,7 +7,7 @@ COPY --from=docker.io/bitnami/kubectl /opt/bitnami/kubectl/bin/kubectl /bin/kube
 WORKDIR /root/.kube
 COPY kubeconfig.yml /root/.kube/config.yml
 WORKDIR /home/coder
-COPY login-to-host.sh /home/coder/
+COPY login-to-host.sh /home/coder/login-to-host.sh
 
 
 FROM docker.io/codercom/code-server
