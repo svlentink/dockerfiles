@@ -1,5 +1,17 @@
+# somehow Kaniko failes at doing this:
+#FROM scratch as bundler
+#COPY skaffold-example.yml /
+#WORKDIR /root/.kube
+#COPY kubeconfig.yml /root/.kube/config.yml
+#WORKDIR /home/coder
+#COPY login-to-host.sh /home/coder/
+#WORKDIR /bin
+#COPY --from=docker.io/hashicorp/terraform /bin/terraform /bin/terraform
+#COPY --from=docker.io/bitnami/kubectl /opt/bitnami/kubectl/bin/kubectl /bin/kubectl
 
-FROM scratch as bundler
+
+FROM docker.io/codercom/code-server
+#because kaniko fails
 COPY skaffold-example.yml /
 WORKDIR /root/.kube
 COPY kubeconfig.yml /root/.kube/config.yml
@@ -8,9 +20,6 @@ COPY login-to-host.sh /home/coder/
 WORKDIR /bin
 COPY --from=docker.io/hashicorp/terraform /bin/terraform /bin/terraform
 COPY --from=docker.io/bitnami/kubectl /opt/bitnami/kubectl/bin/kubectl /bin/kubectl
-
-
-FROM docker.io/codercom/code-server
 
 # by default it uses open-vsx.org
 RUN for ext in  formulahendry.auto-rename-tag \
@@ -73,4 +82,4 @@ RUN curl -L https://aka.ms/InstallAzureCLIDeb | bash \
 
 USER coder
 
-COPY --from=bundler / /
+#COPY --from=bundler / /
