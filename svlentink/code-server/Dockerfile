@@ -1,14 +1,13 @@
 
 FROM scratch as bundler
 COPY skaffold-example.yml /
-WORKDIR /bin
-COPY --from=docker.io/hashicorp/terraform /bin/terraform /bin/terraform
-COPY --from=docker.io/bitnami/kubectl /opt/bitnami/kubectl/bin/kubectl /bin/kubectl
 WORKDIR /root/.kube
 COPY kubeconfig.yml /root/.kube/config.yml
 WORKDIR /home/coder
-COPY login-to-host.sh /home/coder/login-to-host.sh
-
+COPY login-to-host.sh /home/coder/
+WORKDIR /bin
+COPY --from=docker.io/hashicorp/terraform /bin/terraform /bin/terraform
+COPY --from=docker.io/bitnami/kubectl /opt/bitnami/kubectl/bin/kubectl /bin/kubectl
 
 FROM docker.io/codercom/code-server
 
