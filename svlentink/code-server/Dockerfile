@@ -41,7 +41,7 @@ RUN for ext in  formulahendry.auto-rename-tag \
 ENV EXTENSIONS_GALLERY='{"serviceUrl": "https://marketplace.visualstudio.com/_apis/public/gallery","cacheUrl": "https://vscode.blob.core.windows.net/gallery/index","itemUrl": "https://marketplace.visualstudio.com/items"}'
 RUN code-server --install-extension mathematic.vscode-pdf; \
     code-server --install-extension analytic-signal.preview-pdf; \
-    code-server --install-extension chenxsan.vscode-standardjs; \
+    code-server --install-extension standard.vscode-standard; \
     code-server --list-extensions; 
 
 USER root
@@ -80,6 +80,8 @@ RUN curl -L https://aka.ms/InstallAzureCLIDeb | bash \
     && \
     ln -s /home/coder/.docker /root/.docker # for config.yml used by skaffold
 
-USER coder
+ENV PATH /root/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+
+#USER coder
 
 #COPY --from=bundler / /
