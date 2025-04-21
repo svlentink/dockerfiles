@@ -9,6 +9,7 @@
 #COPY --from=docker.io/hashicorp/terraform /bin/terraform /bin/terraform
 #COPY --from=docker.io/bitnami/kubectl /opt/bitnami/kubectl/bin/kubectl /bin/kubectl
 
+# FIXME swap out Terraform for OpenTofu
 
 FROM docker.io/codercom/code-server
 #because kaniko fails
@@ -27,6 +28,8 @@ RUN for ext in  formulahendry.auto-rename-tag \
                 esbenp.prettier-vscode \
                 janisdd.vscode-edit-csv \
                 bierner.markdown-mermaid \
+                streetsidesoftware.code-spell-checker \
+                numso.prettier-standard-vscode \
     ;do \
       code-server --install-extension $ext; \
     done; \
@@ -41,7 +44,6 @@ RUN for ext in  formulahendry.auto-rename-tag \
 ENV EXTENSIONS_GALLERY='{"serviceUrl": "https://marketplace.visualstudio.com/_apis/public/gallery","cacheUrl": "https://vscode.blob.core.windows.net/gallery/index","itemUrl": "https://marketplace.visualstudio.com/items"}'
 RUN code-server --install-extension mathematic.vscode-pdf; \
     code-server --install-extension analytic-signal.preview-pdf; \
-    code-server --install-extension standard.vscode-standard; \
     code-server --list-extensions; 
 
 USER root
@@ -81,6 +83,7 @@ RUN curl -L https://aka.ms/InstallAzureCLIDeb | bash \
     ln -s /home/coder/.docker /root/.docker # for config.yml used by skaffold
 
 ENV PATH /root/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+COPY settings.json /root/.local/share/code-server/User/
 
 #USER coder
 
