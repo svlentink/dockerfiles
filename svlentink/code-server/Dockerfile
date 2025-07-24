@@ -61,16 +61,20 @@ RUN curl -L https://aka.ms/InstallAzureCLIDeb | bash \
     apt update \
     && \
     apt install -y \
+      ansible \
       dnsutils \
       dos2unix \
       file \
       iputils-ping \
       python3-dev \
       python3-pip \
+      shellcheck \
       vim \
       pipx \
     && \
     pipx install --include-deps ansible \
+    && \
+    git config --global --type bool push.autoSetupRemote true \
     && \
     mkdir -p /root/.local/share/code-server \
     && \
