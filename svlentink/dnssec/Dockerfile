@@ -1,4 +1,4 @@
-FROM python:alpine
+FROM docker.io/python:alpine
 RUN apk add --no-cache bind bind-tools; \
   mkdir -p /keys /generated /zonefiles; \
   touch /zonefiles/example.com.zone

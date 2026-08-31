@@ -1,4 +1,4 @@
-FROM debian
+FROM docker.io/debian
 ENV DEBIAN_FRONTEND noninteractive
 
 # Telnet to; 'telnet smtp.example.com 25'

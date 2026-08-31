@@ -1,4 +1,4 @@
-from python:alpine
+from docker.io/python:alpine
 RUN apk add --no-cache dos2unix git
 COPY requirements.txt /
 RUN pip3 install -r /requirements.txt

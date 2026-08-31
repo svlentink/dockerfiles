@@ -4,5 +4,5 @@
 
 Just use
 ```Dockerfile
-FROM svlentink/texlive-full
+FROM docker.io/svlentink/texlive-full
 ```

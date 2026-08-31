@@ -1,4 +1,4 @@
-from python:bookworm as base
+from docker.io/python:bookworm as base
 
 RUN curl --location -o /tmp/eccodes.tgz https://github.com/ecmwf/eccodes/archive/refs/tags/2.35.0.tar.gz
 WORKDIR /tmp

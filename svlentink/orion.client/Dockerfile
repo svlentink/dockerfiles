@@ -1,4 +1,4 @@
-FROM node:6
+FROM docker.io/node:6
 ENV APPDIR /orion.client/modules/orionode
 RUN git clone https://github.com/eclipse/orion.client.git /orion.client; \
   cd $APPDIR; \

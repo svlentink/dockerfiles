@@ -1,3 +1,3 @@
-FROM alpine
+FROM docker.io/alpine
 RUN apk add --no-cache R
 ENTRYPOINT ["Rscript"]

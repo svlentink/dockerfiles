@@ -1,5 +1,5 @@
 # This dockerfile was previously on hub.docker.com/r/hacdias/filebrowser
-FROM golang:alpine
+FROM docker.io/golang:alpine
 
 COPY . /go/src/github.com/filebrowser/filebrowser
 

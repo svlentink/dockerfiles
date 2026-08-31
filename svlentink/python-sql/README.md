@@ -2,7 +2,7 @@
 
 usage:
 ```dockerfile
-FROM svlentink/python-sql
+FROM docker.io/svlentink/python-sql
 COPY requirements.txt /
 RUN pip install -r /requirements.txt
 ENV MYSQL_INSTEAD_OF_POSTGRES IfThisKeyExistsWeUseMysqlValueDoesNotMatter

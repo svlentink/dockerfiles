@@ -1,4 +1,4 @@
-FROM node:alpine
+FROM docker.io/node:alpine
 RUN apk add --no-cache git; \
   cd /; \
   git clone https://github.com/netlify-templates/one-click-hugo-cms; \

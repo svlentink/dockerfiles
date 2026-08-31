@@ -1,4 +1,4 @@
-FROM node:slim
+FROM docker.io/node:slim
 WORKDIR /app
 COPY package.json .
 RUN npm install -g

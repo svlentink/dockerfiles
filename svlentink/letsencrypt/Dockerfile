@@ -1,4 +1,4 @@
-FROM certbot/certbot
+FROM docker.io/certbot/certbot
 COPY docker-entrypoint.sh /docker-entrypoint.sh
 COPY test-entrypoint.sh /test-entrypoint
 COPY auth.sh /auth

@@ -1,5 +1,5 @@
 # GPLv3
-FROM svlentink/texlive-full:latest
+FROM docker.io/svlentink/texlive-full:latest
 
 # runs during installation and remove junk, as described in http://docs.docker.com/engine/articles/dockerfile_best-practices/#apt-get
 # libre office is used in convert_doc.sh, which enables to embed doc files inside tex

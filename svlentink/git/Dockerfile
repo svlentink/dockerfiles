@@ -1,4 +1,4 @@
-FROM governmentpaas/git-ssh
+FROM docker.io/governmentpaas/git-ssh
 
 COPY entrypoint.sh /entry
 

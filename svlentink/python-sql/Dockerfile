@@ -1,4 +1,4 @@
-FROM python:alpine
+FROM docker.io/python:alpine
 
 RUN pip install pyyaml #requirements.txt
 

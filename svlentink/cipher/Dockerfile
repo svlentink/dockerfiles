@@ -1,4 +1,4 @@
-FROM node
+FROM docker.io/node
 
 COPY entrypoint.sh /
 ENTRYPOINT ["/entrypoint.sh"]

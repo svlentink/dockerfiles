@@ -1,4 +1,4 @@
-FROM blacktop/bro
+FROM docker.io/blacktop/bro
 
 RUN apk add --no-cache python3
 ADD https://raw.githubusercontent.com/elnappo/bro-log-parser/master/brologparse.py \

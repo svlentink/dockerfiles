@@ -1,4 +1,4 @@
-FROM openjdk:slim
+FROM docker.io/openjdk:slim
 ENV DEBIAN_FRONTEND noninteractive
 
 RUN apt update \

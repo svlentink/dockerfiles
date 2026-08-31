@@ -1,4 +1,4 @@
-FROM nginx:alpine
+FROM docker.io/nginx:alpine
 RUN apk add --no-cache openssl; \
     mkdir -p /var/nginx/login;
 COPY login.html /var/nginx/login/

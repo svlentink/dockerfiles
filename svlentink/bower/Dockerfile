@@ -1,5 +1,5 @@
 # Ubuntu -> Node.js -> Bower -> Your_Magic (e.g. Polymer)
-FROM node:latest
+FROM docker.io/node:latest
 MAINTAINER svlentink
 LABEL Description="Just bower, for chaining (which depends on Node.js and NPM)"
 

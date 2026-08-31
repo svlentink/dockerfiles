@@ -1,5 +1,5 @@
 # GPLv3
-FROM debian:latest
+FROM docker.io/debian:latest
 
 # https://github.com/phusion/baseimage-docker/issues/58
 # http://serverfault.com/questions/618994/when-building-from-dockerfile-debian-ubuntu-package-install-debconf-noninteract

@@ -1,4 +1,4 @@
-FROM svlentink/code-server
+FROM docker.io/svlentink/code-server
 
 RUN apt install -y \
       python3-dev \

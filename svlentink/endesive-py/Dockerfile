@@ -1,4 +1,4 @@
-FROM python:slim
+FROM docker.io/python:slim
 
 RUN apt update; \
   apt install -y python3-dev python3-pip swig wget curl openssl ca-certificates; \

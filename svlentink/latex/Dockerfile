@@ -1,6 +1,6 @@
 # GPLv3
 
-FROM svlentink/texlive-with-libraries
+FROM docker.io/svlentink/texlive-with-libraries
 MAINTAINER svlentink
 LABEL Description="LaTeX docker with special powers"
 

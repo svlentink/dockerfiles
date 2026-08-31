@@ -1,4 +1,4 @@
-FROM gettyimages/spark:2.0.2-hadoop-2.7
+FROM docker.io/gettyimages/spark:2.0.2-hadoop-2.7
 
 # undo last two steps of base container
 # we don not want SPARK_PACKAGE .... 'bin-without-hadoop' but 'bin-hadoopVERSION''

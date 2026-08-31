@@ -1,4 +1,4 @@
-FROM wernight/codiad
+FROM docker.io/wernight/codiad
 COPY nginx.conf /etc/nginx/nginx.conf
 RUN mkdir -p /code/workspace/hugo/public; \
   mkdir -p /etc/s6/hugo; \

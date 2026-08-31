@@ -1,4 +1,4 @@
-FROM tcgerlach/sqlite
+FROM docker.io/tcgerlach/sqlite
 
 RUN apk add --no-cache openssl; \
   wget -P /usr/local/bin https://raw.githubusercontent.com/dumblob/mysql2sqlite/master/mysql2sqlite; \

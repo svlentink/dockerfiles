@@ -1,3 +1,3 @@
-FROM ruby:alpine
+FROM docker.io/ruby:alpine
 RUN gem install 'imap-backup'
 ENTRYPOINT ["/usr/local/bundle/bin/imap-backup"]

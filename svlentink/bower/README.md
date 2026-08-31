@@ -4,5 +4,5 @@
 
 Just use
 ```Dockerfile
-FROM svlentink/bower
+FROM docker.io/svlentink/bower
 ```

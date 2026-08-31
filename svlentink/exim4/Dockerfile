@@ -1,4 +1,4 @@
-FROM alpine
+FROM docker.io/alpine
 
 # No needed anymore: --repository http://dl-cdn.alpinelinux.org/alpine/edge/testing \
 RUN apk --no-cache \

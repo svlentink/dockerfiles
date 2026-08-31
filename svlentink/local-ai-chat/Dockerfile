@@ -1,5 +1,6 @@
 FROM docker.io/ollama/ollama
 
+# https://huggingface.co/spaces/DontPlanToEnd/UGI-Leaderboard
 ARG LLM="artifish/llama3.2-uncensored"
 ARG LLM="krith/meta-llama-3.2-1b-instruct-uncensored:IQ3_M"
 

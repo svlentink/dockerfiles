@@ -1,4 +1,4 @@
-FROM kdelfour/cloud9-docker
+FROM docker.io/kdelfour/cloud9-docker
 
 RUN npm install --global gitbook-cli \
   && gitbook fetch latest \

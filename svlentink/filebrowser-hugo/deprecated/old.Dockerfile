@@ -1,4 +1,4 @@
-FROM golang:alpine
+FROM docker.io/golang:alpine
 
 RUN apk add --no-cache curl git tar
 

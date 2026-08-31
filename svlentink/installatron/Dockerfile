@@ -1,4 +1,4 @@
-FROM debian:8
+FROM docker.io/debian:8
 
 ENV DEBIAN_FRONTEND noninteractive
 # http://installatron.com/developer/server#2.3

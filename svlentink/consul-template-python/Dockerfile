@@ -1,4 +1,4 @@
-FROM python:alpine
+FROM docker.io/python:alpine
 
 ENV CTMPL_VERSION 0.19.5
 

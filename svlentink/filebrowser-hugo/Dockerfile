@@ -1,4 +1,4 @@
-FROM golang:alpine AS builder
+FROM docker.io/golang:alpine AS builder
 
 #https://github.com/gohugoio/hugo/blob/master/Dockerfile
 ENV CGO_ENABLED=0
@@ -38,7 +38,7 @@ RUN mv filebrowser /go/bin/filebrowser
 ENTRYPOINT ["/go/bin/filebrowser","--staticgen","hugo", "--config"]
 CMD ["/go/src/github.com/filebrowser/filebrowser/Docker.json"]
 
-FROM alpine
+FROM docker.io/alpine
 
 COPY --from=builder /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/ca-certificates.crt
 COPY --from=builder /go/bin/filebrowser /

@@ -1,5 +1,5 @@
 # Ubuntu -> Node.js -> Bower -> Polymer_example
-FROM svlentink/bower
+FROM docker.io/svlentink/bower
 MAINTAINER svlentink
 LABEL Description="Polymer Nginx example (instead of polyserve)"
 

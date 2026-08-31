@@ -1,4 +1,4 @@
-FROM wordpress:fpm-alpine
+FROM docker.io/wordpress:fpm-alpine
 
 ENV PLUGIN_VERSION 1.8.1
 RUN set -e; \

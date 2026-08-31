@@ -1,4 +1,4 @@
-FROM wordpress
+FROM docker.io/wordpress
   
 # wordpress.org/plugins/sqlite-integration/#installation
 ENV PLUGIN_VERSION 1.8.1
